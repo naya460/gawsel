@@ -16,3 +16,7 @@ add_executable(LightsOut LightsOut.cpp)
 target_link_libraries(LightsOut LightsOutCUI)
 
 target_include_directories(LightsOut PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
+# UI Mode
+set(UI_MODE CUI)
+target_compile_options(LightsOut PRIVATE -D${UI_MODE})
