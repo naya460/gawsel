@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdint>
 
+#ifdef CUI
+
 #include "LightsOutCUI.hpp"
 
 int main(void){
@@ -8,3 +10,5 @@ int main(void){
     cui.Run();
     return 0;
 }
+
+#endif // CUI
