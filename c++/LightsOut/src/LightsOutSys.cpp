@@ -16,6 +16,12 @@ void LightsOutSys::invert(std::uint8_t row, std::uint8_t column){
     invert(column * length + row);
 }
 
+void LightsOutSys::clear() noexcept{
+    for (auto v : board) {
+        v = 0;
+    }
+}
+
 LightsOutSys::LightsOutSys(std::uint8_t length){
     // 一辺のライトの数を変数に保存
     this->length = length;
@@ -65,4 +71,27 @@ void LightsOutSys::push(std::uint8_t row, std::uint8_t column){
     if (row < length - 1)    invert(row + 1, column); // 右
     if (column > 0)          invert(row, column - 1); // 下
     if (column < length - 1) invert(row, column + 1); // 上
+}
+
+void LightsOutSys::random() noexcept{
+    // 乱数の準備
+    std::random_device seed_gen;
+    std::mt19937 engine(seed_gen());
+    std::uniform_int_distribution<> dist(0, 1);
+
+    // 盤面を初期化
+    clear();
+
+    while (true) {
+        // 値の合計を保存
+        std::uint16_t count = 0;
+        // ランダムに押す
+        for (std::uint16_t i = 0; i < size; ++i) {
+            std::uint8_t value = dist(engine);
+            board[i] = static_cast<bool>(value);
+            count += value;
+        }
+        // 0でないとき終了
+        if (count != 0) break;
+    }
 }

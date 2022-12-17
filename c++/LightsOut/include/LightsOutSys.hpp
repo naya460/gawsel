@@ -12,6 +12,9 @@ private:
     // ライトを反転
     void invert(std::uint16_t pos);
     void invert(std::uint8_t row, std::uint8_t column);
+
+    // すべてオフにする
+    void clear() noexcept;
 public:
     // コンストラクタ
     LightsOutSys(std::uint8_t length);
@@ -29,4 +32,7 @@ public:
     // ライトを押す
     void push(std::uint16_t pos);
     void push(std::uint8_t row, std::uint8_t column);
+
+    // ランダムに配置
+    void random() noexcept;
 };
