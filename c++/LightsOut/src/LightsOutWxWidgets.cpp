@@ -29,6 +29,7 @@ LightsOutWxWidgets::LightsOutWxWidgets(){
     wxFlexGridSizer *grid_sizer = new wxFlexGridSizer(max_len, max_len, 0, 0);
     for (int i = 0; i < max_size; ++i) {
         wxButton *button = new wxButton(frame, wxID_ANY);
+        lights.insert(lights.begin() + i, button);
         button->SetMinSize(wxSize(50, 50));
         grid_sizer->Add(button, wxEXPAND | wxSHAPED);
     }
@@ -47,10 +48,20 @@ void LightsOutWxWidgets::NewGame(std::uint8_t length) noexcept{
     system.set_length(length);
     Fit();
     system.random();
+    Display();
 };
 
 void LightsOutWxWidgets::Display() noexcept{
-    return;
+    std::uint16_t size = system.get_size();
+    std::uint8_t length = system.get_length();
+    for (int i = 0; i < size; ++i) {
+        wxButton *b = lights[i % length * max_len + i / length];
+        if (system.is_on(i)) {
+            b->SetBackgroundColour(light_on);
+        } else {
+            b->SetBackgroundColour(light_off);
+        }
+    }
 }
 
 bool LightsOutWxWidgets::Push(std::uint16_t position) noexcept{

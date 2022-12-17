@@ -9,7 +9,11 @@ private:
     const std::uint8_t max_len = 10;
     const std::uint16_t max_size = max_len * max_len;
 
+    wxColour light_on{50, 100, 100};
+    wxColour light_off{50, 50, 50};
+
     wxFrame *frame;
+    std::vector<wxButton*> lights;
 
     // ボタンの大きさを調整
     void Fit();
