@@ -8,7 +8,7 @@ void LightsOutSys::invert(std::uint16_t pos){
         throw false;
     }
     // 反転
-    board[pos] = ~board[pos];
+    board[pos] = !board[pos];
 }
 
 void LightsOutSys::invert(std::uint8_t row, std::uint8_t column){
@@ -22,7 +22,15 @@ void LightsOutSys::clear() noexcept{
     }
 }
 
+LightsOutSys::LightsOutSys(){
+    set_length(0);
+}
+
 LightsOutSys::LightsOutSys(std::uint8_t length){
+    set_length(length);
+}
+
+void LightsOutSys::set_length(std::uint8_t length) noexcept{
     // 一辺のライトの数を変数に保存
     this->length = length;
     // ライトの数を変数に保存
@@ -30,8 +38,9 @@ LightsOutSys::LightsOutSys(std::uint8_t length){
     
     // 盤面の大きさを変更
     board.resize(size);
-    // ランダムに配置
-    random();
+
+    // ライトをすべてoffにする
+    clear();
 }
 
 std::uint8_t LightsOutSys::get_length() noexcept{
@@ -73,6 +82,14 @@ void LightsOutSys::push(std::uint8_t row, std::uint8_t column){
     if (column < length - 1) invert(row, column + 1); // 上
 }
 
+bool LightsOutSys::check_clear() noexcept{
+    std::uint16_t count = 0;
+    for (auto v : board) {
+        count += static_cast<std::uint16_t>(v);
+    }
+    return count == 0;
+}
+
 void LightsOutSys::random() noexcept{
     // 乱数の準備
     std::random_device seed_gen;
@@ -83,15 +100,11 @@ void LightsOutSys::random() noexcept{
     clear();
 
     while (true) {
-        // 値の合計を保存
-        std::uint16_t count = 0;
         // ランダムに押す
         for (std::uint16_t i = 0; i < size; ++i) {
-            std::uint8_t value = dist(engine);
-            board[i] = static_cast<bool>(value);
-            count += value;
+            board[i] = static_cast<bool>(dist(engine));
         }
-        // 0でないとき終了
-        if (count != 0) break;
+        // onが一つでもあればループを抜ける
+        if (!check_clear()) break;
     }
 }
