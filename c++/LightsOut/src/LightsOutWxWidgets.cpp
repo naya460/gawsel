@@ -4,7 +4,7 @@
 
 void LightsOutWxWidgets::FitButton(){
     // サイズを計算
-    int x, y, len;
+    int x, y, w, h, len;
     GetClientSize(&x, &y);
     len = std::min(x, y);
     len = std::max(50, len / system.get_length());
@@ -32,9 +32,31 @@ LightsOutWxWidgets::LightsOutWxWidgets() : wxFrame(NULL, wxID_ANY, "Lights Out")
         grid_sizer->Add(button, wxEXPAND | wxSHAPED);
     }
     SetSizer(grid_sizer);
-    SetSize(500, 500);
-    NewGame(5);
+    SetSize(600, 600);
 
+    // メニュー
+    wxMenuBar *menubar = new wxMenuBar();
+    wxMenu *game_menu = new wxMenu();
+    wxMenuItem *new_item = new wxMenuItem(game_menu, wxID_NEW, "New Game");
+    wxMenuItem *exit_item = new wxMenuItem(game_menu, wxID_EXIT, "Exit");
+    wxMenu *size_menu = new wxMenu();
+
+    SetMenuBar(menubar);
+    menubar->Append(game_menu, "Game");
+    game_menu->Append(new_item);
+    game_menu->AppendSeparator();
+    game_menu->Append(exit_item);
+    menubar->Append(size_menu, "Size");
+    for (int i = 2; i <= 10; ++i) {
+        std::string str = std::to_string(i);
+        size_menu->InsertRadioItem(i - 2, i,  str + "x" + str);
+    }
+    size_menu->Check(playing_len, true);
+
+    Bind(wxEVT_MENU, &LightsOutWxWidgets::SelectMenu, this);
+
+    // 開始
+    NewGame(playing_len);
     Show();
 }
 
@@ -96,6 +118,21 @@ void LightsOutWxWidgets::PushButton(wxCommandEvent& event){
         }
     }
     Display();
+}
+
+void LightsOutWxWidgets::SelectMenu(wxCommandEvent& event){
+    switch (event.GetId()) {
+        case wxID_NEW:
+            NewGame(playing_len);
+            break;
+        case wxID_EXIT:
+            Destroy();
+            break;
+        default:
+            playing_len = event.GetId();
+            NewGame(playing_len);
+            break;
+    }
 }
 
 bool LightsOutApp::OnInit(){
