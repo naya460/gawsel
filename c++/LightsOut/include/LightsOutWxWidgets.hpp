@@ -10,6 +10,9 @@ private:
     const std::uint8_t max_len = 10;
     const std::uint16_t max_size = max_len * max_len;
 
+    // 選択している大きさ
+    std::uint8_t playing_len = 5;
+
     // 色の指定
     wxColour light_on{50, 100, 100};
     wxColour light_off{50, 50, 50};
@@ -41,6 +44,9 @@ public:
 
     // ボタンが押されたときのイベント
     void PushButton(wxCommandEvent& event);
+
+    // メニューが押されたときのイベント
+    void SelectMenu(wxCommandEvent& event);
 };
 
 class LightsOutApp : public wxApp {
