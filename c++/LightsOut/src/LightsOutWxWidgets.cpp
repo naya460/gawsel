@@ -4,7 +4,7 @@
 
 void LightsOutWxWidgets::FitButton(){
     // サイズを計算
-    int x, y, w, h, len;
+    int x, y, len;
     GetClientSize(&x, &y);
     len = std::min(x, y);
     len = std::max(50, len / system.get_length());
@@ -32,7 +32,6 @@ LightsOutWxWidgets::LightsOutWxWidgets() : wxFrame(NULL, wxID_ANY, "Lights Out")
         grid_sizer->Add(button, wxEXPAND | wxSHAPED);
     }
     SetSizer(grid_sizer);
-    SetSize(600, 600);
 
     // メニュー
     wxMenuBar *menubar = new wxMenuBar();
@@ -54,6 +53,12 @@ LightsOutWxWidgets::LightsOutWxWidgets() : wxFrame(NULL, wxID_ANY, "Lights Out")
     size_menu->Check(playing_len, true);
 
     Bind(wxEVT_MENU, &LightsOutWxWidgets::SelectMenu, this);
+
+    // ウィンドウサイズの調整
+    SetMinClientSize(wxSize(500, 500));
+    Fit();
+
+    Bind(wxEVT_SIZE, &LightsOutWxWidgets::ResizeWindow, this);
 
     // 開始
     NewGame(playing_len);
@@ -133,6 +138,10 @@ void LightsOutWxWidgets::SelectMenu(wxCommandEvent& event){
             NewGame(playing_len);
             break;
     }
+}
+
+void LightsOutWxWidgets::ResizeWindow(wxSizeEvent& event){
+    FitButton();
 }
 
 bool LightsOutApp::OnInit(){

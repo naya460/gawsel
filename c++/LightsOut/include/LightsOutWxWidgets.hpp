@@ -17,7 +17,7 @@ private:
     wxColour light_on{50, 100, 100};
     wxColour light_off{50, 50, 50};
 
-    // GUIの部品
+    // ライトの一覧
     std::vector<wxButton*> lights;
 
     // ボタンの大きさを調整
@@ -47,6 +47,9 @@ public:
 
     // メニューが押されたときのイベント
     void SelectMenu(wxCommandEvent& event);
+
+    // フレームの大きさの変更
+    void ResizeWindow(wxSizeEvent& event);
 };
 
 class LightsOutApp : public wxApp {
