@@ -102,7 +102,9 @@ void LightsOutSys::random() noexcept{
     while (true) {
         // ランダムに押す
         for (std::uint16_t i = 0; i < size; ++i) {
-            board[i] = static_cast<bool>(dist(engine));
+            if (static_cast<bool>(dist(engine))) {
+                push(i);
+            }
         }
         // onが一つでもあればループを抜ける
         if (!check_clear()) break;

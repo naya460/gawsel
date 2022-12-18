@@ -4,19 +4,21 @@
 
 #include "LightsOutUI.hpp"
 
-class LightsOutWxWidgets : public LightsOutUI {
+class LightsOutWxWidgets : public LightsOutUI, public wxFrame{
 private:
+    // GUIでの最大サイズ
     const std::uint8_t max_len = 10;
     const std::uint16_t max_size = max_len * max_len;
 
+    // 色の指定
     wxColour light_on{50, 100, 100};
     wxColour light_off{50, 50, 50};
 
-    wxFrame *frame;
+    // GUIの部品
     std::vector<wxButton*> lights;
 
     // ボタンの大きさを調整
-    void Fit();
+    void FitButton();
 public:
     // コンストラクタ
     LightsOutWxWidgets();
@@ -36,6 +38,9 @@ public:
 
     // すべてoffにできているか確認
     bool IsSuccess() noexcept override;
+
+    // ボタンが押されたときのイベント
+    void PushButton(wxCommandEvent& event);
 };
 
 class LightsOutApp : public wxApp {
