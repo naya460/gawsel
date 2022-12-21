@@ -63,6 +63,36 @@ void MinesweeperSys::Randam() noexcept{
         // 今の座標を削除
         list.erase(list.begin() + pos);
     }
+
+    // 数字を配置
+    for (std::uint16_t i = 0; i < size; ++i) {
+        // 爆弾のとき無視
+        if (board[i].GetData() == CellData::Mine) continue;
+        // 変数宣言
+        std::uint8_t count = 0;
+        bool left = (i % row_num != 0);
+        bool right = (i % row_num != row_num - 1);
+        bool upper = (i >= column_num);
+        bool bottom = (i <= row_num * column_num - column_num);
+        // 左上
+        if (left && upper && (board[i - 1 - row_num].GetData() == CellData::Mine)) ++count;
+        // 上
+        if (upper && (board[i - row_num].GetData() == CellData::Mine)) ++count;
+        // 右上
+        if (right && upper && (board[i + 1 - row_num].GetData() == CellData::Mine)) ++count;
+        // 左
+        if (left && (board[i - 1].GetData() == CellData::Mine)) ++count;
+        // 右
+        if (right && (board[i + 1].GetData() == CellData::Mine)) ++ count;
+        // 左下
+        if (left && bottom && (board[i - 1 + row_num].GetData() == CellData::Mine)) ++count;
+        // 下
+        if (bottom && (board[i + row_num].GetData() == CellData::Mine)) ++count;
+        // 右下
+        if (right && bottom && (board[i + 1 + row_num].GetData() == CellData::Mine)) ++ count;
+        // 数字を書き込む
+        board[i].Reset(static_cast<CellData>(count));
+    }
 }
 
 MinesweeperCell MinesweeperSys::GetCell(std::uint16_t pos) noexcept{
