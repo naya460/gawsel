@@ -74,22 +74,28 @@ void MinesweeperSys::Randam() noexcept{
         bool right = (i % row_num != row_num - 1);
         bool upper = (i >= column_num);
         bool bottom = (i <= row_num * column_num - column_num);
-        // 左上
-        if (left && upper && (board[i - 1 - row_num].GetData() == CellData::Mine)) ++count;
-        // 上
-        if (upper && (board[i - row_num].GetData() == CellData::Mine)) ++count;
-        // 右上
-        if (right && upper && (board[i + 1 - row_num].GetData() == CellData::Mine)) ++count;
+        // 上側
+        if (upper) {
+            // 左上
+            if (left && (board[i - 1 - row_num].GetData() == CellData::Mine)) ++count;
+            // 上
+            if ((board[i - row_num].GetData() == CellData::Mine)) ++count;
+            // 右上
+            if (right && (board[i + 1 - row_num].GetData() == CellData::Mine)) ++count;
+        }
         // 左
         if (left && (board[i - 1].GetData() == CellData::Mine)) ++count;
         // 右
         if (right && (board[i + 1].GetData() == CellData::Mine)) ++ count;
-        // 左下
-        if (left && bottom && (board[i - 1 + row_num].GetData() == CellData::Mine)) ++count;
-        // 下
-        if (bottom && (board[i + row_num].GetData() == CellData::Mine)) ++count;
-        // 右下
-        if (right && bottom && (board[i + 1 + row_num].GetData() == CellData::Mine)) ++ count;
+        // 下側
+        if (bottom) {
+            // 左下
+            if (left && (board[i - 1 + row_num].GetData() == CellData::Mine)) ++count;
+            // 下
+            if ((board[i + row_num].GetData() == CellData::Mine)) ++count;
+            // 右下
+            if (bottom && (board[i + 1 + row_num].GetData() == CellData::Mine)) ++ count;
+        }
         // 数字を書き込む
         board[i].Reset(static_cast<CellData>(count));
     }
