@@ -49,6 +49,9 @@ public:
     // 大きさを変更
     void SetSizeAndMine(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine) noexcept;
 
+    // ランダムに爆弾を設置
+    void Randam() noexcept;
+
     // セルを取得
     MinesweeperCell GetCell(std::uint16_t pos) noexcept;
     MinesweeperCell GetCell(std::uint8_t row, std::uint8_t column) noexcept;

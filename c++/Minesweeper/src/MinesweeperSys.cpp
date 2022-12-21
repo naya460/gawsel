@@ -1,6 +1,7 @@
 #include "MinesweeperSys.hpp"
 
 #include <algorithm>
+#include <random>
 
 // === MinesweeperCell ===
 void MinesweeperCell::Reset(CellData data){
@@ -36,6 +37,31 @@ void MinesweeperSys::SetSizeAndMine(std::uint8_t row_number, std::uint8_t column
     board.resize(row_num * column_num);
     for (auto v : board) {
         v.Reset(CellData::_0);
+    }
+}
+
+void MinesweeperSys::Randam() noexcept{
+    // 乱数の準備
+    std::random_device seed_gen;
+    std::mt19937 engine(seed_gen());
+
+    // 座標の一覧
+    std::uint16_t size = row_num * column_num;
+    std::vector<std::uint16_t> list;
+    list.resize(size);
+    for (std::uint16_t i = 0; i < size; ++i) {
+        list[i] = i;
+    }
+
+    // ランダムに爆弾を設置
+    for (std::uint16_t i = 0; i < mine; ++i) {
+        // 乱数を作成
+        std::uniform_int_distribution<> dist(0, list.size() - 1);
+        std::uint16_t pos = dist(engine);
+        // 爆弾を挿入
+        board[list[pos]].Reset(CellData::Mine);
+        // 今の座標を削除
+        list.erase(list.begin() + pos);
     }
 }
 
