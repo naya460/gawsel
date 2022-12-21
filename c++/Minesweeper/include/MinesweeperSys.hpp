@@ -37,13 +37,15 @@ private:
     // 盤面の行数と列数
     std::uint8_t row;
     std::uint8_t column;
+    // 爆弾の総数
+    std::uint16_t mine;
 
     // 盤面
     std::vector<MinesweeperCell> board;
-
-    // 大きさを変更
-    void SetSize(std::uint8_t row_number, std::uint8_t column_number);
 public:
     // コンストラクタ
-    MinesweeperSys(std::uint8_t row_number, std::uint8_t column_number);
+    MinesweeperSys(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine);
+
+    // 大きさを変更
+    void SetSizeAndMine(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine) noexcept;
 };
