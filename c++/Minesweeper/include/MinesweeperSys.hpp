@@ -35,8 +35,8 @@ public:
 class MinesweeperSys {
 private:
     // 盤面の行数と列数
-    std::uint8_t row;
-    std::uint8_t column;
+    std::uint8_t row_num;
+    std::uint8_t column_num;
     // 爆弾の総数
     std::uint16_t mine;
 
@@ -48,4 +48,8 @@ public:
 
     // 大きさを変更
     void SetSizeAndMine(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine) noexcept;
+
+    // セルを取得
+    MinesweeperCell GetCell(std::uint16_t pos) noexcept;
+    MinesweeperCell GetCell(std::uint8_t row, std::uint8_t column) noexcept;
 };
