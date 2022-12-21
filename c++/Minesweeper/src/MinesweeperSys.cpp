@@ -1,13 +1,13 @@
 #include "MinesweeperSys.hpp"
 
 // === MinesweeperCell ===
-void MinesweeperCell::Reset(std::uint8_t num){
+void MinesweeperCell::Reset(CellData data){
     open = false;
-    this->num = num;
+    this->data = data;
 }
 
-std::uint8_t MinesweeperCell::GetNum(){
-    return num;
+CellData MinesweeperCell::GetData(){
+    return data;
 }
 
 bool MinesweeperCell::IsOpen(){
@@ -26,7 +26,7 @@ void MinesweeperSys::SetSize(std::uint8_t row_number, std::uint8_t column_number
     // 盤面の大きさを変更
     board.resize(row * column);
     for (auto v : board) {
-        v.Reset(0);
+        v.Reset(CellData::_0);
     }
 }
 
