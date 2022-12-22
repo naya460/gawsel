@@ -22,6 +22,28 @@ void MinesweeperCell::Open(){
 }
 
 // === MinesweeperSys ===
+bool MinesweeperSys::CheckDirection(Direction dir, std::uint16_t pos){
+    bool ok = true; // 存在するか保存する変数
+    // 上側
+    if (dir == Direction::UL || dir == Direction::U || dir == Direction::UR) {
+        if (pos < row_num) ok = false;
+    }
+    // 下側
+    if (dir == Direction::BL || dir == Direction::B || dir == Direction::BR) {
+        if (pos >= row_num * (column_num - 1)) ok = false;
+    }
+    // 左側
+    if (dir == Direction::UL || dir == Direction::L || dir == Direction::BL) {
+        if (pos % row_num == 0) ok = false;
+    }
+    // 右側
+    if (dir == Direction::UR || dir == Direction::R || dir == Direction::BR) {
+        if ((pos + 1) & row_num == 0) ok = false;
+    }
+    // 返却
+    return ok;
+}
+
 MinesweeperSys::MinesweeperSys(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine){
     // 盤面の大きさを設定
     SetSizeAndMine(row_number, column_number, mine);
@@ -69,33 +91,23 @@ void MinesweeperSys::Randam() noexcept{
         // 爆弾のとき無視
         if (board[i].GetData() == CellData::Mine) continue;
         // 変数宣言
-        std::uint8_t count = 0;
-        bool left = (i % row_num != 0);
-        bool right = (i % row_num != row_num - 1);
-        bool upper = (i >= column_num);
-        bool bottom = (i <= row_num * column_num - column_num);
-        // 上側
-        if (upper) {
-            // 左上
-            if (left && (board[i - 1 - row_num].GetData() == CellData::Mine)) ++count;
-            // 上
-            if ((board[i - row_num].GetData() == CellData::Mine)) ++count;
-            // 右上
-            if (right && (board[i + 1 - row_num].GetData() == CellData::Mine)) ++count;
-        }
+        std::uint8_t count = 0; // 爆弾の合計
+        // 左上
+        if (CheckDirection(Direction::UL, i) && (board[i - 1 - row_num].GetData() == CellData::Mine)) ++count;
+        // 上
+        if (CheckDirection(Direction::U, i) && (board[i - row_num].GetData() == CellData::Mine)) ++count;
+        // 右上
+        if (CheckDirection(Direction::UR, i) && (board[i + 1 - row_num].GetData() == CellData::Mine)) ++count;
         // 左
-        if (left && (board[i - 1].GetData() == CellData::Mine)) ++count;
+        if (CheckDirection(Direction::L, i) && (board[i - 1].GetData() == CellData::Mine)) ++count;
         // 右
-        if (right && (board[i + 1].GetData() == CellData::Mine)) ++ count;
-        // 下側
-        if (bottom) {
-            // 左下
-            if (left && (board[i - 1 + row_num].GetData() == CellData::Mine)) ++count;
-            // 下
-            if ((board[i + row_num].GetData() == CellData::Mine)) ++count;
-            // 右下
-            if (bottom && (board[i + 1 + row_num].GetData() == CellData::Mine)) ++ count;
-        }
+        if (CheckDirection(Direction::R, i) && (board[i + 1].GetData() == CellData::Mine)) ++ count;
+        // 左下
+        if (CheckDirection(Direction::BL, i) && (board[i - 1 + row_num].GetData() == CellData::Mine)) ++count;
+        // 下
+        if (CheckDirection(Direction::B, i) && (board[i + row_num].GetData() == CellData::Mine)) ++count;
+        // 右下
+        if (CheckDirection(Direction::BR, i) && (board[i + 1 + row_num].GetData() == CellData::Mine)) ++ count;
         // 数字を書き込む
         board[i].Reset(static_cast<CellData>(count));
     }

@@ -11,6 +11,13 @@ enum class CellData {
     _5, _6, _7, _8,
 };
 
+// 方向の一覧
+enum class Direction {
+    UL, U, UR,  // 左上、上、右上
+    L, R,       // 左、右
+    BL, B, BR,  // 左下、下、右下
+};
+
 class MinesweeperCell {
 private:
     bool open = false;              // セルが空いているか
@@ -42,6 +49,9 @@ private:
 
     // 盤面
     std::vector<MinesweeperCell> board;
+
+    // その方向が存在するか調べる
+    bool CheckDirection(Direction dir, std::uint16_t pos);
 public:
     // コンストラクタ
     MinesweeperSys(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine);
