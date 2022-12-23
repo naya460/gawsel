@@ -103,25 +103,12 @@ void MinesweeperSys::AddCellNum(std::uint16_t pos) noexcept{
     AddDirectionNum(Direction::BR, pos);    // 右下
 }
 
-MinesweeperSys::MinesweeperSys(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine){
-    // 盤面の大きさを設定
-    SetSizeAndMine(row_number, column_number, mine);
-}
+void MinesweeperSys::Random(std::uint16_t pos) noexcept{
+    // 配置を初期化
+    Reset();
+    // 開始したことにする
+    started = true;
 
-void MinesweeperSys::SetSizeAndMine(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine) noexcept{
-    // 大きさを保存
-    row_num = row_number;
-    column_num = column_number;
-    // 爆弾の数を変更
-    this->mine = std::min(mine, static_cast<std::uint16_t>(row_num * column_num - 9));
-    // 盤面の大きさを変更
-    board.resize(row_num * column_num);
-    for (auto v : board) {
-        v.Reset(CellData::_0);
-    }
-}
-
-void MinesweeperSys::Randam() noexcept{
     // 乱数の準備
     std::random_device seed_gen;
     std::mt19937 engine(seed_gen());
@@ -133,6 +120,17 @@ void MinesweeperSys::Randam() noexcept{
     for (std::uint16_t i = 0; i < size; ++i) {
         list[i] = i;
     }
+
+    // 安全圏を設置
+    if (CheckDirection(Direction::BR, pos)) list.erase(list.begin() + pos + column_num + 1);
+    if (CheckDirection(Direction::B,  pos)) list.erase(list.begin() + pos + column_num);
+    if (CheckDirection(Direction::BL, pos)) list.erase(list.begin() + pos + column_num - 1);
+    if (CheckDirection(Direction::R,  pos)) list.erase(list.begin() + pos + 1);
+    list.erase(list.begin() + pos);
+    if (CheckDirection(Direction::L,  pos)) list.erase(list.begin() + pos - 1);
+    if (CheckDirection(Direction::UR, pos)) list.erase(list.begin() + pos - column_num + 1);
+    if (CheckDirection(Direction::U,  pos)) list.erase(list.begin() + pos - column_num);
+    if (CheckDirection(Direction::UL, pos)) list.erase(list.begin() + pos - column_num - 1);
 
     // ランダムに爆弾を設置
     for (std::uint16_t i = 0; i < mine; ++i) {
@@ -151,6 +149,29 @@ void MinesweeperSys::Randam() noexcept{
     }
 }
 
+MinesweeperSys::MinesweeperSys(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine){
+    // 盤面の大きさを設定
+    SetSizeAndMine(row_number, column_number, mine);
+}
+
+void MinesweeperSys::SetSizeAndMine(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine) noexcept{
+    // 大きさを保存
+    row_num = row_number;
+    column_num = column_number;
+    // 爆弾の数を変更
+    this->mine = std::min(mine, static_cast<std::uint16_t>(row_num * column_num - 9));
+    // 盤面の大きさを変更
+    board.resize(row_num * column_num);
+    Reset();
+}
+
+void MinesweeperSys::Reset() noexcept{
+    for (auto v : board) {
+        v.Reset(CellData::_0);
+    }
+    started = false;
+}
+
 MinesweeperCell MinesweeperSys::GetCell(std::uint16_t pos) noexcept{
     return board[pos];
 }
@@ -162,6 +183,9 @@ MinesweeperCell MinesweeperSys::GetCell(std::uint8_t row, std::uint8_t column) n
 bool MinesweeperSys::Open(std::uint16_t pos){
     //存在するか確認
     if (pos >= row_num * column_num) throw(false);
+
+    // 最初に開けたとき、生成
+    if (started == false) Random(pos);
     
     // 空いているとき、falseを返す
     if (board[pos].IsOpen()) return false;

@@ -4,13 +4,12 @@
 
 int main(void){
     MinesweeperSys sys{9, 9, 10};
-    sys.Randam();
 
     while (true) {
         for (int i = 0; i < 9 * 9; ++i) {
             // 空いていないとき
             if (sys.GetCell(i).IsOpen() == false) {
-                std::cout << "@";
+                std::cout << "Q";
             }
             // 爆弾のとき
             else if (sys.GetCell(i).GetData() == CellData::Mine) {
