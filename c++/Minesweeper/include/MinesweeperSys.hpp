@@ -51,7 +51,13 @@ private:
     std::vector<MinesweeperCell> board;
 
     // その方向が存在するか調べる
-    bool CheckDirection(Direction dir, std::uint16_t pos);
+    bool CheckDirection(Direction dir, std::uint16_t pos) noexcept;
+
+    // 特定の方向の数字を加算
+    void AddDirectionNum(Direction dir, std::uint16_t pos) noexcept;
+
+    // 周りの数字を加算
+    void AddCellNum(std::uint16_t pos) noexcept;
 public:
     // コンストラクタ
     MinesweeperSys(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine);
