@@ -50,6 +50,9 @@ private:
     // 盤面
     std::vector<MinesweeperCell> board;
 
+    // 特定の辺か調べる（対応するsideは、U,B,L,Rのみ。他は必ずfalse）
+    bool CheckSide(Direction side, Direction dir, std::uint16_t pos) noexcept;
+
     // その方向が存在するか調べる
     bool CheckDirection(Direction dir, std::uint16_t pos) noexcept;
 
