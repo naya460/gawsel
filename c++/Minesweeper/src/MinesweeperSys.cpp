@@ -22,22 +22,50 @@ void MinesweeperCell::Open(){
 }
 
 // === MinesweeperSys ===
+bool MinesweeperSys::CheckSide(Direction side, Direction dir, std::uint16_t pos) noexcept{
+    // 上側
+    if (side == Direction::U) {
+        if (dir == Direction::UL || dir == Direction::U || dir == Direction::UR) {
+            return true;
+        }
+    }
+    // 下側
+    if (side == Direction::B) {
+        if (dir == Direction::BL || dir == Direction::B || dir == Direction::BR) {
+            return true;
+        }
+    }
+    // 左側
+    if (side == Direction::L) {
+        if (dir == Direction::UL || dir == Direction::L || dir == Direction::BL) {
+            return true;
+        }
+    }
+    // 右側
+    if (side == Direction::R) {
+        if (dir == Direction::UR || dir == Direction::R || dir == Direction::BR) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool MinesweeperSys::CheckDirection(Direction dir, std::uint16_t pos) noexcept{
     bool ok = true; // 存在するか保存する変数
     // 上側
-    if (dir == Direction::UL || dir == Direction::U || dir == Direction::UR) {
+    if (CheckSide(Direction::U, dir, pos)) {
         if (pos < row_num) ok = false;
     }
     // 下側
-    if (dir == Direction::BL || dir == Direction::B || dir == Direction::BR) {
+    if (CheckSide(Direction::B, dir, pos)) {
         if (pos >= row_num * (column_num - 1)) ok = false;
     }
     // 左側
-    if (dir == Direction::UL || dir == Direction::L || dir == Direction::BL) {
+    if (CheckSide(Direction::L, dir, pos)) {
         if (pos % row_num == 0) ok = false;
     }
     // 右側
-    if (dir == Direction::UR || dir == Direction::R || dir == Direction::BR) {
+    if (CheckSide(Direction::R, dir, pos)) {
         if ((pos + 1) % row_num == 0) ok = false;
     }
     // 返却
@@ -49,10 +77,10 @@ void MinesweeperSys::AddDirectionNum(Direction dir, std::uint16_t pos) noexcept{
     if (!CheckDirection(dir, pos)) return;
     
     // その方向の場所を計算
-    if (dir == Direction::UL || dir == Direction::U || dir == Direction::UR) pos -= row_num;    // 上側
-    if (dir == Direction::BL || dir == Direction::B || dir == Direction::BR) pos += row_num;    // 下側
-    if (dir == Direction::UL || dir == Direction::L || dir == Direction::BL) pos -= 1;          // 左側
-    if (dir == Direction::UR || dir == Direction::R || dir == Direction::BR) pos += 1;          // 右側
+    if (CheckSide(Direction::U, dir, pos)) pos -= row_num;   // 上側
+    if (CheckSide(Direction::B, dir, pos)) pos += row_num;   // 下側
+    if (CheckSide(Direction::L, dir, pos)) pos -= 1;         // 左側
+    if (CheckSide(Direction::R, dir, pos)) pos += 1;         // 右側
 
     // 爆弾のとき何もしない
     if (board[pos].GetData() == CellData::Mine) return;
@@ -111,10 +139,13 @@ void MinesweeperSys::Randam() noexcept{
         // 乱数を作成
         std::uniform_int_distribution<> dist(0, list.size() - 1);
         std::uint16_t pos = dist(engine);
+
         // 爆弾を挿入
         board[list[pos]].Reset(CellData::Mine);
+        
         // 数字を増やす
         AddCellNum(list[pos]);
+
         // 今の座標を削除
         list.erase(list.begin() + pos);
     }
