@@ -74,4 +74,8 @@ public:
     // セルを取得
     MinesweeperCell GetCell(std::uint16_t pos) noexcept;
     MinesweeperCell GetCell(std::uint8_t row, std::uint8_t column) noexcept;
+
+    // 開ける（爆弾のときtrue、存在しない場所はfalseの例外を投げる）
+    bool Open(std::uint16_t pos);
+    bool Open(std::uint8_t row, std::uint8_t column);
 };

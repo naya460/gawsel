@@ -158,3 +158,38 @@ MinesweeperCell MinesweeperSys::GetCell(std::uint16_t pos) noexcept{
 MinesweeperCell MinesweeperSys::GetCell(std::uint8_t row, std::uint8_t column) noexcept{
     return GetCell(column * column_num + row);
 }
+
+bool MinesweeperSys::Open(std::uint16_t pos){
+    //存在するか確認
+    if (pos >= row_num * column_num) throw(false);
+    
+    // 空いているとき、falseを返す
+    if (board[pos].IsOpen()) return false;
+
+    // 押した場所を開ける
+    board[pos].Open();
+
+    // 爆弾のとき、trueを返す
+    if (board[pos].GetData() == CellData::Mine) return true;
+
+    // 数字のとき、falseを返す
+    if (board[pos].GetData() != CellData::_0) return false;
+
+    // 周りを開ける
+    if (CheckDirection(Direction::UL, pos)) Open(pos - column_num - 1);
+    if (CheckDirection(Direction::U,  pos)) Open(pos - column_num);
+    if (CheckDirection(Direction::UR, pos)) Open(pos - column_num + 1);
+    if (CheckDirection(Direction::L,  pos)) Open(pos - 1);
+    if (CheckDirection(Direction::R,  pos)) Open(pos + 1);
+    if (CheckDirection(Direction::BL, pos)) Open(pos + column_num - 1);
+    if (CheckDirection(Direction::B,  pos)) Open(pos + column_num);
+    if (CheckDirection(Direction::BR, pos)) Open(pos + column_num + 1);
+
+    return false;
+}
+
+bool MinesweeperSys::Open(std::uint8_t row, std::uint8_t column){
+    if (row >= row_num) throw(false);
+    if (column >= column_num) throw(false);
+    return Open(column * column_num + row);
+}
