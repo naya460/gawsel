@@ -14,7 +14,7 @@ enum class CellData {
 // 方向の一覧
 enum class Direction {
     UL, U, UR,  // 左上、上、右上
-    L, R,       // 左、右
+    L, C, R,    // 左、中央、右
     BL, B, BR,  // 左下、下、右下
 };
 

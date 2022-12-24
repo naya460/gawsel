@@ -130,15 +130,28 @@ void MinesweeperSys::Random(std::uint16_t pos) noexcept{
     }
 
     // 安全圏を設置
-    if (CheckDirection(Direction::BR, pos)) list.erase(list.begin() + pos + column_num + 1);
-    if (CheckDirection(Direction::B,  pos)) list.erase(list.begin() + pos + column_num);
-    if (CheckDirection(Direction::BL, pos)) list.erase(list.begin() + pos + column_num - 1);
-    if (CheckDirection(Direction::R,  pos)) list.erase(list.begin() + pos + 1);
-    list.erase(list.begin() + pos);
-    if (CheckDirection(Direction::L,  pos)) list.erase(list.begin() + pos - 1);
-    if (CheckDirection(Direction::UR, pos)) list.erase(list.begin() + pos - column_num + 1);
-    if (CheckDirection(Direction::U,  pos)) list.erase(list.begin() + pos - column_num);
-    if (CheckDirection(Direction::UL, pos)) list.erase(list.begin() + pos - column_num - 1);
+    auto EraseListPos = [=, &list](Direction dir, std::uint16_t pos) -> void {
+        // セルが存在しないとき何もしない
+        if (!CheckDirection(dir, pos)) return;
+        
+        // その方向の場所を計算
+        if (CheckSide(Direction::U, dir, pos)) pos -= row_num;   // 上側
+        if (CheckSide(Direction::B, dir, pos)) pos += row_num;   // 下側
+        if (CheckSide(Direction::L, dir, pos)) pos -= 1;         // 左側
+        if (CheckSide(Direction::R, dir, pos)) pos += 1;         // 右側
+
+        // 値を削除
+        list.erase(list.begin() + pos);
+    };
+    EraseListPos(Direction::BR, pos);   // 右下
+    EraseListPos(Direction::B,  pos);   // 下
+    EraseListPos(Direction::BL, pos);   // 左下
+    EraseListPos(Direction::R,  pos);   // 右
+    EraseListPos(Direction::C,  pos);   // 中央
+    EraseListPos(Direction::L,  pos);   // 左
+    EraseListPos(Direction::UR, pos);   // 右上
+    EraseListPos(Direction::U,  pos);   // 上
+    EraseListPos(Direction::UL, pos);   // 左上
 
     // ランダムに爆弾を設置
     for (std::uint16_t i = 0; i < mine; ++i) {
