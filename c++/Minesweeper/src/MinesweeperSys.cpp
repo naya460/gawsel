@@ -21,6 +21,14 @@ void MinesweeperCell::Open(){
     open = true;
 }
 
+void MinesweeperCell::ToggleFlag(){
+    flag = !flag;
+}
+
+bool MinesweeperCell::IsFlagged(){
+    return flag;
+}
+
 // === MinesweeperSys ===
 bool MinesweeperSys::CheckSide(Direction side, Direction dir, std::uint16_t pos) noexcept{
     // 上側
