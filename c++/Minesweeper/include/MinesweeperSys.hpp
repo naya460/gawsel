@@ -22,6 +22,7 @@ class MinesweeperCell {
 private:
     bool open = false;              // セルが空いているか
     CellData data = CellData::_0;   // 番号や爆弾
+    bool flag = false;              // 旗が立っているか
 public:
     // コンストラクタ
     MinesweeperCell() = default;
@@ -37,6 +38,12 @@ public:
 
     // 開ける
     void Open();
+
+    // 旗を切り替える
+    void ToggleFlag();
+
+    // 旗の状態を調べる（true:旗が立っている）
+    bool IsFlagged();
 };
 
 class MinesweeperSys {
