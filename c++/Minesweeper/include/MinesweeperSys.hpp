@@ -76,6 +76,7 @@ private:
     void Random(std::uint16_t pos) noexcept;
 public:
     // コンストラクタ
+    MinesweeperSys();
     MinesweeperSys(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine);
 
     // 大きさを変更

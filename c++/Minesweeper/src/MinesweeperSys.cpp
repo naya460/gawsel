@@ -170,6 +170,11 @@ void MinesweeperSys::Random(std::uint16_t pos) noexcept{
     }
 }
 
+MinesweeperSys::MinesweeperSys(){
+    // 何もない盤面を作成
+    SetSizeAndMine(0, 0, 0);
+}
+
 MinesweeperSys::MinesweeperSys(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine){
     // 盤面の大きさを設定
     SetSizeAndMine(row_number, column_number, mine);
