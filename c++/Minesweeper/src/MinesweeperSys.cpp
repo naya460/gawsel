@@ -241,5 +241,5 @@ bool MinesweeperSys::Open(std::uint16_t pos){
 bool MinesweeperSys::Open(std::uint8_t row, std::uint8_t column){
     if (row >= row_num) throw(false);
     if (column >= column_num) throw(false);
-    return Open(column * column_num + row);
+    return Open(row * row_num + column);
 }
