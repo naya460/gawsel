@@ -13,4 +13,8 @@ public:
 
     // 盤面を表示
     virtual void Display() noexcept = 0;
+
+    // セルを開ける
+    virtual bool Open(std::uint16_t position) noexcept = 0;
+    virtual bool Open(std::uint8_t row, std::uint8_t column) noexcept = 0;
 };

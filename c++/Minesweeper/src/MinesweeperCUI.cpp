@@ -2,6 +2,37 @@
 
 #include <iostream>
 
+void MinesweeperCUI::Input() noexcept{
+    std::string input;
+    std::cout << "cmd : ";
+    std::cin >> input;
+    // 入力された文字を全て解釈
+    for (int i = 0; i < input.size(); ++i) {
+        switch (input[i]) {
+            // 上
+            case 'w': case 'k':
+                cur_row = std::max(0, cur_row - 1);
+                break;
+            // 下
+            case 's': case 'j':
+                cur_row = std::min(8, cur_row + 1);
+                break;
+            // 左
+            case 'a': case 'h':
+                cur_column = std::max(0, cur_column - 1);
+                break;
+            // 右
+            case 'd': case 'l':
+                cur_column = std::min(8, cur_column + 1);
+                break;
+            // 開ける
+            case 'e': case 'o':
+                Open(cur_row, cur_column);
+                break;                
+        }
+    }
+}
+
 void MinesweeperCUI::Run() noexcept{
     NewGame(9, 9, 10);
 
@@ -10,26 +41,33 @@ void MinesweeperCUI::Run() noexcept{
         // 出力
         Display();
 
-        // 開ける場所を入力
-        int row, column;
-        std::cout << "row : ";
-        std::cin >> row;
-        std::cout << "column : ";
-        std::cin >> column;
-
-        // 開ける
-        system.Open(row, column);
+        // 入力
+        Input();
     }
 }
 
-// 新しい盤面で開始
 void MinesweeperCUI::NewGame(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine) noexcept{
     system.SetSizeAndMine(row_number, column_number, mine);
 }
 
-// 盤面を表示
 void MinesweeperCUI::Display() noexcept{
+    // 上側の矢印を表示
+    std::cout << "  ";
+    for (int i = 0; i < cur_column; ++i) {
+        std::cout << "   ";
+    }
+    std::cout << "v" << std::endl;
+    
+    // セルを表示
     for (int i = 0; i < 9 * 9; ++i) {
+        // 左側の矢印を表示
+        if (i % 9 == 0) {
+            if (i / 9 == cur_row) {
+                std::cout << "> ";
+            } else {
+                std::cout << "  ";
+            }
+        }
         // 空いていないとき
         if (system.GetCell(i).IsOpen() == false) {
             std::cout << "Q";
@@ -51,5 +89,24 @@ void MinesweeperCUI::Display() noexcept{
         if (i % 9 == 8) {
             std::cout << std::endl;
         }
+    }
+}
+
+bool MinesweeperCUI::Open(std::uint16_t position) noexcept{
+    try {
+        return system.Open(position);
+    } catch (bool exception) {
+        std::cerr << "invalid position" << std::endl;
+        exit(1);
+    }
+}
+
+bool MinesweeperCUI::Open(std::uint8_t row, std::uint8_t column) noexcept{
+    std::cout << (int)row << " " << (int)column << std::endl;
+    try {
+        return system.Open(row, column);
+    } catch (bool exception) {
+        std::cerr << "invalid position" << std::endl;
+        exit(1);
     }
 }

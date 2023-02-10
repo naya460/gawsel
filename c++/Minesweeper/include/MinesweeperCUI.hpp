@@ -5,6 +5,12 @@
 #include "MinesweeperUI.hpp"
 
 class MinesweeperCUI : public MinesweeperUI {
+private:
+    std::uint8_t cur_row = 0;
+    std::uint8_t cur_column = 0;
+
+    // コマンドを入力
+    void Input() noexcept;
 public:
     // コンストラクタ
     MinesweeperCUI() = default;
@@ -17,4 +23,8 @@ public:
 
     // 盤面を表示
     void Display() noexcept override;
+
+    // セルを開ける
+    bool Open(std::uint16_t position) noexcept override;
+    bool Open(std::uint8_t row, std::uint8_t column) noexcept override;
 };
