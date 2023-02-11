@@ -164,9 +164,21 @@ void MinesweeperSys::SetSizeAndMine(std::uint8_t row_number, std::uint8_t column
     Reset();
 }
 
+std::uint8_t MinesweeperSys::GetRowNumber() noexcept{
+    return row_num;
+}
+
+std::uint8_t MinesweeperSys::GetColumnNumber() noexcept{
+    return column_num;
+}
+
+std::uint16_t MinesweeperSys::GetSize() noexcept{
+    return row_num * column_num;
+}
+
 void MinesweeperSys::Reset() noexcept{
-    for (auto v : board) {
-        v.Reset(CellData::_0);
+    for (std::uint16_t i = 0; i < GetSize(); ++i) {
+        board[i].Reset(CellData::_0);
     }
     started = false;
 }

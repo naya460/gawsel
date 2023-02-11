@@ -16,7 +16,7 @@ bool MinesweeperCUI::Input() noexcept{
                 break;
             // 下
             case 's': case 'j':
-                cur_row = std::min(8, cur_row + 1);
+                cur_row = std::min(system.GetRowNumber() - 1, cur_row + 1);
                 break;
             // 左
             case 'a': case 'h':
@@ -24,7 +24,7 @@ bool MinesweeperCUI::Input() noexcept{
                 break;
             // 右
             case 'd': case 'l':
-                cur_column = std::min(8, cur_column + 1);
+                cur_column = std::min(system.GetColumnNumber() - 1, cur_column + 1);
                 break;
             // 開ける
             case 'e': case 'o':
@@ -40,20 +40,18 @@ bool MinesweeperCUI::Input() noexcept{
 }
 
 void MinesweeperCUI::Run() noexcept{
-    NewGame(9, 9, 10);
-
     // メインループ
     while (true) {
         // モードを選択
         std::cout << "=== Mode Selection ===" << std::endl;
         std::cout << "1. 9x9   : 10" << std::endl;
-        //std::cout << "2. 16x16 : 40" << std::endl;
-        //std::cout << "3. 30x16 : 99" << std::endl;
+        std::cout << "2. 16x16 : 40" << std::endl;
+        std::cout << "3. 30x16 : 99" << std::endl;
         int mode;
         do {
             std::cout << ">>> ";
             std::cin >> mode;
-        } while (mode < 1 || mode > 1);
+        } while (mode < 1 || mode > 3);
 
         // 新しい盤面を開始
         switch (mode) {
@@ -74,16 +72,21 @@ void MinesweeperCUI::Run() noexcept{
 
             // 入力
             if (Input()) {
-                std::cout << "failed" << std::endl;
+                break;
             }
         }
 
         // 最後に表示
         Display();
 
+        if (IsSuccess()) {
+            std::cout << "Clear" << std::endl;
+        } else {
+            std::cout << "Failed" << std::endl;
+        }
+
         // もう一度遊ぶか聞く
         bool exit = true;
-        std::cout << "Clear" << std::endl;
         std::cout << "0:continue 1:exit" << std::endl;
         std::cout << ">>> ";
         std::cin >> exit;
@@ -93,6 +96,7 @@ void MinesweeperCUI::Run() noexcept{
 
 void MinesweeperCUI::NewGame(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine) noexcept{
     system.SetSizeAndMine(row_number, column_number, mine);
+    cur_row = cur_column = 0;
 }
 
 void MinesweeperCUI::Display() noexcept{
@@ -104,10 +108,10 @@ void MinesweeperCUI::Display() noexcept{
     std::cout << "v" << std::endl;
     
     // セルを表示
-    for (int i = 0; i < 9 * 9; ++i) {
+    for (int i = 0; i < system.GetSize(); ++i) {
         // 左側の矢印を表示
-        if (i % 9 == 0) {
-            if (i / 9 == cur_row) {
+        if (i % system.GetRowNumber() == 0) {
+            if (i / system.GetRowNumber() == cur_row) {
                 std::cout << "> ";
             } else {
                 std::cout << "  ";
@@ -136,7 +140,7 @@ void MinesweeperCUI::Display() noexcept{
         }
         // 区切り
         std::cout << "  ";
-        if (i % 9 == 8) {
+        if ((i + 1) % system.GetRowNumber() == 0) {
             std::cout << std::endl;
         }
     }

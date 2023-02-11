@@ -41,6 +41,11 @@ public:
     // 大きさを変更
     void SetSizeAndMine(std::uint8_t row_number, std::uint8_t column_number, std::uint16_t mine) noexcept;
 
+    // 大きさの取得
+    std::uint8_t GetRowNumber() noexcept;
+    std::uint8_t GetColumnNumber() noexcept;
+    std::uint16_t GetSize() noexcept;
+
     // 盤面を初期化
     void Reset() noexcept;
 
