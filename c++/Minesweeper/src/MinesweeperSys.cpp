@@ -193,7 +193,7 @@ MinesweeperCell MinesweeperSys::GetCell(std::uint8_t row, std::uint8_t column) n
 
 bool MinesweeperSys::Open(std::uint16_t pos){
     //存在するか確認
-    if (pos >= row_num * column_num) throw(false);
+    if (pos >= GetSize()) throw(false);
 
     // 最初に開けたとき、生成
     if (started == false) Random(pos);
@@ -204,6 +204,8 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     // 旗でないとき、押した場所を開ける
     if (board[pos].IsFlagged() == false) {
         board[pos].Open();
+    } else {
+        return false;
     }
 
     // 爆弾のとき、trueを返す
@@ -213,14 +215,14 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     if (board[pos].GetData() != CellData::_0) return false;
 
     // 周りを開ける
-    if (CheckDirection(Direction::UL, pos)) Open(pos - column_num - 1);
-    if (CheckDirection(Direction::U,  pos)) Open(pos - column_num);
-    if (CheckDirection(Direction::UR, pos)) Open(pos - column_num + 1);
+    if (CheckDirection(Direction::UL, pos)) Open(pos - row_num - 1);
+    if (CheckDirection(Direction::U,  pos)) Open(pos - row_num);
+    if (CheckDirection(Direction::UR, pos)) Open(pos - row_num + 1);
     if (CheckDirection(Direction::L,  pos)) Open(pos - 1);
     if (CheckDirection(Direction::R,  pos)) Open(pos + 1);
-    if (CheckDirection(Direction::BL, pos)) Open(pos + column_num - 1);
-    if (CheckDirection(Direction::B,  pos)) Open(pos + column_num);
-    if (CheckDirection(Direction::BR, pos)) Open(pos + column_num + 1);
+    if (CheckDirection(Direction::BL, pos)) Open(pos + row_num - 1);
+    if (CheckDirection(Direction::B,  pos)) Open(pos + row_num);
+    if (CheckDirection(Direction::BR, pos)) Open(pos + row_num + 1);
 
     return false;
 }
