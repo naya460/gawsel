@@ -247,6 +247,18 @@ void MinesweeperSys::ToggleFlag(std::uint8_t row, std::uint8_t column){
     ToggleFlag(row * row_num + column);
 }
 
+std::uint16_t MinesweeperSys::GetRemainingMines() noexcept{
+    std::uint16_t flag_count = 0;
+    for (std::uint16_t i = 0; i < row_num * column_num; ++i) {
+        if (board[i].IsOpen() == false) {
+            if (board[i].IsFlagged() == true) {
+                ++flag_count;
+            }
+        }
+    }
+    return mine - flag_count;
+}
+
 bool MinesweeperSys::IsSuccess() noexcept{
     std::uint16_t close_count = 0;
     for (std::uint16_t i = 0; i < row_num * column_num; ++i) {

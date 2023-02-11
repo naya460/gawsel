@@ -22,6 +22,9 @@ public:
     virtual void ToggleFlag(std::uint16_t position) noexcept = 0;
     virtual void ToggleFlag(std::uint8_t row, std::uint8_t column) noexcept = 0;
 
+    // 爆弾の残り数を表示
+    virtual void DisplayRemainingMines() noexcept = 0;
+
     // クリアしているか調べる(爆弾の数と開けていないセルの数を比較)
     virtual bool IsSuccess() noexcept = 0;
 };

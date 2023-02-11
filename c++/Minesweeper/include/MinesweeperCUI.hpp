@@ -32,6 +32,9 @@ public:
     void ToggleFlag(std::uint16_t position) noexcept override;
     void ToggleFlag(std::uint8_t row, std::uint8_t column) noexcept override;
     
+    // 爆弾の残り数を表示
+    void DisplayRemainingMines() noexcept override;
+
     // クリアしているか調べる(爆弾の数と開けていないセルの数を比較)
     bool IsSuccess() noexcept override;
 };

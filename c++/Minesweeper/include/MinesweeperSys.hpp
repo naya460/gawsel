@@ -61,6 +61,9 @@ public:
     void ToggleFlag(std::uint16_t pos);
     void ToggleFlag(std::uint8_t row, std::uint8_t column);
 
+    // 爆弾の残り数を取得
+    std::uint16_t GetRemainingMines() noexcept;
+
     // クリアしているか確認
     bool IsSuccess() noexcept;
 };
