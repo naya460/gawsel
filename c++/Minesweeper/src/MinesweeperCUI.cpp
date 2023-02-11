@@ -100,6 +100,8 @@ void MinesweeperCUI::NewGame(std::uint8_t row_number, std::uint8_t column_number
 }
 
 void MinesweeperCUI::Display() noexcept{
+    // 残りの爆弾数を表示
+    DisplayRemainingMines();
     // 上側の矢印を表示
     std::cout << "  ";
     for (int i = 0; i < cur_column; ++i) {
@@ -182,6 +184,10 @@ void MinesweeperCUI::ToggleFlag(std::uint8_t row, std::uint8_t column) noexcept{
     } catch (bool exception) {
         std::cerr << "invalid position" << std::endl;
     }
+}
+
+void MinesweeperCUI::DisplayRemainingMines() noexcept{
+    std::cout << "Remaining mines : " << static_cast<int>(system.GetRemainingMines()) << std::endl;
 }
 
 bool MinesweeperCUI::IsSuccess() noexcept{
