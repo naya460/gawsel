@@ -21,4 +21,7 @@ public:
     // 旗を切り替える
     virtual void ToggleFlag(std::uint16_t position) noexcept = 0;
     virtual void ToggleFlag(std::uint8_t row, std::uint8_t column) noexcept = 0;
+
+    // クリアしているか調べる(爆弾の数と開けていないセルの数を比較)
+    virtual bool IsSuccess() noexcept = 0;
 };

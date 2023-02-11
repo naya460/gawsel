@@ -2,10 +2,11 @@
 
 #include <iostream>
 
-void MinesweeperCUI::Input() noexcept{
+bool MinesweeperCUI::Input() noexcept{
     std::string input;
     std::cout << "cmd : ";
     std::cin >> input;
+    bool ret = false;
     // 入力された文字を全て解釈
     for (int i = 0; i < input.size(); ++i) {
         switch (input[i]) {
@@ -27,7 +28,7 @@ void MinesweeperCUI::Input() noexcept{
                 break;
             // 開ける
             case 'e': case 'o':
-                Open(cur_row, cur_column);
+                ret += Open(cur_row, cur_column);
                 break;
             // 旗を立てる
             case 'f': case 'i':
@@ -35,6 +36,7 @@ void MinesweeperCUI::Input() noexcept{
                 break;
         }
     }
+    return ret;
 }
 
 void MinesweeperCUI::Run() noexcept{
@@ -42,11 +44,50 @@ void MinesweeperCUI::Run() noexcept{
 
     // メインループ
     while (true) {
-        // 出力
+        // モードを選択
+        std::cout << "=== Mode Selection ===" << std::endl;
+        std::cout << "1. 9x9   : 10" << std::endl;
+        //std::cout << "2. 16x16 : 40" << std::endl;
+        //std::cout << "3. 30x16 : 99" << std::endl;
+        int mode;
+        do {
+            std::cout << ">>> ";
+            std::cin >> mode;
+        } while (mode < 1 || mode > 1);
+
+        // 新しい盤面を開始
+        switch (mode) {
+            case 1:
+                NewGame(9, 9, 10);
+                break;
+            case 2:
+                NewGame(16, 16, 40);
+                break;
+            case 3:
+                NewGame(30, 16, 99);
+        }
+        
+        // クリアまで表示と入力を繰り返す
+        while (!IsSuccess()) {
+            // 出力
+            Display();
+
+            // 入力
+            if (Input()) {
+                std::cout << "failed" << std::endl;
+            }
+        }
+
+        // 最後に表示
         Display();
 
-        // 入力
-        Input();
+        // もう一度遊ぶか聞く
+        bool exit = true;
+        std::cout << "Clear" << std::endl;
+        std::cout << "0:continue 1:exit" << std::endl;
+        std::cout << ">>> ";
+        std::cin >> exit;
+        if (exit == true) break;
     }
 }
 
@@ -133,4 +174,8 @@ void MinesweeperCUI::ToggleFlag(std::uint8_t row, std::uint8_t column) noexcept{
     } catch (bool exception) {
         std::cerr << "invalid position" << std::endl;
     }
+}
+
+bool MinesweeperCUI::IsSuccess() noexcept{
+    return system.IsSuccess();
 }

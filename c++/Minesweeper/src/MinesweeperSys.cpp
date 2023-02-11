@@ -232,3 +232,16 @@ void MinesweeperSys::ToggleFlag(std::uint8_t row, std::uint8_t column){
     // 旗を反転
     ToggleFlag(row * row_num + column);
 }
+
+bool MinesweeperSys::IsSuccess() noexcept{
+    std::uint16_t close_count = 0;
+    for (std::uint16_t i = 0; i < row_num * column_num; ++i) {
+        if (board[i].IsOpen() == false) {
+            ++close_count;
+        }
+    }
+    if (close_count == mine) {
+        return true;
+    }
+    return false;
+}
