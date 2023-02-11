@@ -3,34 +3,6 @@
 #include <algorithm>
 #include <random>
 
-// === MinesweeperCell ===
-void MinesweeperCell::Reset(CellData data){
-    open = false;
-    flag = false;
-    this->data = data;
-}
-
-CellData MinesweeperCell::GetData(){
-    return data;
-}
-
-bool MinesweeperCell::IsOpen(){
-    return open;
-}
-
-void MinesweeperCell::Open(){
-    open = true;
-}
-
-void MinesweeperCell::ToggleFlag(){
-    flag = !flag;
-}
-
-bool MinesweeperCell::IsFlagged(){
-    return flag;
-}
-
-// === MinesweeperSys ===
 bool MinesweeperSys::CheckSide(Direction side, Direction dir, std::uint16_t pos) noexcept{
     // 上側
     if (side == Direction::U) {
