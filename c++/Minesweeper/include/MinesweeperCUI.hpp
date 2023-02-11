@@ -10,7 +10,7 @@ private:
     std::uint8_t cur_column = 0;
 
     // コマンドを入力
-    void Input() noexcept;
+    bool Input() noexcept;
 public:
     // コンストラクタ
     MinesweeperCUI() = default;
@@ -31,4 +31,7 @@ public:
     // 旗を切り替える
     void ToggleFlag(std::uint16_t position) noexcept override;
     void ToggleFlag(std::uint8_t row, std::uint8_t column) noexcept override;
+    
+    // クリアしているか調べる(爆弾の数と開けていないセルの数を比較)
+    bool IsSuccess() noexcept override;
 };

@@ -55,4 +55,7 @@ public:
     // 旗を切り換える（存在しない場所はfalseの例外を投げる）
     void ToggleFlag(std::uint16_t pos);
     void ToggleFlag(std::uint8_t row, std::uint8_t column);
+
+    // クリアしているか確認
+    bool IsSuccess() noexcept;
 };
