@@ -17,4 +17,8 @@ public:
     // セルを開ける
     virtual bool Open(std::uint16_t position) noexcept = 0;
     virtual bool Open(std::uint8_t row, std::uint8_t column) noexcept = 0;
+
+    // 旗を切り替える
+    virtual void ToggleFlag(std::uint16_t position) noexcept = 0;
+    virtual void ToggleFlag(std::uint8_t row, std::uint8_t column) noexcept = 0;
 };
