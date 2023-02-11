@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <random>
 
-bool MinesweeperSys::CheckSide(Direction side, Direction dir, std::uint16_t pos) noexcept{
+bool MinesweeperSys::CheckSide(Direction side, Direction dir) noexcept{
     // 上側
     if (side == Direction::U) {
         if (dir == Direction::UL || dir == Direction::U || dir == Direction::UR) {
@@ -34,19 +34,19 @@ bool MinesweeperSys::CheckSide(Direction side, Direction dir, std::uint16_t pos)
 bool MinesweeperSys::CheckDirection(Direction dir, std::uint16_t pos) noexcept{
     bool ok = true; // 存在するか保存する変数
     // 上側
-    if (CheckSide(Direction::U, dir, pos)) {
+    if (CheckSide(Direction::U, dir)) {
         if (pos < row_num) ok = false;
     }
     // 下側
-    if (CheckSide(Direction::B, dir, pos)) {
+    if (CheckSide(Direction::B, dir)) {
         if (pos >= row_num * (column_num - 1)) ok = false;
     }
     // 左側
-    if (CheckSide(Direction::L, dir, pos)) {
+    if (CheckSide(Direction::L, dir)) {
         if (pos % row_num == 0) ok = false;
     }
     // 右側
-    if (CheckSide(Direction::R, dir, pos)) {
+    if (CheckSide(Direction::R, dir)) {
         if ((pos + 1) % row_num == 0) ok = false;
     }
     // 返却
@@ -58,10 +58,10 @@ void MinesweeperSys::AddDirectionNum(Direction dir, std::uint16_t pos) noexcept{
     if (!CheckDirection(dir, pos)) return;
     
     // その方向の場所を計算
-    if (CheckSide(Direction::U, dir, pos)) pos -= row_num;   // 上側
-    if (CheckSide(Direction::B, dir, pos)) pos += row_num;   // 下側
-    if (CheckSide(Direction::L, dir, pos)) pos -= 1;         // 左側
-    if (CheckSide(Direction::R, dir, pos)) pos += 1;         // 右側
+    if (CheckSide(Direction::U, dir)) pos -= row_num;   // 上側
+    if (CheckSide(Direction::B, dir)) pos += row_num;   // 下側
+    if (CheckSide(Direction::L, dir)) pos -= 1;         // 左側
+    if (CheckSide(Direction::R, dir)) pos += 1;         // 右側
 
     // 爆弾のとき何もしない
     if (board[pos].GetData() == CellData::Mine) return;
@@ -108,10 +108,10 @@ void MinesweeperSys::Random(std::uint16_t pos) noexcept{
         if (!CheckDirection(dir, pos)) return;
         
         // その方向の場所を計算
-        if (CheckSide(Direction::U, dir, pos)) pos -= row_num;   // 上側
-        if (CheckSide(Direction::B, dir, pos)) pos += row_num;   // 下側
-        if (CheckSide(Direction::L, dir, pos)) pos -= 1;         // 左側
-        if (CheckSide(Direction::R, dir, pos)) pos += 1;         // 右側
+        if (CheckSide(Direction::U, dir)) pos -= row_num;   // 上側
+        if (CheckSide(Direction::B, dir)) pos += row_num;   // 下側
+        if (CheckSide(Direction::L, dir)) pos -= 1;         // 左側
+        if (CheckSide(Direction::R, dir)) pos += 1;         // 右側
 
         // 値を削除
         list.erase(list.begin() + pos);
