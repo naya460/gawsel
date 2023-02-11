@@ -16,7 +16,7 @@ bool MinesweeperCUI::Input() noexcept{
                 break;
             // 下
             case 's': case 'j':
-                cur_row = std::min(system.GetRowNumber() - 1, cur_row + 1);
+                cur_row = std::min(system.GetColumnNumber() - 1, cur_row + 1);
                 break;
             // 左
             case 'a': case 'h':
@@ -24,7 +24,7 @@ bool MinesweeperCUI::Input() noexcept{
                 break;
             // 右
             case 'd': case 'l':
-                cur_column = std::min(system.GetColumnNumber() - 1, cur_column + 1);
+                cur_column = std::min(system.GetRowNumber() - 1, cur_column + 1);
                 break;
             // 開ける
             case 'e': case 'o':
