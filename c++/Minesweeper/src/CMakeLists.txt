@@ -1,5 +1,5 @@
 # MinesweeperSys
-add_library(MinesweeperSys STATIC MinesweeperSys.cpp)
+add_library(MinesweeperSys STATIC MinesweeperSys.cpp MinesweeperCell.cpp)
 
 target_include_directories(MinesweeperSys PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
