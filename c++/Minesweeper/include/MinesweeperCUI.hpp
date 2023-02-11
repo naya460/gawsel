@@ -27,4 +27,8 @@ public:
     // セルを開ける
     bool Open(std::uint16_t position) noexcept override;
     bool Open(std::uint8_t row, std::uint8_t column) noexcept override;
+
+    // 旗を切り替える
+    void ToggleFlag(std::uint16_t position) noexcept override;
+    void ToggleFlag(std::uint8_t row, std::uint8_t column) noexcept override;
 };

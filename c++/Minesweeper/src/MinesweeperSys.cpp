@@ -6,6 +6,7 @@
 // === MinesweeperCell ===
 void MinesweeperCell::Reset(CellData data){
     open = false;
+    flag = false;
     this->data = data;
 }
 
@@ -203,7 +204,7 @@ MinesweeperCell MinesweeperSys::GetCell(std::uint16_t pos) noexcept{
 }
 
 MinesweeperCell MinesweeperSys::GetCell(std::uint8_t row, std::uint8_t column) noexcept{
-    return GetCell(column * column_num + row);
+    return GetCell(row * row_num + column);
 }
 
 bool MinesweeperSys::Open(std::uint16_t pos){
@@ -216,8 +217,10 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     // 空いているとき、falseを返す
     if (board[pos].IsOpen()) return false;
 
-    // 押した場所を開ける
-    board[pos].Open();
+    // 旗でないとき、押した場所を開ける
+    if (board[pos].IsFlagged() == false) {
+        board[pos].Open();
+    }
 
     // 爆弾のとき、trueを返す
     if (board[pos].GetData() == CellData::Mine) return true;
@@ -242,4 +245,18 @@ bool MinesweeperSys::Open(std::uint8_t row, std::uint8_t column){
     if (row >= row_num) throw(false);
     if (column >= column_num) throw(false);
     return Open(row * row_num + column);
+}
+
+void MinesweeperSys::ToggleFlag(std::uint16_t pos){
+    // 存在するか確認
+    if (pos >= row_num * column_num) throw(false);
+    // 旗を反転
+    board[pos].ToggleFlag();
+}
+
+void MinesweeperSys::ToggleFlag(std::uint8_t row, std::uint8_t column){
+    // 存在するか確認
+    if (row >= row_num || column >= column_num) throw(false);
+    // 旗を反転
+    ToggleFlag(row * row_num + column);
 }

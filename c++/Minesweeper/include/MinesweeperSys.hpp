@@ -92,4 +92,8 @@ public:
     // 開ける（爆弾のときtrueを返却。存在しない場所はfalseの例外を投げる）
     bool Open(std::uint16_t pos);
     bool Open(std::uint8_t row, std::uint8_t column);
+
+    // 旗を切り換える（存在しない場所はfalseの例外を投げる）
+    void ToggleFlag(std::uint16_t pos);
+    void ToggleFlag(std::uint8_t row, std::uint8_t column);
 };

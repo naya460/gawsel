@@ -28,7 +28,11 @@ void MinesweeperCUI::Input() noexcept{
             // 開ける
             case 'e': case 'o':
                 Open(cur_row, cur_column);
-                break;                
+                break;
+            // 旗を立てる
+            case 'f': case 'i':
+                ToggleFlag(cur_row, cur_column);
+                break;
         }
     }
 }
@@ -70,7 +74,12 @@ void MinesweeperCUI::Display() noexcept{
         }
         // 空いていないとき
         if (system.GetCell(i).IsOpen() == false) {
-            std::cout << "Q";
+            // 旗が立っているとき
+            if (system.GetCell(i).IsFlagged() == true) {
+                std::cout << "P";
+            } else {
+                std::cout << "Q";
+            }
         }
         // 爆弾のとき
         else if (system.GetCell(i).GetData() == CellData::Mine) {
@@ -102,11 +111,26 @@ bool MinesweeperCUI::Open(std::uint16_t position) noexcept{
 }
 
 bool MinesweeperCUI::Open(std::uint8_t row, std::uint8_t column) noexcept{
-    std::cout << (int)row << " " << (int)column << std::endl;
     try {
         return system.Open(row, column);
     } catch (bool exception) {
         std::cerr << "invalid position" << std::endl;
         exit(1);
+    }
+}
+
+void MinesweeperCUI::ToggleFlag(std::uint16_t position) noexcept{
+    try {
+        system.ToggleFlag(position);
+    } catch (bool exception) {
+        std::cerr << "invalid position" << std::endl;
+    }
+}
+
+void MinesweeperCUI::ToggleFlag(std::uint8_t row, std::uint8_t column) noexcept{
+    try {
+        system.ToggleFlag(row, column);
+    } catch (bool exception) {
+        std::cerr << "invalid position" << std::endl;
     }
 }
