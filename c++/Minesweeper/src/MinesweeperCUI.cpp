@@ -103,7 +103,7 @@ void MinesweeperCUI::Display() noexcept{
     // 上側の矢印を表示
     std::cout << "  ";
     for (int i = 0; i < cur_column; ++i) {
-        std::cout << "   ";
+        std::cout << "  ";
     }
     std::cout << "v" << std::endl;
     
@@ -119,8 +119,10 @@ void MinesweeperCUI::Display() noexcept{
         }
         // 空いていないとき
         if (system.GetCell(i).IsOpen() == false) {
+            std::cout << "\e[46m";
             // 旗が立っているとき
             if (system.GetCell(i).IsFlagged() == true) {
+                std::cout << "\e[45m";
                 std::cout << "P";
             } else {
                 std::cout << "Q";
@@ -128,6 +130,7 @@ void MinesweeperCUI::Display() noexcept{
         }
         // 爆弾のとき
         else if (system.GetCell(i).GetData() == CellData::Mine) {
+            std::cout << "\e[41m";
             std::cout << "x";
         }
         // 空白のとき
@@ -139,7 +142,8 @@ void MinesweeperCUI::Display() noexcept{
             std::cout << static_cast<int>(system.GetCell(i).GetData());
         }
         // 区切り
-        std::cout << "  ";
+        std::cout << "\e[0m";
+        std::cout << " ";
         if ((i + 1) % system.GetRowNumber() == 0) {
             std::cout << std::endl;
         }
