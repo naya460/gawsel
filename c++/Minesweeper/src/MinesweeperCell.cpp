@@ -14,8 +14,11 @@ bool MinesweeperCell::IsOpen(){
     return open;
 }
 
-void MinesweeperCell::Open(){
-    open = true;
+bool MinesweeperCell::Open(){
+    if (flag == true) {
+        return false;
+    }
+    return open = true;
 }
 
 void MinesweeperCell::ToggleFlag(){

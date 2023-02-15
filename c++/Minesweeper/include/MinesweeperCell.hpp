@@ -30,8 +30,9 @@ public:
     // 番号や爆弾を返す
     CellData GetData();
 
-    // 開ける
-    void Open();
+    // 開ける (旗が立っているときは開けない)
+    // 開けたときtrue、開けなかったときfalseを返す
+    bool Open();
 
     // 空いているか確認
     bool IsOpen();

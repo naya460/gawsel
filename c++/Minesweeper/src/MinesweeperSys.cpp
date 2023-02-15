@@ -201,10 +201,8 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     // 空いているとき、falseを返す
     if (board[pos].IsOpen()) return false;
 
-    // 旗でないとき、押した場所を開ける
-    if (board[pos].IsFlagged() == false) {
-        board[pos].Open();
-    } else {
+    // 押した場所を開ける (旗のとき関数を抜ける)
+    if (!board[pos].Open()) {
         return false;
     }
 
