@@ -3,50 +3,49 @@
 #include <algorithm>
 #include <random>
 
-bool MinesweeperSys::CheckSide(Direction side, Direction dir) noexcept{
-    // 上側
-    if (side == Direction::U) {
-        if (dir == Direction::UL || dir == Direction::U || dir == Direction::UR) {
-            return true;
-        }
-    }
-    // 下側
-    if (side == Direction::B) {
-        if (dir == Direction::BL || dir == Direction::B || dir == Direction::BR) {
-            return true;
-        }
-    }
-    // 左側
-    if (side == Direction::L) {
-        if (dir == Direction::UL || dir == Direction::L || dir == Direction::BL) {
-            return true;
-        }
-    }
-    // 右側
-    if (side == Direction::R) {
-        if (dir == Direction::UR || dir == Direction::R || dir == Direction::BR) {
-            return true;
-        }
-    }
-    return false;
+// === Direction ==
+
+Direction::Direction(std::int8_t horizontal, std::int8_t vertical){
+    SetDirection(horizontal, vertical);
 }
+
+void Direction::SetDirection(std::int8_t horizontal, std::int8_t vertical){
+    // horizontal
+    this->horizontal = horizontal;
+    if (horizontal < 0) horizontal = -1;
+    if (horizontal > 0) horizontal = 1;
+    // vertical
+    this->vertical = vertical;
+    if (vertical < 0) vertical = -1;
+    if (vertical > 0) vertical = 1;
+}
+
+std::int8_t Direction::GetHorizontal(){
+    return horizontal;
+}
+
+std::int8_t Direction::GetVertical(){
+    return vertical;
+}
+
+// === MinesweeperSys ===
 
 bool MinesweeperSys::CheckDirection(Direction dir, std::uint16_t pos) noexcept{
     bool ok = true; // 存在するか保存する変数
     // 上側
-    if (CheckSide(Direction::U, dir)) {
+    if (dir.GetVertical() > 0) {
         if (pos < column_num) ok = false;
     }
     // 下側
-    if (CheckSide(Direction::B, dir)) {
+    if (dir.GetVertical() < 0) {
         if (pos >= column_num * (row_num - 1)) ok = false;
     }
     // 左側
-    if (CheckSide(Direction::L, dir)) {
+    if (dir.GetHorizontal() < 0) {
         if (pos % column_num == 0) ok = false;
     }
     // 右側
-    if (CheckSide(Direction::R, dir)) {
+    if (dir.GetHorizontal() > 0) {
         if ((pos + 1) % column_num == 0) ok = false;
     }
     // 返却
@@ -58,10 +57,10 @@ void MinesweeperSys::AddDirectionNum(Direction dir, std::uint16_t pos) noexcept{
     if (!CheckDirection(dir, pos)) return;
     
     // その方向の場所を計算
-    if (CheckSide(Direction::U, dir)) pos -= column_num;    // 上側
-    if (CheckSide(Direction::B, dir)) pos += column_num;    // 下側
-    if (CheckSide(Direction::L, dir)) pos -= 1;             // 左側
-    if (CheckSide(Direction::R, dir)) pos += 1;             // 右側
+    if (dir.GetVertical() > 0) pos -= column_num;    // 上側
+    if (dir.GetVertical() < 0) pos += column_num;    // 下側
+    if (dir.GetHorizontal() < 0) pos -= 1;           // 左側
+    if (dir.GetHorizontal() > 0) pos += 1;           // 右側
 
     // 爆弾のとき何もしない
     if (board[pos].GetData() == CellData::Mine) return;
@@ -74,14 +73,14 @@ void MinesweeperSys::AddDirectionNum(Direction dir, std::uint16_t pos) noexcept{
 }
 
 void MinesweeperSys::AddCellNum(std::uint16_t pos) noexcept{
-    AddDirectionNum(Direction::UL, pos);    // 左上
-    AddDirectionNum(Direction::U,  pos);    // 上
-    AddDirectionNum(Direction::UR, pos);    // 右上
-    AddDirectionNum(Direction::L,  pos);    // 左
-    AddDirectionNum(Direction::R,  pos);    // 右
-    AddDirectionNum(Direction::BL, pos);    // 左下
-    AddDirectionNum(Direction::B,  pos);    // 下
-    AddDirectionNum(Direction::BR, pos);    // 右下
+    AddDirectionNum(Direction(-1,  1), pos);    // 左上
+    AddDirectionNum(Direction( 0,  1), pos);    // 上
+    AddDirectionNum(Direction( 1,  1), pos);    // 右上
+    AddDirectionNum(Direction(-1,  0), pos);    // 左
+    AddDirectionNum(Direction( 1,  0), pos);    // 右
+    AddDirectionNum(Direction(-1, -1), pos);    // 左下
+    AddDirectionNum(Direction( 0, -1), pos);    // 下
+    AddDirectionNum(Direction( 1, -1), pos);    // 右下
 }
 
 void MinesweeperSys::Random(std::uint16_t pos) noexcept{
@@ -108,23 +107,22 @@ void MinesweeperSys::Random(std::uint16_t pos) noexcept{
         if (!CheckDirection(dir, pos)) return;
         
         // その方向の場所を計算
-        if (CheckSide(Direction::U, dir)) pos -= column_num;    // 上側
-        if (CheckSide(Direction::B, dir)) pos += column_num;    // 下側
-        if (CheckSide(Direction::L, dir)) pos -= 1;             // 左側
-        if (CheckSide(Direction::R, dir)) pos += 1;             // 右側
+        if (dir.GetVertical() > 0) pos -= column_num;    // 上側
+        if (dir.GetVertical() < 0) pos += column_num;    // 下側
+        if (dir.GetHorizontal() < 0) pos -= 1;           // 左側
+        if (dir.GetHorizontal() > 0) pos += 1;           // 右側
 
         // 値を削除
         list.erase(list.begin() + pos);
     };
-    EraseListPos(Direction::BR, pos);   // 右下
-    EraseListPos(Direction::B,  pos);   // 下
-    EraseListPos(Direction::BL, pos);   // 左下
-    EraseListPos(Direction::R,  pos);   // 右
-    EraseListPos(Direction::C,  pos);   // 中央
-    EraseListPos(Direction::L,  pos);   // 左
-    EraseListPos(Direction::UR, pos);   // 右上
-    EraseListPos(Direction::U,  pos);   // 上
-    EraseListPos(Direction::UL, pos);   // 左上
+    EraseListPos(Direction( 1, -1), pos);    // 右下
+    EraseListPos(Direction( 0, -1), pos);    // 下
+    EraseListPos(Direction(-1, -1), pos);    // 左下
+    EraseListPos(Direction( 1,  0), pos);    // 右
+    EraseListPos(Direction(-1,  0), pos);    // 左
+    EraseListPos(Direction( 1,  1), pos);    // 右上
+    EraseListPos(Direction( 0,  1), pos);    // 上
+    EraseListPos(Direction(-1,  1), pos);    // 左上
 
     // ランダムに爆弾を設置
     for (std::uint16_t i = 0; i < mine; ++i) {
@@ -213,14 +211,14 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     if (board[pos].GetData() != CellData::_0) return false;
 
     // 周りを開ける
-    if (CheckDirection(Direction::UL, pos)) Open(pos - column_num - 1);
-    if (CheckDirection(Direction::U,  pos)) Open(pos - column_num);
-    if (CheckDirection(Direction::UR, pos)) Open(pos - column_num + 1);
-    if (CheckDirection(Direction::L,  pos)) Open(pos - 1);
-    if (CheckDirection(Direction::R,  pos)) Open(pos + 1);
-    if (CheckDirection(Direction::BL, pos)) Open(pos + column_num - 1);
-    if (CheckDirection(Direction::B,  pos)) Open(pos + column_num);
-    if (CheckDirection(Direction::BR, pos)) Open(pos + column_num + 1);
+    if (CheckDirection(Direction(-1,  1), pos)) Open(pos - column_num - 1);
+    if (CheckDirection(Direction( 0,  1), pos)) Open(pos - column_num);
+    if (CheckDirection(Direction( 1,  1), pos)) Open(pos - column_num + 1);
+    if (CheckDirection(Direction(-1,  0), pos)) Open(pos - 1);
+    if (CheckDirection(Direction( 1,  0), pos)) Open(pos + 1);
+    if (CheckDirection(Direction(-1, -1), pos)) Open(pos + column_num - 1);
+    if (CheckDirection(Direction( 0, -1), pos)) Open(pos + column_num);
+    if (CheckDirection(Direction( 1, -1), pos)) Open(pos + column_num + 1);
 
     return false;
 }
