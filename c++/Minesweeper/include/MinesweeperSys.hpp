@@ -5,6 +5,30 @@
 
 #include "MinesweeperCell.hpp"
 
+class Direction {
+private:
+    std::int8_t horizontal;
+    std::int8_t vertical;
+public:
+    // デフォルトコンストラクタ
+    Direction() = default;
+    // コンストラクタ (引数はSetDirectionと同じ)
+    Direction(std::int8_t horizontal, std::int8_t vertical);
+
+    // 位置を変更
+    // horizontal : 負:左  0:中央  正:右
+    // vertical   : 負:下  0:中央  正:上
+    void SetDirection(std::int8_t horizontal, std::int8_t vertical);
+
+    // 水平方向の向きを取得
+    // 左:-1  中央:0  右:1
+    std::int8_t GetHorizontal();
+
+    // 垂直方向の向きを取得
+    // 下:-1  中央:0  上:1
+    std::int8_t GetVertical();
+};
+
 class MinesweeperSys {
 private:
     // 盤面の行数と列数
@@ -18,9 +42,6 @@ private:
 
     // 盤面
     std::vector<MinesweeperCell> board;
-
-    // 特定の辺か調べる（対応するsideは、U,B,L,Rのみ。他は必ずfalse）
-    bool CheckSide(Direction side, Direction dir) noexcept;
 
     // その方向が存在するか調べる
     bool CheckDirection(Direction dir, std::uint16_t pos) noexcept;
