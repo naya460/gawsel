@@ -35,19 +35,19 @@ bool MinesweeperSys::CheckDirection(Direction dir, std::uint16_t pos) noexcept{
     bool ok = true; // 存在するか保存する変数
     // 上側
     if (CheckSide(Direction::U, dir)) {
-        if (pos < row_num) ok = false;
+        if (pos < column_num) ok = false;
     }
     // 下側
     if (CheckSide(Direction::B, dir)) {
-        if (pos >= row_num * (column_num - 1)) ok = false;
+        if (pos >= column_num * (row_num - 1)) ok = false;
     }
     // 左側
     if (CheckSide(Direction::L, dir)) {
-        if (pos % row_num == 0) ok = false;
+        if (pos % column_num == 0) ok = false;
     }
     // 右側
     if (CheckSide(Direction::R, dir)) {
-        if ((pos + 1) % row_num == 0) ok = false;
+        if ((pos + 1) % column_num == 0) ok = false;
     }
     // 返却
     return ok;
@@ -58,10 +58,10 @@ void MinesweeperSys::AddDirectionNum(Direction dir, std::uint16_t pos) noexcept{
     if (!CheckDirection(dir, pos)) return;
     
     // その方向の場所を計算
-    if (CheckSide(Direction::U, dir)) pos -= row_num;   // 上側
-    if (CheckSide(Direction::B, dir)) pos += row_num;   // 下側
-    if (CheckSide(Direction::L, dir)) pos -= 1;         // 左側
-    if (CheckSide(Direction::R, dir)) pos += 1;         // 右側
+    if (CheckSide(Direction::U, dir)) pos -= column_num;    // 上側
+    if (CheckSide(Direction::B, dir)) pos += column_num;    // 下側
+    if (CheckSide(Direction::L, dir)) pos -= 1;             // 左側
+    if (CheckSide(Direction::R, dir)) pos += 1;             // 右側
 
     // 爆弾のとき何もしない
     if (board[pos].GetData() == CellData::Mine) return;
@@ -108,10 +108,10 @@ void MinesweeperSys::Random(std::uint16_t pos) noexcept{
         if (!CheckDirection(dir, pos)) return;
         
         // その方向の場所を計算
-        if (CheckSide(Direction::U, dir)) pos -= row_num;   // 上側
-        if (CheckSide(Direction::B, dir)) pos += row_num;   // 下側
-        if (CheckSide(Direction::L, dir)) pos -= 1;         // 左側
-        if (CheckSide(Direction::R, dir)) pos += 1;         // 右側
+        if (CheckSide(Direction::U, dir)) pos -= column_num;    // 上側
+        if (CheckSide(Direction::B, dir)) pos += column_num;    // 下側
+        if (CheckSide(Direction::L, dir)) pos -= 1;             // 左側
+        if (CheckSide(Direction::R, dir)) pos += 1;             // 右側
 
         // 値を削除
         list.erase(list.begin() + pos);
@@ -188,7 +188,7 @@ MinesweeperCell MinesweeperSys::GetCell(std::uint16_t pos) noexcept{
 }
 
 MinesweeperCell MinesweeperSys::GetCell(std::uint8_t row, std::uint8_t column) noexcept{
-    return GetCell(row * row_num + column);
+    return GetCell(row * column_num + column);
 }
 
 bool MinesweeperSys::Open(std::uint16_t pos){
@@ -215,14 +215,14 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     if (board[pos].GetData() != CellData::_0) return false;
 
     // 周りを開ける
-    if (CheckDirection(Direction::UL, pos)) Open(pos - row_num - 1);
-    if (CheckDirection(Direction::U,  pos)) Open(pos - row_num);
-    if (CheckDirection(Direction::UR, pos)) Open(pos - row_num + 1);
+    if (CheckDirection(Direction::UL, pos)) Open(pos - column_num - 1);
+    if (CheckDirection(Direction::U,  pos)) Open(pos - column_num);
+    if (CheckDirection(Direction::UR, pos)) Open(pos - column_num + 1);
     if (CheckDirection(Direction::L,  pos)) Open(pos - 1);
     if (CheckDirection(Direction::R,  pos)) Open(pos + 1);
-    if (CheckDirection(Direction::BL, pos)) Open(pos + row_num - 1);
-    if (CheckDirection(Direction::B,  pos)) Open(pos + row_num);
-    if (CheckDirection(Direction::BR, pos)) Open(pos + row_num + 1);
+    if (CheckDirection(Direction::BL, pos)) Open(pos + column_num - 1);
+    if (CheckDirection(Direction::B,  pos)) Open(pos + column_num);
+    if (CheckDirection(Direction::BR, pos)) Open(pos + column_num + 1);
 
     return false;
 }
@@ -230,7 +230,7 @@ bool MinesweeperSys::Open(std::uint16_t pos){
 bool MinesweeperSys::Open(std::uint8_t row, std::uint8_t column){
     if (row >= row_num) throw(false);
     if (column >= column_num) throw(false);
-    return Open(row * row_num + column);
+    return Open(row * column_num + column);
 }
 
 void MinesweeperSys::ToggleFlag(std::uint16_t pos){
@@ -244,7 +244,7 @@ void MinesweeperSys::ToggleFlag(std::uint8_t row, std::uint8_t column){
     // 存在するか確認
     if (row >= row_num || column >= column_num) throw(false);
     // 旗を反転
-    ToggleFlag(row * row_num + column);
+    ToggleFlag(row * column_num + column);
 }
 
 std::uint16_t MinesweeperSys::GetRemainingMines() noexcept{
