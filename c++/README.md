@@ -3,6 +3,7 @@
 
 # ゲーム一覧
 - LightsOut
+- Minesweeper
 
 # 実行方法
 各ディレクトリのREADME.mdを見てください。
