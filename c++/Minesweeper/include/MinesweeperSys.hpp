@@ -45,6 +45,9 @@ private:
 
     // その方向が存在するか調べる
     bool CheckDirection(Direction dir, std::uint16_t pos) noexcept;
+    
+    // 特定の方向の座標を計算
+    std::uint16_t CalcDirectionPos(Direction dir, std::uint16_t pos) noexcept;
 
     // 特定の方向の数字を加算
     void AddDirectionNum(Direction dir, std::uint16_t pos) noexcept;
