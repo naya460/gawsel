@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <random>
 
-// === Direction ==
+// === Direction ===
 
 Direction::Direction(std::int8_t horizontal, std::int8_t vertical){
     SetDirection(horizontal, vertical);
@@ -52,15 +52,20 @@ bool MinesweeperSys::CheckDirection(Direction dir, std::uint16_t pos) noexcept{
     return ok;
 }
 
+std::uint16_t MinesweeperSys::CalcDirectionPos(Direction dir, std::uint16_t pos) noexcept{
+    if (dir.GetVertical() > 0) pos -= column_num;    // 上側
+    if (dir.GetVertical() < 0) pos += column_num;    // 下側
+    if (dir.GetHorizontal() < 0) pos -= 1;           // 左側
+    if (dir.GetHorizontal() > 0) pos += 1;           // 右側
+    return pos;
+}
+
 void MinesweeperSys::AddDirectionNum(Direction dir, std::uint16_t pos) noexcept{
     // セルが存在しないとき何もしない
     if (!CheckDirection(dir, pos)) return;
     
     // その方向の場所を計算
-    if (dir.GetVertical() > 0) pos -= column_num;    // 上側
-    if (dir.GetVertical() < 0) pos += column_num;    // 下側
-    if (dir.GetHorizontal() < 0) pos -= 1;           // 左側
-    if (dir.GetHorizontal() > 0) pos += 1;           // 右側
+    pos = CalcDirectionPos(dir, pos);
 
     // 爆弾のとき何もしない
     if (board[pos].GetData() == CellData::Mine) return;
@@ -107,10 +112,7 @@ void MinesweeperSys::Random(std::uint16_t pos) noexcept{
         if (!CheckDirection(dir, pos)) return;
         
         // その方向の場所を計算
-        if (dir.GetVertical() > 0) pos -= column_num;    // 上側
-        if (dir.GetVertical() < 0) pos += column_num;    // 下側
-        if (dir.GetHorizontal() < 0) pos -= 1;           // 左側
-        if (dir.GetHorizontal() > 0) pos += 1;           // 右側
+        pos = CalcDirectionPos(dir, pos);
 
         // 値を削除
         list.erase(list.begin() + pos);
