@@ -116,6 +116,7 @@ void MinesweeperSys::Random(std::uint16_t pos) noexcept{
     EraseListPos(Direction( 0, -1), pos);    // 下
     EraseListPos(Direction(-1, -1), pos);    // 左下
     EraseListPos(Direction( 1,  0), pos);    // 右
+    EraseListPos(Direction( 0,  0), pos);    // 中央
     EraseListPos(Direction(-1,  0), pos);    // 左
     EraseListPos(Direction( 1,  1), pos);    // 右上
     EraseListPos(Direction( 0,  1), pos);    // 上
