@@ -23,6 +23,9 @@ public:
     // 番号や爆弾を設定
     void SetData(CellData data);
 
+    // 数字を1つ増やす (爆弾のときは無視)
+    void AddCellNum();
+
     // 番号や爆弾を返す
     CellData GetData();
 

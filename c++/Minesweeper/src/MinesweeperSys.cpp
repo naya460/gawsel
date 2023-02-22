@@ -69,14 +69,8 @@ void MinesweeperSys::AddCellNum(std::uint16_t pos) noexcept{
         // その方向の場所を計算
         pos = CalcDirectionPos(dir, pos);
 
-        // 爆弾のとき何もしない
-        if (board[pos].GetData() == CellData::Mine) return;
-
-        // 数字を取得
-        int num = static_cast<int>(board[pos].GetData());
-
-        // 加算して代入
-        board[pos].SetData(static_cast<CellData>(++num));
+        // セルの値を加算
+        board[pos].AddCellNum();
     };
     // 全ての方向に対して実行
     AddDirectionNum(Direction(-1,  1), pos);    // 左上
