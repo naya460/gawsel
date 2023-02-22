@@ -70,17 +70,25 @@ public:
     // 盤面を初期化
     void Reset() noexcept;
 
-    // セルを取得
-    MinesweeperCell GetCell(std::uint16_t pos) noexcept;
-    MinesweeperCell GetCell(std::uint8_t row, std::uint8_t column) noexcept;
+    // セルの爆弾や数字を取得
+    CellData GetCellData(std::uint16_t pos) noexcept;
+    CellData GetCellData(std::uint8_t row, std::uint8_t column) noexcept;
 
     // 開ける（爆弾のときtrueを返却。存在しない場所はfalseの例外を投げる）
     bool Open(std::uint16_t pos);
     bool Open(std::uint8_t row, std::uint8_t column);
 
+    // 開いているか確認
+    bool IsOpen(std::uint16_t pos) noexcept;
+    bool IsOpen(std::uint8_t row, std::uint8_t column) noexcept;
+
     // 旗を切り換える（存在しない場所はfalseの例外を投げる）
     void ToggleFlag(std::uint16_t pos);
     void ToggleFlag(std::uint8_t row, std::uint8_t column);
+
+    // 旗が立っているか確認
+    bool IsFlagged(std::uint16_t pos) noexcept;
+    bool IsFlagged(std::uint8_t row, std::uint8_t column) noexcept;
 
     // 爆弾の残り数を取得
     std::uint16_t GetRemainingMines() noexcept;
