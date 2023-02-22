@@ -209,14 +209,24 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     if (board[pos].GetData() != CellData::_0) return false;
 
     // 周りを開ける
-    if (CheckDirection(Direction(-1,  1), pos)) Open(pos - column_num - 1);
-    if (CheckDirection(Direction( 0,  1), pos)) Open(pos - column_num);
-    if (CheckDirection(Direction( 1,  1), pos)) Open(pos - column_num + 1);
-    if (CheckDirection(Direction(-1,  0), pos)) Open(pos - 1);
-    if (CheckDirection(Direction( 1,  0), pos)) Open(pos + 1);
-    if (CheckDirection(Direction(-1, -1), pos)) Open(pos + column_num - 1);
-    if (CheckDirection(Direction( 0, -1), pos)) Open(pos + column_num);
-    if (CheckDirection(Direction( 1, -1), pos)) Open(pos + column_num + 1);
+    auto OpenDirection = [&](Direction dir, std::uint16_t pos) -> void {
+        // セルが存在しないとき何もしない
+        if (!CheckDirection(dir, pos)) return;
+
+        // その方向の場所を計算
+        pos = CalcDirectionPos(dir, pos);
+
+        // 開ける
+        Open(pos);
+    };
+   OpenDirection(Direction(-1,  1), pos);   // 左上
+   OpenDirection(Direction( 0,  1), pos);   // 上
+   OpenDirection(Direction( 1,  1), pos);   // 右上
+   OpenDirection(Direction(-1,  0), pos);   // 左
+   OpenDirection(Direction( 1,  0), pos);   // 右
+   OpenDirection(Direction(-1, -1), pos);   // 左下
+   OpenDirection(Direction( 0, -1), pos);   // 下
+   OpenDirection(Direction( 1, -1), pos);   // 右下
 
     return false;
 }
