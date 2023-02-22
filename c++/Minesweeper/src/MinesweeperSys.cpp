@@ -76,7 +76,7 @@ void MinesweeperSys::AddCellNum(std::uint16_t pos) noexcept{
         int num = static_cast<int>(board[pos].GetData());
 
         // 加算して代入
-        board[pos].Reset(static_cast<CellData>(++num));
+        board[pos].SetData(static_cast<CellData>(++num));
     };
     // 全ての方向に対して実行
     AddDirectionNum(Direction(-1,  1), pos);    // 左上
@@ -134,7 +134,7 @@ void MinesweeperSys::Random(std::uint16_t pos) noexcept{
         std::uint16_t pos = dist(engine);
 
         // 爆弾を挿入
-        board[list[pos]].Reset(CellData::Mine);
+        board[list[pos]].SetData(CellData::Mine);
         
         // 数字を増やす
         AddCellNum(list[pos]);
@@ -179,7 +179,7 @@ std::uint16_t MinesweeperSys::GetSize() noexcept{
 
 void MinesweeperSys::Reset() noexcept{
     for (std::uint16_t i = 0; i < GetSize(); ++i) {
-        board[i].Reset(CellData::_0);
+        board[i].Reset();
     }
     started = false;
 }
