@@ -17,8 +17,11 @@ public:
     // コンストラクタ
     MinesweeperCell() = default;
 
-    // セルの初期化
-    void Reset(CellData data);
+    // セルの初期化 (セルを閉じる & 値を0にする & 旗を解除)
+    void Reset();
+
+    // 番号や爆弾を設定
+    void SetData(CellData data);
 
     // 番号や爆弾を返す
     CellData GetData();

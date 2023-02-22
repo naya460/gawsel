@@ -1,9 +1,13 @@
 #include "MinesweeperCell.hpp"
 
-void MinesweeperCell::Reset(CellData data){
+void MinesweeperCell::Reset(){
     open = false;
-    this->data = data;
+    this->data = CellData::_0;
     flag = false;
+}
+
+void MinesweeperCell::SetData(CellData data){
+    this->data = data;
 }
 
 CellData MinesweeperCell::GetData(){
