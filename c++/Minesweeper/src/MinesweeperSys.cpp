@@ -60,24 +60,25 @@ std::uint16_t MinesweeperSys::CalcDirectionPos(Direction dir, std::uint16_t pos)
     return pos;
 }
 
-void MinesweeperSys::AddDirectionNum(Direction dir, std::uint16_t pos) noexcept{
-    // セルが存在しないとき何もしない
-    if (!CheckDirection(dir, pos)) return;
-    
-    // その方向の場所を計算
-    pos = CalcDirectionPos(dir, pos);
-
-    // 爆弾のとき何もしない
-    if (board[pos].GetData() == CellData::Mine) return;
-
-    // 数字を取得
-    int num = static_cast<int>(board[pos].GetData());
-
-    // 加算して代入
-    board[pos].Reset(static_cast<CellData>(++num));
-}
-
 void MinesweeperSys::AddCellNum(std::uint16_t pos) noexcept{
+    // 特定の方向の数字を加算
+    auto AddDirectionNum = [&](Direction dir, std::uint16_t pos) -> void {
+            // セルが存在しないとき何もしない
+        if (!CheckDirection(dir, pos)) return;
+        
+        // その方向の場所を計算
+        pos = CalcDirectionPos(dir, pos);
+
+        // 爆弾のとき何もしない
+        if (board[pos].GetData() == CellData::Mine) return;
+
+        // 数字を取得
+        int num = static_cast<int>(board[pos].GetData());
+
+        // 加算して代入
+        board[pos].Reset(static_cast<CellData>(++num));
+    };
+    // 全ての方向に対して実行
     AddDirectionNum(Direction(-1,  1), pos);    // 左上
     AddDirectionNum(Direction( 0,  1), pos);    // 上
     AddDirectionNum(Direction( 1,  1), pos);    // 右上

@@ -49,9 +49,6 @@ private:
     // 特定の方向の座標を計算
     std::uint16_t CalcDirectionPos(Direction dir, std::uint16_t pos) noexcept;
 
-    // 特定の方向の数字を加算
-    void AddDirectionNum(Direction dir, std::uint16_t pos) noexcept;
-
     // 周りの数字を加算
     void AddCellNum(std::uint16_t pos) noexcept;
 
