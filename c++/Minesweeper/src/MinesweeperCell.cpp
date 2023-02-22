@@ -1,5 +1,7 @@
 #include "MinesweeperCell.hpp"
 
+#include <cstdint>
+
 void MinesweeperCell::Reset(){
     open = false;
     this->data = CellData::_0;
@@ -8,6 +10,14 @@ void MinesweeperCell::Reset(){
 
 void MinesweeperCell::SetData(CellData data){
     this->data = data;
+}
+
+void MinesweeperCell::AddCellNum(){
+    if (data == CellData::Mine) {
+        return;
+    }
+    std::uint8_t num = static_cast<std::uint8_t>(data);
+    data = static_cast<CellData>(++num);
 }
 
 CellData MinesweeperCell::GetData(){
