@@ -30,6 +30,10 @@ std::int8_t Direction::GetVertical(){
 
 // === MinesweeperSys ===
 
+std::uint16_t MinesweeperSys::PosFrom(std::uint8_t row, std::uint8_t column) noexcept{
+    return row * column_num + column;
+}
+
 bool MinesweeperSys::CheckDirection(Direction dir, std::uint16_t pos) noexcept{
     bool ok = true; // 存在するか保存する変数
     // 上側
@@ -184,7 +188,7 @@ CellData MinesweeperSys::GetCellData(std::uint16_t pos) noexcept{
 }
 
 CellData MinesweeperSys::GetCellData(std::uint8_t row, std::uint8_t column) noexcept{
-    return GetCellData(row * column_num + column);
+    return GetCellData(PosFrom(row, column));
 }
 
 bool MinesweeperSys::Open(std::uint16_t pos){
@@ -234,7 +238,7 @@ bool MinesweeperSys::Open(std::uint16_t pos){
 bool MinesweeperSys::Open(std::uint8_t row, std::uint8_t column){
     if (row >= row_num) throw(false);
     if (column >= column_num) throw(false);
-    return Open(row * column_num + column);
+    return Open(PosFrom(row, column));
 }
 
 bool MinesweeperSys::IsOpen(std::uint16_t pos) noexcept{
@@ -242,12 +246,12 @@ bool MinesweeperSys::IsOpen(std::uint16_t pos) noexcept{
 }
 
 bool MinesweeperSys::IsOpen(std::uint8_t row, std::uint8_t column) noexcept{
-    return IsOpen(row * column_num + column);
+    return IsOpen(PosFrom(row, column));
 }
 
 void MinesweeperSys::ToggleFlag(std::uint16_t pos){
     // 存在するか確認
-    if (pos >= row_num * column_num) throw(false);
+    if (pos >= GetSize()) throw(false);
     // 旗を反転
     board[pos].ToggleFlag();
 }
@@ -256,7 +260,7 @@ void MinesweeperSys::ToggleFlag(std::uint8_t row, std::uint8_t column){
     // 存在するか確認
     if (row >= row_num || column >= column_num) throw(false);
     // 旗を反転
-    ToggleFlag(row * column_num + column);
+    ToggleFlag(PosFrom(row, column));
 }
 
 bool MinesweeperSys::IsFlagged(std::uint16_t pos) noexcept{
@@ -264,7 +268,7 @@ bool MinesweeperSys::IsFlagged(std::uint16_t pos) noexcept{
 }
 
 bool MinesweeperSys::IsFlagged(std::uint8_t row, std::uint8_t column) noexcept{
-    return IsFlagged(row * column_num + column);
+    return IsFlagged(PosFrom(row, column));
 }
 
 std::uint16_t MinesweeperSys::GetRemainingMines() noexcept{
