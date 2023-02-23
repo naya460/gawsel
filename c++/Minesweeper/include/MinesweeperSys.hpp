@@ -43,6 +43,9 @@ private:
     // 盤面
     std::vector<MinesweeperCell> board;
 
+    // 座標の変換
+    std::uint16_t PosFrom(std::uint8_t row, std::uint8_t column) noexcept;
+
     // その方向が存在するか調べる
     bool CheckDirection(Direction dir, std::uint16_t pos) noexcept;
     
