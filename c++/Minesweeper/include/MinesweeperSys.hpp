@@ -39,6 +39,8 @@ private:
 
     // 開始しているか
     bool started = false;
+    // 残りの開きマスの数
+    std::uint16_t closing_cells;
 
     // 盤面
     std::vector<MinesweeperCell> board;

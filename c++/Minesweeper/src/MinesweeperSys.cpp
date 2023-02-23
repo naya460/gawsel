@@ -181,6 +181,7 @@ void MinesweeperSys::Reset() noexcept{
         board[i].Reset();
     }
     started = false;
+    closing_cells = GetSize();
 }
 
 CellData MinesweeperSys::GetCellData(std::uint16_t pos) noexcept{
@@ -205,6 +206,9 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     if (!board[pos].Open()) {
         return false;
     }
+
+    // closing_cellsの値を減らす
+    --closing_cells;
 
     // 爆弾のとき、trueを返す
     if (board[pos].GetData() == CellData::Mine) return true;
@@ -284,13 +288,7 @@ std::uint16_t MinesweeperSys::GetRemainingMines() noexcept{
 }
 
 bool MinesweeperSys::IsSuccess() noexcept{
-    std::uint16_t close_count = 0;
-    for (std::uint16_t i = 0; i < row_num * column_num; ++i) {
-        if (board[i].IsOpen() == false) {
-            ++close_count;
-        }
-    }
-    if (close_count == mine) {
+    if (closing_cells == mine) {
         return true;
     }
     return false;
