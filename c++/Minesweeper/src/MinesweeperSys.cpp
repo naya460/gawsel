@@ -196,6 +196,11 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     //存在するか確認
     if (pos >= GetSize()) throw(false);
 
+    // 旗のとき関数を抜ける
+    if (board[pos].IsFlagged()) {
+        return false;
+    }
+
     // 最初に開けたとき、生成
     if (started == false) Random(pos);
     
@@ -203,9 +208,7 @@ bool MinesweeperSys::Open(std::uint16_t pos){
     if (board[pos].IsOpen()) return false;
 
     // 押した場所を開ける (旗のとき関数を抜ける)
-    if (!board[pos].Open()) {
-        return false;
-    }
+    board[pos].Open();
 
     // closing_cellsの値を減らす
     --closing_cells;
@@ -227,14 +230,14 @@ bool MinesweeperSys::Open(std::uint16_t pos){
         // 開ける
         Open(pos);
     };
-   OpenDirection(Direction(-1,  1), pos);   // 左上
-   OpenDirection(Direction( 0,  1), pos);   // 上
-   OpenDirection(Direction( 1,  1), pos);   // 右上
-   OpenDirection(Direction(-1,  0), pos);   // 左
-   OpenDirection(Direction( 1,  0), pos);   // 右
-   OpenDirection(Direction(-1, -1), pos);   // 左下
-   OpenDirection(Direction( 0, -1), pos);   // 下
-   OpenDirection(Direction( 1, -1), pos);   // 右下
+    OpenDirection(Direction(-1,  1), pos);   // 左上
+    OpenDirection(Direction( 0,  1), pos);   // 上
+    OpenDirection(Direction( 1,  1), pos);   // 右上
+    OpenDirection(Direction(-1,  0), pos);   // 左
+    OpenDirection(Direction( 1,  0), pos);   // 右
+    OpenDirection(Direction(-1, -1), pos);   // 左下
+    OpenDirection(Direction( 0, -1), pos);   // 下
+    OpenDirection(Direction( 1, -1), pos);   // 右下
 
     return false;
 }
