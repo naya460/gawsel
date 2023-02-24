@@ -111,6 +111,8 @@ void MinesweeperCUI::Display() noexcept{
     
     // セルを表示
     for (int i = 0; i < system.GetSize(); ++i) {
+        // カーソルの場所かどうか調べる
+        bool is_target = i / system.GetColumnNumber() == cur_row && i % system.GetColumnNumber() == cur_column;
         // 左側の矢印を表示
         if (i % system.GetColumnNumber() == 0) {
             if (i / system.GetColumnNumber() == cur_row) {
@@ -119,14 +121,26 @@ void MinesweeperCUI::Display() noexcept{
                 std::cout << "  ";
             }
         }
+        // カーソルが指定している場所のとき色を変える
+        if (is_target) {
+            std::cout << "\e[32m";
+        }
         // 空いていないとき
         if (system.IsOpen(i) == false) {
-            std::cout << "\e[46m";
             // 旗が立っているとき
             if (system.IsFlagged(i) == true) {
                 std::cout << "\e[45m";
+                // カーソルが指定している場所のとき色を変える
+                if (is_target) {
+                    std::cout << "\e[32m";
+                }
                 std::cout << "P";
             } else {
+                std::cout << "\e[46m";
+                // カーソルが指定している場所のとき色を変える
+                if (is_target) {
+                    std::cout << "\e[42m\e[39m";
+                }
                 std::cout << "Q";
             }
         }
