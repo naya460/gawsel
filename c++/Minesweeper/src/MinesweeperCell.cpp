@@ -1,9 +1,23 @@
 #include "MinesweeperCell.hpp"
 
-void MinesweeperCell::Reset(CellData data){
+#include <cstdint>
+
+void MinesweeperCell::Reset(){
     open = false;
-    this->data = data;
+    this->data = CellData::_0;
     flag = false;
+}
+
+void MinesweeperCell::SetData(CellData data){
+    this->data = data;
+}
+
+void MinesweeperCell::AddCellNum(){
+    if (data == CellData::Mine) {
+        return;
+    }
+    std::uint8_t num = static_cast<std::uint8_t>(data);
+    data = static_cast<CellData>(++num);
 }
 
 CellData MinesweeperCell::GetData(){
@@ -14,8 +28,11 @@ bool MinesweeperCell::IsOpen(){
     return open;
 }
 
-void MinesweeperCell::Open(){
-    open = true;
+bool MinesweeperCell::Open(){
+    if (flag == true) {
+        return false;
+    }
+    return open = true;
 }
 
 void MinesweeperCell::ToggleFlag(){

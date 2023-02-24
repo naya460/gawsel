@@ -8,13 +8,6 @@ enum class CellData {
     _5, _6, _7, _8,
 };
 
-// 方向の一覧
-enum class Direction {
-    UL, U, UR,  // 左上、上、右上
-    L, C, R,    // 左、中央、右
-    BL, B, BR,  // 左下、下、右下
-};
-
 class MinesweeperCell {
 private:
     bool open = false;              // セルが空いているか
@@ -24,14 +17,21 @@ public:
     // コンストラクタ
     MinesweeperCell() = default;
 
-    // セルの初期化
-    void Reset(CellData data);
+    // セルの初期化 (セルを閉じる & 値を0にする & 旗を解除)
+    void Reset();
+
+    // 番号や爆弾を設定
+    void SetData(CellData data);
+
+    // 数字を1つ増やす (爆弾のときは無視)
+    void AddCellNum();
 
     // 番号や爆弾を返す
     CellData GetData();
 
-    // 開ける
-    void Open();
+    // 開ける (旗が立っているときは開けない)
+    // 開けたときtrue、開けなかったときfalseを返す
+    bool Open();
 
     // 空いているか確認
     bool IsOpen();
