@@ -111,6 +111,8 @@ void MinesweeperCUI::Display() noexcept{
     
     // セルを表示
     for (int i = 0; i < system.GetSize(); ++i) {
+        // カーソルの場所かどうか調べる
+        bool is_target = i / system.GetColumnNumber() == cur_row && i % system.GetColumnNumber() == cur_column;
         // 左側の矢印を表示
         if (i % system.GetColumnNumber() == 0) {
             if (i / system.GetColumnNumber() == cur_row) {
@@ -119,29 +121,41 @@ void MinesweeperCUI::Display() noexcept{
                 std::cout << "  ";
             }
         }
+        // カーソルが指定している場所のとき色を変える
+        if (is_target) {
+            std::cout << "\e[32m";
+        }
         // 空いていないとき
-        if (system.GetCell(i).IsOpen() == false) {
-            std::cout << "\e[46m";
+        if (system.IsOpen(i) == false) {
             // 旗が立っているとき
-            if (system.GetCell(i).IsFlagged() == true) {
+            if (system.IsFlagged(i) == true) {
                 std::cout << "\e[45m";
+                // カーソルが指定している場所のとき色を変える
+                if (is_target) {
+                    std::cout << "\e[32m";
+                }
                 std::cout << "P";
             } else {
+                std::cout << "\e[46m";
+                // カーソルが指定している場所のとき色を変える
+                if (is_target) {
+                    std::cout << "\e[42m\e[39m";
+                }
                 std::cout << "Q";
             }
         }
         // 爆弾のとき
-        else if (system.GetCell(i).GetData() == CellData::Mine) {
+        else if (system.GetCellData(i) == CellData::Mine) {
             std::cout << "\e[41m";
             std::cout << "x";
         }
         // 空白のとき
-        else if (system.GetCell(i).GetData() == CellData::_0) {
+        else if (system.GetCellData(i) == CellData::_0) {
             std::cout << "_";
         }
         // 数字のとき
         else {
-            std::cout << static_cast<int>(system.GetCell(i).GetData());
+            std::cout << static_cast<int>(system.GetCellData(i));
         }
         // 区切り
         std::cout << "\e[0m";
