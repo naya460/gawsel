@@ -3,13 +3,22 @@ struct LightsOutSys {
     board: Vec<bool>,   // 盤面
 }
 
+impl LightsOutSys {
+    // 盤面の作成
+    fn create(length: u8) -> LightsOutSys {
+        let board = vec![false; (length * length).into()];
+        let sys = LightsOutSys {
+            length,
+            board,
+        };
+        sys
+    }
+}
+
 fn main() {
-    let mut sys = LightsOutSys {
-        length: 3u8,
-        board: Vec::new(),
-    };
+    let sys = LightsOutSys::create(3);
     println!("{}", sys.length);
-    for _i in 0..sys.length {
-        sys.board.push(false);
+    for v in sys.board {
+        println!("{}", v);
     }
 }
