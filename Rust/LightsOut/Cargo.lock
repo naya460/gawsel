@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "LightsOut"
+name = "lights_out"
 version = "0.1.0"
