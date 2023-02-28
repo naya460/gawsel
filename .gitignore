@@ -1,3 +1,4 @@
-*
-!*.md
-!.gitignore
+# c++
+build/
+# Rust
+target/
