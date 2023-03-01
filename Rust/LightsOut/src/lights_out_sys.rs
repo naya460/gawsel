@@ -1,7 +1,7 @@
 pub struct LightsOutSys {
-    pub length: u8,         // 一辺のライトの数
-    pub size: u16,          // ライトの数
-    pub board: Vec<bool>,   // 盤面
+    length: u8,         // 一辺のライトの数
+    size: u16,          // ライトの数
+    board: Vec<bool>,   // 盤面
 }
 
 impl LightsOutSys {
@@ -18,4 +18,13 @@ impl LightsOutSys {
         self.size = (length as u16).pow(2);
         self.board.resize(self.size.into(), false);
     }
+
+    // 一辺のライトの数を取得
+    pub fn get_length(&self) -> u8 { self.length }
+    
+    // ライトの数を取得
+    pub fn get_size(&self) -> u16 { self.size }
+
+    // ライトが光っているか確認
+    pub fn is_on(&self, pos: u16) -> bool { self.board[pos as usize] }
 }
