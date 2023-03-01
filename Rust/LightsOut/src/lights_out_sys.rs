@@ -26,5 +26,8 @@ impl LightsOutSys {
     pub fn get_size(&self) -> u16 { self.size }
 
     // ライトが光っているか確認
-    pub fn is_on(&self, pos: u16) -> bool { self.board[pos as usize] }
+    pub fn is_on(&self, pos: u16) -> Result<bool, u8> { 
+        if pos >= self.size { return Err(1); }
+        Ok(self.board[pos as usize])
+    }
 }
