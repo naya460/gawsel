@@ -1,3 +1,4 @@
+use rand::Rng;
 pub struct LightsOutSys {
     length: u8,         // 一辺のライトの数
     size: u16,          // ライトの数
@@ -57,5 +58,16 @@ impl LightsOutSys {
         if column != 0          { invert(pos - 1); }
         if column != length - 1 { invert(pos + 1); }
         true
+    }
+
+    // ランダムに生成
+    pub fn random(&mut self) {
+        let mut rng = rand::thread_rng();
+        for i in 0..self.size {
+            let num: i8 = rng.gen();
+            if num % 2 == 1 {
+                self.push(i);
+            }
+        }
     }
 }

@@ -46,6 +46,7 @@ impl LightsOutUI for LightsOutCUI {
     // 新しい盤面で開始
     fn new_game(&mut self, length: u8) {
         self.system.set_length(length);
+        self.system.random();
     }
 
     // 盤面を表示
