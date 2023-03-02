@@ -49,6 +49,7 @@ impl LightsOutSys {
         let row = pos / self.length as u16;
         let column = pos % self.length as u16;
         let length = self.length as u16;
+        
         // 反転
         invert(pos);
         if row != 0             { invert(pos - length); }

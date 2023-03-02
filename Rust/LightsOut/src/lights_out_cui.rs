@@ -12,6 +12,13 @@ impl LightsOutCUI {
         let cui = LightsOutCUI { system };
         cui
     }
+
+    // ゲームのメインループを実行
+    pub fn run(&mut self) {
+        self.new_game(3);
+        self.push(4);
+        self.display();
+    }
 }
 
 impl LightsOutUI for LightsOutCUI {
