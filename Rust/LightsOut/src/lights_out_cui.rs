@@ -29,9 +29,6 @@ impl LightsOutUI for LightsOutCUI {
 
     // ライトを押す (失敗時:false)
     fn push(&mut self, pos: u16) -> bool {
-        match self.system.push(pos) {
-            Ok(_) => true,
-            Err(_) => false,
-        }
+        self.system.push(pos)
     }
 }
