@@ -31,11 +31,11 @@ impl LightsOutSys {
         Ok(self.board[pos as usize])
     }
 
-    // ライトを押す
-    pub fn push(&mut self, pos: u16) -> Result<bool, u8> {
-        if pos >= self.size { return Err(1); }
+    // ライトを押す (失敗時:false)
+    pub fn push(&mut self, pos: u16) -> bool {
+        if pos >= self.size { return false; }
         let pos = pos as usize;
         self.board[pos] = !self.board[pos];
-        Ok(self.board[pos])
+        true
     }
 }
