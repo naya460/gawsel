@@ -23,7 +23,14 @@ impl LightsOutUI for LightsOutCUI {
     // 盤面を表示
     fn display(&self) {
         for i in 0..self.system.get_size() {
-            println!("{}", self.system.is_on(i).unwrap());
+            if self.system.is_on(i).unwrap() {
+                print!("o ");
+            } else {
+                print!("_ ");
+            }
+            if (i + 1) as u8 % self.system.get_length() == 0 {
+                print!("\n");
+            }
         }
     }
 
