@@ -4,6 +4,7 @@ pub struct LightsOutSys {
     board: Vec<bool>,   // 盤面
 }
 
+
 impl LightsOutSys {
     // 盤面の作成
     pub fn create(length: u8) -> LightsOutSys {
@@ -31,11 +32,26 @@ impl LightsOutSys {
         Ok(self.board[pos as usize])
     }
 
-    // ライトを押す (失敗時:false)
-    pub fn push(&mut self, pos: u16) -> bool {
+    // ライトを反転
+    fn invert(&mut self, pos: u16) -> bool {
         if pos >= self.size { return false; }
         let pos = pos as usize;
         self.board[pos] = !self.board[pos];
+        true
+    }
+
+    // ライトを押す (失敗時:false)
+    pub fn push(&mut self, pos: u16) -> bool {
+        // 座標を計算
+        let row = pos / self.length as u16;
+        let column = pos % self.length as u16;
+        let length = self.length as u16;
+        // 反転
+        self.invert(pos);
+        if row != 0             { self.invert(pos - length); }
+        if row != length - 1    { self.invert(pos + length); }
+        if column != 0          { self.invert(pos - 1); }
+        if column != length - 1 { self.invert(pos + 1); }
         true
     }
 }
