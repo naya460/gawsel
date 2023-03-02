@@ -1,6 +1,8 @@
 use crate:: lights_out_sys::LightsOutSys;
 use crate::lights_out_ui::LightsOutUI;
 
+use std::io;
+
 pub struct LightsOutCUI {
     system: LightsOutSys,
 }
@@ -15,9 +17,28 @@ impl LightsOutCUI {
 
     // ゲームのメインループを実行
     pub fn run(&mut self) {
-        self.new_game(3);
+        // 大きさを聞く
+        println!("Input board length (2 - 255)");
+        let length = self.input(2, 255);
+        
+        // 新しい盤面を開始
+        self.new_game(length);
+        println!("\nGame : {}x{}", length, length);
+
         self.push(4);
         self.display();
+    }
+
+    // 値を制限付きで入力
+    fn input(&self, min: u8, max: u8) -> u8 {
+        loop {
+            // 数値を入力
+            let mut num = String::new();
+            io::stdin().read_line(&mut num).ok();
+            let num: u8 = num.trim().parse().ok().unwrap();
+            // 範囲内のとき値を返す
+            if min <= num && num <= max { break num; }
+        }
     }
 }
 
