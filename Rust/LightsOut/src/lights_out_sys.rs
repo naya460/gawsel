@@ -32,27 +32,29 @@ impl LightsOutSys {
         Ok(self.board[pos as usize])
     }
 
-    // ライトを反転 (失敗時:false)
-    fn invert(&mut self, pos: u16) -> bool {
-        if pos >= self.size { return false; }
-        let pos = pos as usize;
-        self.board[pos] = !self.board[pos];
-        true
-    }
-
     // ライトを押す (失敗時:false)
     pub fn push(&mut self, pos: u16) -> bool {
+        // 範囲外のときfalseを返す
         if pos >= self.size { return false; }
+
+        // ライトを反転するクロージャ (失敗時:false)
+        let mut invert = |pos: u16| -> bool {
+            if pos >= self.size { return false; }
+            let pos = pos as usize;
+            self.board[pos] = !self.board[pos];
+            true
+        };
+
         // 座標を計算
         let row = pos / self.length as u16;
         let column = pos % self.length as u16;
         let length = self.length as u16;
         // 反転
-        self.invert(pos);
-        if row != 0             { self.invert(pos - length); }
-        if row != length - 1    { self.invert(pos + length); }
-        if column != 0          { self.invert(pos - 1); }
-        if column != length - 1 { self.invert(pos + 1); }
+        invert(pos);
+        if row != 0             { invert(pos - length); }
+        if row != length - 1    { invert(pos + length); }
+        if column != 0          { invert(pos - 1); }
+        if column != length - 1 { invert(pos + 1); }
         true
     }
 }
