@@ -32,11 +32,11 @@ impl LightsOutCUI {
                 // 長さを取得
                 let length = self.system.get_length();
                 // 行を入力
-                println!("Input row (0-{})", length);
-                let row = self.input(0, length) as u16;
+                println!("Input row (0-{})", length - 1);
+                let row = self.input(0, length - 1) as u16;
                 // 列を入力
-                println!("Input column (0-{})", length);
-                let column = self.input(0, length) as u16;
+                println!("Input column (0-{})", length - 1);
+                let column = self.input(0, length - 1) as u16;
                 // 位置を計算して返却
                 row * length as u16 + column
             };
