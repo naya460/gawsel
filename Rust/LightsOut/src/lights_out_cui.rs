@@ -17,38 +17,46 @@ impl LightsOutCUI {
 
     // ゲームのメインループを実行
     pub fn run(&mut self) {
-        // 大きさを聞く
-        println!("Input board length (2 - 255)");
-        let length = self.input(2, 255);
-        
-        // 新しい盤面を開始
-        self.new_game(length);
-        println!("\nGame : {}x{}", length, length);
+        loop {
+            // 大きさを聞く
+            println!("Input board length (2 - 255)");
+            let length = self.input(2, 255);
+            
+            // 新しい盤面を開始
+            self.new_game(length);
+            println!("\nGame : {}x{}", length, length);
 
-        // クリアまで入力と表示を繰り返す
-        while !self.system.check_clear() {
-            // 位置を入力するクロージャ
-            let input_pos = || -> u16 {
-                // 長さを取得
-                let length = self.system.get_length();
-                // 行を入力
-                println!("Input row (0-{})", length - 1);
-                let row = self.input(0, length - 1) as u16;
-                // 列を入力
-                println!("Input column (0-{})", length - 1);
-                let column = self.input(0, length - 1) as u16;
-                // 位置を計算して返却
-                row * length as u16 + column
-            };
+            // クリアまで入力と表示を繰り返す
+            while !self.system.check_clear() {
+                // 位置を入力するクロージャ
+                let input_pos = || -> u16 {
+                    // 長さを取得
+                    let length = self.system.get_length();
+                    // 行を入力
+                    println!("Input row (0-{})", length - 1);
+                    let row = self.input(0, length - 1) as u16;
+                    // 列を入力
+                    println!("Input column (0-{})", length - 1);
+                    let column = self.input(0, length - 1) as u16;
+                    // 位置を計算して返却
+                    row * length as u16 + column
+                };
 
-            // 表示
+                // 表示
+                self.display();
+
+                // 入力
+                self.push(input_pos());
+            }
+            
+            // 最後に表示
             self.display();
 
-            // 入力
-            self.push(input_pos());
+            // もう一度遊ぶか聞く
+            println!("Clear");
+            println!("0:continue 1:exit");
+            if self.input(0, 1) == 1 { break; }
         }
-
-        self.display();
     }
 
     // 値を制限付きで入力
