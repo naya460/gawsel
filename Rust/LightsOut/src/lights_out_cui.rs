@@ -24,8 +24,24 @@ impl LightsOutCUI {
         // 新しい盤面を開始
         self.new_game(length);
         println!("\nGame : {}x{}", length, length);
+        
+        // 位置を入力するクロージャ
+        let input_pos = || -> u16 {
+            // 長さを取得
+            let length = self.system.get_length();
+            // 行を入力
+            println!("Input row (0-{})", length);
+            let row = self.input(0, length) as u16;
+            // 列を入力
+            println!("Input column (0-{})", length);
+            let column = self.input(0, length) as u16;
+            // 位置を計算して返却
+            row * length as u16 + column
+        };
 
-        self.push(4);
+        // 位置を入力
+        self.display();
+        self.push(input_pos());
         self.display();
     }
 
