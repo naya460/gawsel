@@ -70,4 +70,15 @@ impl LightsOutSys {
             }
         }
     }
+
+    // クリアしているか確認
+    pub fn check_clear(&self) -> bool {
+        let mut clear = true;
+        for i in 0..self.size {
+            if self.board[i as usize] != false {
+                clear = false;
+            }
+        }
+        clear
+    }
 }
