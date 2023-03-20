@@ -2,25 +2,36 @@ import React, {useState} from "react"
 
 import styles from "./LightsOut.module.css";
 
-const LightsOutCell = () => {
-  const [isLightOn, setLight] = useState(false);
-
+const LightsOutCell = (props) => {
   return (
     <button
       className={`
         ${styles.LightsOutCell}
-        ${(isLightOn)? styles.LightsOutCellOn : styles.LightsOutCellOff}
+        ${(props.isLightOn)? styles.LightsOutCellOn : styles.LightsOutCellOff}
       `}
-      onClick={() => setLight(!isLightOn)}
+      onClick={() => props.onClick()}
     />
   )
 }
 
 const LightsOutBoard = () => {
-  function line() {
+  const [lights, setLights] = useState(Array(9).fill(false));
+
+  function handleClick(i) {
+    const lights_tmp = lights.slice();
+    lights_tmp[i] = !lights_tmp[i];
+    setLights(lights_tmp);
+  }
+
+  function line(row) {
     const list = [];
     for (let i = 0; i < 3; i++) {
-      list.push(<LightsOutCell />);
+      list.push(
+        <LightsOutCell
+          isLightOn={lights[row * 3 + i]}
+          onClick={() => handleClick(row * 3 + i)}
+        />
+      );
     }
     return <div className={styles.LightsOutBoardLine}>{list}</div>;
   }
@@ -31,7 +42,7 @@ const LightsOutBoard = () => {
         function () {
           const list = [];
           for (let i = 0; i < 3; i++) {
-            list.push(line());
+            list.push(line(i));
           }
           return <div>{list}</div>;
         }()
