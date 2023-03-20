@@ -1,9 +1,15 @@
-import Link from 'next/link'
+import styles from "./LightsOut.module.css";
+
+const LightsOutCell = () => {
+  return (
+    <button className={styles.LightsOutCell} />
+  )
+}
 
 export default function IndexPage() {
   return (
     <div>
-      Hello World. <Link href="/about">About</Link>
+      <LightsOutCell />
     </div>
   )
 }
