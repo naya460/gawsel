@@ -14,11 +14,9 @@ const LightsOutCell = (props) => {
   )
 }
 
-const LightsOutBoard = () => {
-  const [lights, setLights] = useState(Array(9).fill(false));
-
+const LightsOutBoard = (props) => {
   function handleClick(i) {
-    const lights_tmp = lights.slice();
+    const lights_tmp = props.lights.slice();
 
     lights_tmp[i] = !lights_tmp[i];
     if (i >= 3)         lights_tmp[i - 3] = !lights_tmp[i - 3];
@@ -26,7 +24,7 @@ const LightsOutBoard = () => {
     if (i % 3 != 0)     lights_tmp[i - 1] = !lights_tmp[i - 1];
     if (i % 3 < 3 - 1)  lights_tmp[i + 1] = !lights_tmp[i + 1];
     
-    setLights(lights_tmp);
+    props.setLights(lights_tmp);
   }
 
   function line(row) {
@@ -34,7 +32,7 @@ const LightsOutBoard = () => {
     for (let i = 0; i < 3; i++) {
       list.push(
         <LightsOutCell
-          isLightOn={lights[row * 3 + i]}
+          isLightOn={props.lights[row * 3 + i]}
           onClick={() => handleClick(row * 3 + i)}
         />
       );
@@ -57,10 +55,20 @@ const LightsOutBoard = () => {
   );
 }
 
+const LightsOutGame = () => {
+  const [lights, setLights] = useState(Array(9).fill(false));
+
+  return (
+    <div>
+      <LightsOutBoard lights={lights} setLights={setLights} />
+    </div>
+  );
+}
+
 export default function IndexPage() {
   return (
     <div>
-      <LightsOutBoard />
+      <LightsOutGame />
     </div>
   )
 }
