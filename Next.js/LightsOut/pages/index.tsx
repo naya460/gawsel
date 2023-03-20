@@ -58,8 +58,21 @@ const LightsOutBoard = (props) => {
 const LightsOutGame = () => {
   const [lights, setLights] = useState(Array(9).fill(false));
 
+  function randomize() {
+    let lights_tmp = lights.slice();
+    for (let i = 0; i < 3**2; i++) {
+      if (Math.floor(Math.random() * 2)) {
+        lights_tmp[i] = true;
+      } else {
+        lights_tmp[i] = false;
+      }
+    }
+    setLights(lights_tmp);
+  }
+
   return (
     <div>
+      <button onClick={() => randomize()}>New Game</button>
       <LightsOutBoard lights={lights} setLights={setLights} />
     </div>
   );
