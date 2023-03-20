@@ -27,3 +27,20 @@
     height: 50px;
     margin-top: 2px;
 }
+
+.LightsOutNewGameButton {
+    width: 154px;
+    height: 25px;
+    border-width: 0px;
+    margin: 2px;
+    margin-bottom: 5px;
+    background-color: #88cccc;
+}
+
+.LightsOutNewGameButton:hover {
+    background-color: #99dddd;
+}
+
+.LightsOutNewGameButton:active {
+    background-color: #77bbbb;
+}

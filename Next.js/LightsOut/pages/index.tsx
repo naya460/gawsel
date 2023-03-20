@@ -72,7 +72,7 @@ const LightsOutGame = () => {
 
   return (
     <div>
-      <button onClick={() => randomize()}>New Game</button>
+      <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
       <LightsOutBoard lights={lights} setLights={setLights} />
     </div>
   );
