@@ -1,8 +1,17 @@
+import React, {useState} from "react"
+
 import styles from "./LightsOut.module.css";
 
 const LightsOutCell = () => {
+  const [isLightOn, toggleLight] = useState(false);
+
   return (
-    <button className={styles.LightsOutCell} />
+    <button
+      className={`
+        ${styles.LightsOutCell}
+        ${(isLightOn)? styles.LightsOutCellOn : styles.LightsOutCellOff}
+      `}
+    />
   )
 }
 

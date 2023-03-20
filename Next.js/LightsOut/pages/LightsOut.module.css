@@ -6,9 +6,16 @@
     margin-left: 2px;
 }
 
+.LightsOutCellOn {
+    background-color: #ecec4a;
+}
+
+.LightsOutCellOff {
+    background-color: #e0e0e0;
+}
+
 .LightsOutBoardLine {
     display: block;
     height: 50px;
     margin-top: 2px;
-    margin-left: 2px;
 }
