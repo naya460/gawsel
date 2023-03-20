@@ -10,8 +10,16 @@
     background-color: #ecec4a;
 }
 
+.LightsOutCellOn:hover {
+    background-color: #dcdc3a
+}
+
 .LightsOutCellOff {
     background-color: #e0e0e0;
+}
+
+.LightsOutCellOff:hover {
+    background-color: #f0f0f0;
 }
 
 .LightsOutBoardLine {
