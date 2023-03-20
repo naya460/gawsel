@@ -3,7 +3,7 @@ import React, {useState} from "react"
 import styles from "./LightsOut.module.css";
 
 const LightsOutCell = () => {
-  const [isLightOn, toggleLight] = useState(false);
+  const [isLightOn, setLight] = useState(false);
 
   return (
     <button
@@ -11,6 +11,7 @@ const LightsOutCell = () => {
         ${styles.LightsOutCell}
         ${(isLightOn)? styles.LightsOutCellOn : styles.LightsOutCellOff}
       `}
+      onClick={() => setLight(!isLightOn)}
     />
   )
 }
