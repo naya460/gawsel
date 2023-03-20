@@ -19,7 +19,13 @@ const LightsOutBoard = () => {
 
   function handleClick(i) {
     const lights_tmp = lights.slice();
+
     lights_tmp[i] = !lights_tmp[i];
+    if (i >= 3)         lights_tmp[i - 3] = !lights_tmp[i - 3];
+    if (i + 3 <= 3**2)  lights_tmp[i + 3] = !lights_tmp[i + 3];
+    if (i % 3 != 0)     lights_tmp[i - 1] = !lights_tmp[i - 1];
+    if (i % 3 < 3 - 1)  lights_tmp[i + 1] = !lights_tmp[i + 1];
+    
     setLights(lights_tmp);
   }
 
