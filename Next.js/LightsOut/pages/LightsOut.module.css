@@ -1,4 +1,14 @@
 .LightsOutCell {
     width: 50px;
     height: 50px;
+    border-width: 0px;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.LightsOutBoardLine {
+    display: block;
+    height: 50px;
+    margin-top: 2px;
+    margin-left: 2px;
 }

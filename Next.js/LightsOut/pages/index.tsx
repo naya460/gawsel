@@ -12,7 +12,7 @@ const LightsOutBoard = () => {
     for (let i = 0; i < 3; i++) {
       list.push(<LightsOutCell />);
     }
-    return <div>{list}</div>;
+    return <div className={styles.LightsOutBoardLine}>{list}</div>;
   }
 
   return (
