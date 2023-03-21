@@ -17,23 +17,24 @@ const LightsOutCell = (props) => {
 const LightsOutBoard = (props) => {
   function handleClick(i) {
     const lights_tmp = props.lights.slice();
+    const length = props.length;
 
     lights_tmp[i] = !lights_tmp[i];
-    if (i >= 3)         lights_tmp[i - 3] = !lights_tmp[i - 3];
-    if (i + 3 <= 3**2)  lights_tmp[i + 3] = !lights_tmp[i + 3];
-    if (i % 3 != 0)     lights_tmp[i - 1] = !lights_tmp[i - 1];
-    if (i % 3 < 3 - 1)  lights_tmp[i + 1] = !lights_tmp[i + 1];
+    if (i >= length)              lights_tmp[i - length] = !lights_tmp[i - length];
+    if (i + length <= length**2)  lights_tmp[i + length] = !lights_tmp[i + length];
+    if (i % length != 0)          lights_tmp[i - 1] = !lights_tmp[i - 1];
+    if (i % length < length - 1)  lights_tmp[i + 1] = !lights_tmp[i + 1];
     
     props.setLights(lights_tmp);
   }
 
-  function line(row) {
+  function line(row, length) {
     const list = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < length; i++) {
       list.push(
         <LightsOutCell
-          isLightOn={props.lights[row * 3 + i]}
-          onClick={() => handleClick(row * 3 + i)}
+          isLightOn={props.lights[row * props.length + i]}
+          onClick={() => handleClick(row * props.length + i)}
         />
       );
     }
@@ -45,8 +46,8 @@ const LightsOutBoard = (props) => {
       {
         function () {
           const list = [];
-          for (let i = 0; i < 3; i++) {
-            list.push(line(i));
+          for (let i = 0; i < props.length; i++) {
+            list.push(line(i, props.length));
           }
           return <div>{list}</div>;
         }()
@@ -57,10 +58,11 @@ const LightsOutBoard = (props) => {
 
 const LightsOutGame = () => {
   const [lights, setLights] = useState(Array(9).fill(false));
+  const [length, setLength] = useState(3);
 
   function randomize() {
     let lights_tmp = lights.slice();
-    for (let i = 0; i < 3**2; i++) {
+    for (let i = 0; i < length**2; i++) {
       if (Math.floor(Math.random() * 2)) {
         lights_tmp[i] = true;
       } else {
@@ -73,7 +75,7 @@ const LightsOutGame = () => {
   return (
     <div>
       <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
-      <LightsOutBoard lights={lights} setLights={setLights} />
+      <LightsOutBoard lights={lights} setLights={setLights} length={length} />
     </div>
   );
 }
