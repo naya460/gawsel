@@ -56,6 +56,48 @@ const LightsOutBoard = (props) => {
   );
 }
 
+const ResizeButton = (props) => {
+  const [isPopupShown, setPopupShown] = useState(false);
+
+  const handleResizeButtonClick = () => {
+    if (isPopupShown) {
+      setPopupShown(false);
+    } else {
+      setPopupShown(true);
+    }
+  }
+
+  const handleCloseResizePopup = () => {
+    setPopupShown(false);
+  }
+
+  const handleResize = (length) => {
+    props.onClick(length);
+    handleCloseResizePopup();
+  }
+
+  return (
+    <div>
+      <div className={styles.LightsOutResizePopupParent}>
+        <button
+          className={styles.LightsOutResizeButton}
+          onClick={() => handleResizeButtonClick()}
+        >
+          Resize
+        </button>
+        <div className={`
+          ${styles.LightsOutResizePopup}
+          ${isPopupShown && styles.LightsOutResizePopupShown}
+        `}>
+          <button onClick={() => handleResize(3)}>3x3</button>
+          <button onClick={() => handleResize(4)}>4x4</button>
+          <button onClick={() => handleCloseResizePopup()}>Close</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const LightsOutGame = () => {
   const [lights, setLights] = useState(Array(9).fill(false));
   const [length, setLength] = useState(3);
@@ -72,17 +114,19 @@ const LightsOutGame = () => {
     setLights(lights_tmp);
   }
 
-  function resize() {
+  function handleResize(resize_length) {
+    setLength(resize_length);
     lights.fill(false);
-    if (length == 3) setLength(4);
-    else setLength(3);
+    setLights(lights);
   }
 
   return (
     <div className={styles.LightsOutGame}>
       <div>
-        <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
-        <button className={styles.LightsOutResizeButton} onClick={() => resize()}>Resize</button>
+        <div className={styles.LightsOutMenuBar}>
+          <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
+          <ResizeButton onClick={(length) => handleResize(length)} />
+        </div>
         <LightsOutBoard lights={lights} setLights={setLights} length={length} />
       </div>
     </div>
