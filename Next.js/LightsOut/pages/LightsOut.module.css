@@ -92,11 +92,11 @@
     
     z-index: 2;
 
-    width: 128px;
+    width: 108px;
     padding: 5px;
-    background: #eeeeb0;
+    background: #efefdd;
 
-    left: -20px;
+    left: -10px;
 }
 
 .LightsOutResizePopupShown {
@@ -105,4 +105,36 @@
 
 .LightsOutResizePopupParent {
     position: relative;
+}
+
+.LightsOutSizeButton {
+    width: 50px;
+    border: 0px;
+    margin: 2px;
+    padding: 5px;
+    background-color: #dddd80;
+}
+
+.LightsOutSizeButton:hover {
+    background-color: #eeee90;
+}
+
+.LightsOutSizeButton:active {
+    background-color: #cccc70;
+}
+
+.LightsOutCloseButton {
+    width: 104px;
+    border: 0px;
+    margin: 2px;
+    padding: 5px;
+    background-color: #d5d5d5
+}
+
+.LightsOutCloseButton:hover {
+    background-color: #e5e5e5
+}
+
+.LightsOutCloseButton:active {
+    background-color: #c5c5c5
 }

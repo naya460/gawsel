@@ -74,7 +74,7 @@ const ResizeButton = (props) => {
     for (let i = 0; i < 8; i++) {
       let length = i + 3;
       list.push(
-        <button onClick={() => handleResize(length)}>{length}x{length}</button>
+        <button className={styles.LightsOutSizeButton} onClick={() => handleResize(length)}>{length}x{length}</button>
       )
     }
     return <div>{list}</div>;
@@ -94,7 +94,7 @@ const ResizeButton = (props) => {
           ${isPopupShown && styles.LightsOutResizePopupShown}
         `}>
           {SizeList()}
-          <button onClick={() => handleCloseResizePopup()}>Close</button>
+          <button className={styles.LightsOutCloseButton} onClick={() => handleCloseResizePopup()}>Close</button>
         </div>
       </div>
     </div>
