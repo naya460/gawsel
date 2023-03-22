@@ -16,15 +16,8 @@ const LightsOutCell = (props) => {
 
 const LightsOutBoard = (props) => {
   function handleClick(i) {
-    const lights_tmp = props.lights.slice();
-    const length = props.length;
-
-    lights_tmp[i] = !lights_tmp[i];
-    if (i >= length)              lights_tmp[i - length] = !lights_tmp[i - length];
-    if (i + length <= length**2)  lights_tmp[i + length] = !lights_tmp[i + length];
-    if (i % length != 0)          lights_tmp[i - 1] = !lights_tmp[i - 1];
-    if (i % length < length - 1)  lights_tmp[i + 1] = !lights_tmp[i + 1];
-    
+    let lights_tmp = props.lights.slice();
+    lights_tmp = props.pushLight(lights_tmp, i);
     props.setLights(lights_tmp);
   }
 
@@ -112,13 +105,21 @@ const LightsOutGame = () => {
   const [lights, setLights] = useState(Array(9).fill(false));
   const [length, setLength] = useState(3);
 
+  function pushLight(lights, pos) {
+    lights[pos] = !lights[pos];
+    if (pos >= length)              lights[pos - length] = !lights[pos - length];
+    if (pos + length <= length**2)  lights[pos + length] = !lights[pos + length];
+    if (pos % length != 0)          lights[pos - 1] = !lights[pos - 1];
+    if (pos % length < length - 1)  lights[pos + 1] = !lights[pos + 1];
+    return lights;
+  }
+
   function randomize() {
     let lights_tmp = lights.slice();
+    lights_tmp.fill(false);
     for (let i = 0; i < length**2; i++) {
       if (Math.floor(Math.random() * 2)) {
-        lights_tmp[i] = true;
-      } else {
-        lights_tmp[i] = false;
+        lights_tmp = pushLight(lights_tmp, i);
       }
     }
     setLights(lights_tmp);
@@ -137,7 +138,7 @@ const LightsOutGame = () => {
           <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
           <ResizeButton onClick={(length) => handleResize(length)}/>
         </div>
-        <LightsOutBoard lights={lights} setLights={setLights} length={length} />
+        <LightsOutBoard pushLight={(lights, pos) => pushLight(lights, pos)} lights={lights} setLights={setLights} length={length} />
       </div>
     </div>
   );
