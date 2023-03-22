@@ -76,6 +76,17 @@ const ResizeButton = (props) => {
     handleCloseResizePopup();
   }
 
+  const SizeList = () => {
+    let list = [];
+    for (let i = 0; i < 8; i++) {
+      let length = i + 3;
+      list.push(
+        <button onClick={() => handleResize(length)}>{length}x{length}</button>
+      )
+    }
+    return <div>{list}</div>;
+  }
+
   return (
     <div>
       <div className={styles.LightsOutResizePopupParent}>
@@ -89,8 +100,7 @@ const ResizeButton = (props) => {
           ${styles.LightsOutResizePopup}
           ${isPopupShown && styles.LightsOutResizePopupShown}
         `}>
-          <button onClick={() => handleResize(3)}>3x3</button>
-          <button onClick={() => handleResize(4)}>4x4</button>
+          {SizeList()}
           <button onClick={() => handleCloseResizePopup()}>Close</button>
         </div>
       </div>
@@ -125,7 +135,7 @@ const LightsOutGame = () => {
       <div>
         <div className={styles.LightsOutMenuBar}>
           <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
-          <ResizeButton onClick={(length) => handleResize(length)} />
+          <ResizeButton onClick={(length) => handleResize(length)}/>
         </div>
         <LightsOutBoard lights={lights} setLights={setLights} length={length} />
       </div>
