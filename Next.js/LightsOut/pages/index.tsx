@@ -49,7 +49,7 @@ const LightsOutBoard = (props) => {
           for (let i = 0; i < props.length; i++) {
             list.push(line(i, props.length));
           }
-          return <div>{list}</div>;
+          return <div className={styles.LightsOutBoard}>{list}</div>;
         }()
       }
     </div>
