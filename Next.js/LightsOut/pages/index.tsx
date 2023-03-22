@@ -87,7 +87,7 @@ const ResizeButton = (props) => {
           className={styles.LightsOutResizeButton}
           onClick={() => handleResizeButtonClick()}
         >
-          Resize
+          Size<br />{props.length}x{props.length}
         </button>
         <div className={`
           ${styles.LightsOutResizePopup}
@@ -136,7 +136,7 @@ const LightsOutGame = () => {
       <div>
         <div className={styles.LightsOutMenuBar}>
           <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
-          <ResizeButton onClick={(length) => handleResize(length)}/>
+          <ResizeButton onClick={(length) => handleResize(length)} length={length} />
         </div>
         <LightsOutBoard pushLight={(lights, pos) => pushLight(lights, pos)} lights={lights} setLights={setLights} length={length} />
       </div>

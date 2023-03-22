@@ -42,7 +42,7 @@
 /* === LightsOutNewGameButton === */
 .LightsOutNewGameButton {
     width: 198px;
-    height: 25px;
+    height: 40px;
     border-width: 0px;
     margin-left: 2px;
     margin-bottom: 5px;
@@ -60,7 +60,7 @@
 /* === LightsOutResizeButton === */
 .LightsOutResizeButton {
     width: 98px;
-    height: 25px;
+    height: 40px;
     border-width: 0px;
     margin-left: 2px;
     margin-bottom: 5px;
