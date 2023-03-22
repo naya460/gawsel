@@ -72,10 +72,17 @@ const LightsOutGame = () => {
     setLights(lights_tmp);
   }
 
+  function resize() {
+    lights.fill(false);
+    if (length == 3) setLength(4);
+    else setLength(3);
+  }
+
   return (
     <div className={styles.LightsOutGame}>
       <div>
         <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
+        <button className={styles.LightsOutResizeButton} onClick={() => resize()}>Resize</button>
         <LightsOutBoard lights={lights} setLights={setLights} length={length} />
       </div>
     </div>
