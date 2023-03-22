@@ -56,3 +56,9 @@
 .LightsOutNewGameButton:active {
     background-color: #77bbbb;
 }
+
+/* === LightsOutGame === */
+.LightsOutGame {
+    display: flex;
+    justify-content: center;
+}

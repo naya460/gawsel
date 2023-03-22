@@ -73,9 +73,11 @@ const LightsOutGame = () => {
   }
 
   return (
-    <div>
-      <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
-      <LightsOutBoard lights={lights} setLights={setLights} length={length} />
+    <div className={styles.LightsOutGame}>
+      <div>
+        <button className={styles.LightsOutNewGameButton} onClick={() => randomize()}>New Game</button>
+        <LightsOutBoard lights={lights} setLights={setLights} length={length} />
+      </div>
     </div>
   );
 }
