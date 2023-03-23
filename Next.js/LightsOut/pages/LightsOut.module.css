@@ -1,28 +1,3 @@
-/* === LightsOutCell === */
-.LightsOutCell {
-    width: 100%;
-    height: 100%;
-    border-width: 0px;
-    margin-top: 2px;
-    margin-left: 2px;
-}
-
-.LightsOutCellOn {
-    background-color: #ecec4a;
-}
-
-.LightsOutCellOn:hover {
-    background-color: #fcfc5a
-}
-
-.LightsOutCellOff {
-    background-color: #e0e0e0;
-}
-
-.LightsOutCellOff:hover {
-    background-color: #f0f0f0;
-}
-
 /* === LightsOutBoard === */
 .LightsOutBoardLine {
     display: flex;

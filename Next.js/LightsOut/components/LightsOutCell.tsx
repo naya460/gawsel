@@ -1,15 +1,15 @@
 import React, {useState} from "react"
 
-import styles from "../pages/LightsOut.module.css";
+import styles from "./LightsOutCell.module.css";
 
 export default function LightsOutCell(props) {
-    return (
-      <button
-        className={`
-          ${styles.LightsOutCell}
-          ${(props.isLightOn)? styles.LightsOutCellOn : styles.LightsOutCellOff}
-        `}
-        onClick={() => props.onClick()}
-      />
-    )
-  }
+  return (
+    <button
+      className={`
+        ${styles.cell}
+        ${(props.isLightOn)? styles.cell_on : styles.cell_off}
+      `}
+      onClick={() => props.onClick()}
+    />
+  )
+}
