@@ -1,8 +1,11 @@
-import React, {useState} from "react"
-
 import styles from "./LightsOutCell.module.css";
 
-export default function LightsOutCell(props) {
+type Props = {
+  isLightOn: boolean;
+  onClick: () => void;
+};
+
+export default function LightsOutCell(props: Props) {
   return (
     <button
       className={`
