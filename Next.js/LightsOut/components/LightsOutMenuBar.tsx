@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 
-import styles from "../pages/LightsOut.module.css";
+import styles from "./LightsOutMenuBar.module.css";
 
 const ResizeButton = (props) => {
   const [isPopupShown, setPopupShown] = useState(false);

@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 
-import styles from "../pages/LightsOut.module.css";
+import styles from "./LightsOutGame.module.css";
 
 import LightsOutBoard from "./LightsOutBoard";
 import LightsOutMenuBar from "./LightsOutMenuBar"

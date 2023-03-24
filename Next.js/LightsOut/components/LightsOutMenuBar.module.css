@@ -1,3 +1,8 @@
+/* === LightsOutMenuBar === */
+.LightsOutMenuBar {
+    display: flex;
+}
+
 /* === LightsOutNewGameButton === */
 .LightsOutNewGameButton {
     width: 198px;
@@ -32,16 +37,6 @@
 
 .LightsOutResizeButton:active {
     background-color: #cccc70;
-}
-
-/* === LightsOutGame === */
-.LightsOutGame {
-    display: flex;
-    justify-content: center;
-}
-
-.LightsOutMenuBar {
-    display: flex;
 }
 
 /* === ResizePopup === */
