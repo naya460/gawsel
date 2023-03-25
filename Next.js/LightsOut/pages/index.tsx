@@ -1,4 +1,4 @@
-import LightsOutGame from "../components/LightsOutGame";
+import LightsOutGame from "../components/LightsOutGame/LightsOutGame";
 
 export default function IndexPage() {
   return (

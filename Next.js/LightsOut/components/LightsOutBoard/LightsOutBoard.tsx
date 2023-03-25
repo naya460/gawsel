@@ -2,7 +2,7 @@ import React from "react"
 
 import styles from "./LightsOutBoard.module.css";
 
-import LightsOutCell from "./LightsOutCell";
+import LightsOutCell from "../LightsOutCell/LightsOutCell";
 
 type Props = {
   lights: Array<boolean>;

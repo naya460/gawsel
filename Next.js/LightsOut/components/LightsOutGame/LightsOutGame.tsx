@@ -2,8 +2,8 @@ import React, {useState} from "react"
 
 import styles from "./LightsOutGame.module.css";
 
-import LightsOutBoard from "./LightsOutBoard";
-import LightsOutMenuBar from "./LightsOutMenuBar"
+import LightsOutBoard from "../LightsOutBoard/LightsOutBoard";
+import LightsOutMenuBar from "../LightsOutMenuBar/LightsOutMenuBar"
 
 export default function LightsOutGame() {
   const [lights, setLights] = useState(Array(9).fill(false));
