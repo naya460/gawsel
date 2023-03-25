@@ -1,5 +1,4 @@
-/* === LightsOutGame === */
-.LightsOutGame {
+.game {
     display: flex;
     justify-content: center;
 }

@@ -27,7 +27,7 @@ const ResizeButton = (props) => {
       for (let i = 0; i < 8; i++) {
       let length = i + 3;
       list.push(
-          <button className={styles.LightsOutSizeButton} onClick={() => handleResize(length)}>{length}x{length}</button>
+          <button className={styles.size_button} onClick={() => handleResize(length)}>{length}x{length}</button>
       )
       }
       return <div>{list}</div>;
@@ -35,19 +35,19 @@ const ResizeButton = (props) => {
 
   return (
       <div>
-      <div className={styles.LightsOutResizePopupParent}>
+      <div className={styles.popup_parent}>
           <button
-          className={styles.LightsOutResizeButton}
+          className={styles.resize_button}
           onClick={() => handleResizeButtonClick()}
           >
           Size<br />{props.length}x{props.length}
           </button>
           <div className={`
-          ${styles.LightsOutResizePopup}
-          ${isPopupShown && styles.LightsOutResizePopupShown}
+          ${styles.resize_popup}
+          ${isPopupShown && styles.popup_shown}
           `}>
           {SizeList()}
-          <button className={styles.LightsOutCloseButton} onClick={() => handleCloseResizePopup()}>Close</button>
+          <button className={styles.close_button} onClick={() => handleCloseResizePopup()}>Close</button>
           </div>
       </div>
       </div>
@@ -62,9 +62,9 @@ type Props = {
 
 export default function LightsOutMenuBar(props: Props) {
   return (
-    <div className={styles.LightsOutMenuBar}>
+    <div className={styles.menu_bar}>
       <button
-        className={styles.LightsOutNewGameButton}
+        className={styles.new_game_button}
         onClick={() => props.onRandomize()}
       >New Game</button>
       <ResizeButton onClick={(length) => props.onResize(length)} length={props.length} />

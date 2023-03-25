@@ -1,10 +1,10 @@
 /* === LightsOutMenuBar === */
-.LightsOutMenuBar {
+.menu_bar {
     display: flex;
 }
 
 /* === LightsOutNewGameButton === */
-.LightsOutNewGameButton {
+.new_game_button {
     width: 198px;
     height: 40px;
     border-width: 0px;
@@ -13,16 +13,16 @@
     background-color: #88cccc;
 }
 
-.LightsOutNewGameButton:hover {
+.new_game_button:hover {
     background-color: #99dddd;
 }
 
-.LightsOutNewGameButton:active {
+.new_game_button:active {
     background-color: #77bbbb;
 }
 
 /* === LightsOutResizeButton === */
-.LightsOutResizeButton {
+.resize_button {
     width: 98px;
     height: 40px;
     border-width: 0px;
@@ -31,16 +31,16 @@
     background-color: #dddd80;
 }
 
-.LightsOutResizeButton:hover {
+.resize_button:hover {
     background-color: #eeee90;
 }
 
-.LightsOutResizeButton:active {
+.resize_button:active {
     background-color: #cccc70;
 }
 
 /* === ResizePopup === */
-.LightsOutResizePopup {
+.resize_popup {
     transform: scale(0);
     position: absolute;
     
@@ -53,15 +53,15 @@
     left: -10px;
 }
 
-.LightsOutResizePopupShown {
+.popup_shown {
     transform: scale(1);
 }
 
-.LightsOutResizePopupParent {
+.popup_parent {
     position: relative;
 }
 
-.LightsOutSizeButton {
+.size_button {
     width: 50px;
     border: 0px;
     margin: 2px;
@@ -69,15 +69,15 @@
     background-color: #dddd80;
 }
 
-.LightsOutSizeButton:hover {
+.size_button:hover {
     background-color: #eeee90;
 }
 
-.LightsOutSizeButton:active {
+.size_button:active {
     background-color: #cccc70;
 }
 
-.LightsOutCloseButton {
+.close_button {
     width: 104px;
     border: 0px;
     margin: 2px;
@@ -85,10 +85,10 @@
     background-color: #d5d5d5
 }
 
-.LightsOutCloseButton:hover {
+.close_button:hover {
     background-color: #e5e5e5
 }
 
-.LightsOutCloseButton:active {
+.close_button:active {
     background-color: #c5c5c5
 }

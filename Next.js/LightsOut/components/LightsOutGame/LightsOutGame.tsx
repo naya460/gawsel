@@ -39,7 +39,7 @@ export default function LightsOutGame() {
   }
 
   return (
-    <div className={styles.LightsOutGame}>
+    <div className={styles.game}>
       <div>
         <LightsOutMenuBar
           length={length}
