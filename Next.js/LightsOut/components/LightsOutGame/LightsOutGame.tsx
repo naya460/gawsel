@@ -9,7 +9,8 @@ export default function LightsOutGame() {
   const [lights, setLights] = useState(Array(9).fill(false));
   const [length, setLength] = useState(3);
 
-  function pushLight(lights, pos) {
+  // ライトを押したときの処理
+  function pushLight(lights: Array<boolean>, pos: number) {
     lights[pos] = !lights[pos];
     if (pos >= length)              lights[pos - length] = !lights[pos - length];
     if (pos + length <= length**2)  lights[pos + length] = !lights[pos + length];
@@ -18,7 +19,8 @@ export default function LightsOutGame() {
     return lights;
   }
 
-  function randomize() {
+  // ランダムに盤面を生成する処理
+  function handleRandomize() {
     let lights_tmp = lights.slice();
     lights_tmp.fill(false);
     for (let i = 0; i < length**2; i++) {
@@ -29,7 +31,8 @@ export default function LightsOutGame() {
     setLights(lights_tmp);
   }
 
-  function handleResize(resize_length) {
+  // 盤面の大きさを変えたときの処理
+  function handleResize(resize_length: number) {
     setLength(resize_length);
     lights.fill(false);
     setLights(lights);
@@ -38,8 +41,16 @@ export default function LightsOutGame() {
   return (
     <div className={styles.LightsOutGame}>
       <div>
-        <LightsOutMenuBar length={length} handleRandomize={() => randomize()} handleResize={(length) => handleResize(length)} />
-        <LightsOutBoard pushLight={(lights, pos) => pushLight(lights, pos)} lights={lights} setLights={setLights} length={length} />
+        <LightsOutMenuBar
+          length={length}
+          onRandomize={() => handleRandomize()}
+          onResize={(length) => handleResize(length)}
+        />
+        <LightsOutBoard
+          length={length}
+          lights={lights} setLights={setLights}
+          pushLight={(lights, pos) => pushLight(lights, pos)}
+        />
       </div>
     </div>
   );

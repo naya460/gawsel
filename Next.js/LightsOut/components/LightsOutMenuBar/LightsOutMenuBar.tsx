@@ -56,8 +56,8 @@ const ResizeButton = (props) => {
 
 type Props = {
   length: number;
-  handleRandomize: () => void;
-  handleResize: (length: number) => void;
+  onRandomize: () => void;
+  onResize: (length: number) => void;
 }
 
 export default function LightsOutMenuBar(props: Props) {
@@ -65,9 +65,9 @@ export default function LightsOutMenuBar(props: Props) {
     <div className={styles.LightsOutMenuBar}>
       <button
         className={styles.LightsOutNewGameButton}
-        onClick={() => props.handleRandomize()}
+        onClick={() => props.onRandomize()}
       >New Game</button>
-      <ResizeButton onClick={(length) => props.handleResize(length)} length={props.length} />
+      <ResizeButton onClick={(length) => props.onResize(length)} length={props.length} />
     </div>
   )
 }
