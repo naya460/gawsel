@@ -1,44 +1,8 @@
-import React, {useState} from "react"
+import React from "react"
 
 import styles from "./LightsOutMenuBar.module.css";
 
-import ResizePopup from "./ResizePopup"
-
-const ResizeButton = (props) => {
-  const [isPopupShown, setPopupShown] = useState(false);
-
-  const handleResizeButtonClick = () => {
-      if (isPopupShown) {
-      setPopupShown(false);
-      } else {
-      setPopupShown(true);
-      }
-  }
-
-  const handleCloseResizePopup = () => {
-      setPopupShown(false);
-  }
-
-  const handleResize = (length) => {
-      props.onClick(length);
-      handleCloseResizePopup();
-  }
-
-  return (
-    <div className={styles.popup_parent}>
-      <button
-        className={styles.resize_button}
-        onClick={() => handleResizeButtonClick()}
-      >Size<br />{props.length}x{props.length}
-      </button>
-      <ResizePopup
-        className={`${styles.resize_popup} ${isPopupShown && styles.popup_shown}`}
-        onResize={(length) => handleResize(length)}
-        onClose={() => handleCloseResizePopup()}
-      />
-    </div>
-  )
-}
+import ResizeButton from "./ResizeButton";
 
 type Props = {
   length: number;

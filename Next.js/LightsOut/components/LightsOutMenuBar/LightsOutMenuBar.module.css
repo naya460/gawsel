@@ -20,34 +20,3 @@
 .new_game_button:active {
     background-color: #77bbbb;
 }
-
-/* === LightsOutResizeButton === */
-.resize_button {
-    width: 98px;
-    height: 40px;
-    border-width: 0px;
-    margin-left: 2px;
-    margin-bottom: 5px;
-    background-color: #dddd80;
-}
-
-.resize_button:hover {
-    background-color: #eeee90;
-}
-
-.resize_button:active {
-    background-color: #cccc70;
-}
-
-/* === ResizePopup === */
-.popup_parent {
-    position: relative;
-}
-
-.resize_popup {
-    transform: scale(0);
-}
-
-.popup_shown {
-    transform: scale(1);
-}
