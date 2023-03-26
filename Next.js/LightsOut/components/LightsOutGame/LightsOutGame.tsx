@@ -75,7 +75,7 @@ export default function LightsOutGame() {
         {
           function () {
             if (isPopupShown) {
-              return <ClearPopup />;
+              return <ClearPopup onClick={() => setPopupShown(false)}/>;
             } else {
               return <></>
             }
@@ -86,13 +86,17 @@ export default function LightsOutGame() {
   );
 }
 
-function ClearPopup() {
+function ClearPopup(props) {
   return (
     <>
       <div className={styles.popup_background} />
       <div className={styles.popup_parent}>
         <div className={styles.clear_popup}>
-          <p>Clear!!</p>
+          <p className={styles.clear_text}>C L E A R !</p>
+          <button
+            className={styles.ok_button}
+            onClick={() => props.onClick()}
+          >O K</button>
         </div>
       </div>
     </>
