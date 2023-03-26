@@ -2,6 +2,8 @@ import React, {useState} from "react"
 
 import styles from "./LightsOutMenuBar.module.css";
 
+import ResizePopup from "./ResizePopup"
+
 const ResizeButton = (props) => {
   const [isPopupShown, setPopupShown] = useState(false);
 
@@ -22,35 +24,19 @@ const ResizeButton = (props) => {
       handleCloseResizePopup();
   }
 
-  const SizeList = () => {
-      let list = [];
-      for (let i = 0; i < 8; i++) {
-      let length = i + 3;
-      list.push(
-          <button className={styles.size_button} onClick={() => handleResize(length)}>{length}x{length}</button>
-      )
-      }
-      return <div>{list}</div>;
-  }
-
   return (
-      <div>
-      <div className={styles.popup_parent}>
-          <button
-          className={styles.resize_button}
-          onClick={() => handleResizeButtonClick()}
-          >
-          Size<br />{props.length}x{props.length}
-          </button>
-          <div className={`
-          ${styles.resize_popup}
-          ${isPopupShown && styles.popup_shown}
-          `}>
-          {SizeList()}
-          <button className={styles.close_button} onClick={() => handleCloseResizePopup()}>Close</button>
-          </div>
-      </div>
-      </div>
+    <div className={styles.popup_parent}>
+      <button
+        className={styles.resize_button}
+        onClick={() => handleResizeButtonClick()}
+      >Size<br />{props.length}x{props.length}
+      </button>
+      <ResizePopup
+        className={`${styles.resize_popup} ${isPopupShown && styles.popup_shown}`}
+        onResize={(length) => handleResize(length)}
+        onClose={() => handleCloseResizePopup()}
+      />
+    </div>
   )
 }
 

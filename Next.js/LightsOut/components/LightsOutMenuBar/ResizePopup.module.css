@@ -1,0 +1,46 @@
+/* === ResizePopup === */
+.resize_popup {
+    position: absolute;
+    
+    z-index: 2;
+
+    width: 108px;
+    padding: 5px;
+    background: #efefdd;
+
+    left: -10px;
+}
+
+/* === SizeButton === */
+.size_button {
+    width: 50px;
+    border: 0px;
+    margin: 2px;
+    padding: 5px;
+    background-color: #dddd80;
+}
+
+.size_button:hover {
+    background-color: #eeee90;
+}
+
+.size_button:active {
+    background-color: #cccc70;
+}
+
+/* === CloseButton === */
+.close_button {
+    width: 104px;
+    border: 0px;
+    margin: 2px;
+    padding: 5px;
+    background-color: #d5d5d5
+}
+
+.close_button:hover {
+    background-color: #e5e5e5
+}
+
+.close_button:active {
+    background-color: #c5c5c5
+}
