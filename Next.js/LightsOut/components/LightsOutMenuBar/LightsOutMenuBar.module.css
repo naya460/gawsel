@@ -1,0 +1,22 @@
+/* === LightsOutMenuBar === */
+.menu_bar {
+    display: flex;
+}
+
+/* === LightsOutNewGameButton === */
+.new_game_button {
+    width: 198px;
+    height: 40px;
+    border-width: 0px;
+    margin-left: 2px;
+    margin-bottom: 5px;
+    background-color: #88cccc;
+}
+
+.new_game_button:hover {
+    background-color: #99dddd;
+}
+
+.new_game_button:active {
+    background-color: #77bbbb;
+}
