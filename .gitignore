@@ -5,3 +5,5 @@
 
 !/Rust/*
 /Rust/*/target/
+
+!/Next.js/*
