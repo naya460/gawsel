@@ -16,6 +16,7 @@ export default function ResizePopup(props: Props) {
       let length = i + 3;
       list.push(
         <button
+          key={length}
           className={styles.size_button}
           onClick={() => props.onResize(length)}
         >{length}x{length}</button>

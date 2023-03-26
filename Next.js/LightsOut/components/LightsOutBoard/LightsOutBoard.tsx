@@ -21,17 +21,18 @@ export default function LightsOutBoard(props: Props) : React.ReactElement {
   }
   
   // 行のReact要素を作成する
-  function line(row: number, length: number) : React.ReactElement {
+  function line(row: number, length: number, key: number) : React.ReactElement {
     const list = [];
     for (let i = 0; i < length; i++) {
       list.push(
         <LightsOutCell
+          key={i}
           isLightOn={props.lights[row * props.length + i]}
           onClick={() => handleClick(row * props.length + i)}
         />
       );
     }
-    return <div className={styles.line}>{list}</div>;
+    return <div key={key} className={styles.line}>{list}</div>;
   }
   
   return (
@@ -41,7 +42,7 @@ export default function LightsOutBoard(props: Props) : React.ReactElement {
         function () {
           const list = [];
           for (let i = 0; i < props.length; i++) {
-            list.push(line(i, props.length));
+            list.push(line(i, props.length, i));
           }
           return <div className={styles.board}>{list}</div>;
         }()
