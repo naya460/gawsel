@@ -1,4 +1,7 @@
-# c++
-build/
-# Rust
-target/
+/*/*
+
+!/c++/*
+/c++/*/build/
+
+!/Rust/*
+/Rust/*/target/
