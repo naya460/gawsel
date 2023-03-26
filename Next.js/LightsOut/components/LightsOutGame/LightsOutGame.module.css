@@ -1,4 +1,32 @@
+/* === Game === */
 .game {
     display: flex;
     justify-content: center;
+}
+
+/* === ClearPopup === */
+.popup_parent {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.clear_popup {    
+    width: 200px;
+    height: 150px;
+    background-color: #aaddaa;
+    text-align: center;
+    position: absolute;
+    top: -225px;
+    z-index: 4;
+}
+
+.popup_background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 3;
 }

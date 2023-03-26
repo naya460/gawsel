@@ -9,6 +9,7 @@ export default function LightsOutGame() {
   const [lights, setLights] = useState(Array(9).fill(false));
   const [length, setLength] = useState(3);
   const [clear, setClear] = useState(true);
+  const [isPopupShown, setPopupShown] = useState(false);
 
   // 全てのライトがoffになったか確認
   function checkLights(lights: Array<boolean>) : boolean {
@@ -32,7 +33,7 @@ export default function LightsOutGame() {
     if (pos % length < length - 1)  lights[pos + 1] = !lights[pos + 1];
     // クリアしたか確認
     if (checkLights(lights)) {
-      console.log("Clear");
+      setPopupShown(true);
     }
 
     return lights;
@@ -71,7 +72,29 @@ export default function LightsOutGame() {
           lights={lights} setLights={setLights}
           pushLight={(lights, pos) => pushLight(lights, pos)}
         />
+        {
+          function () {
+            if (isPopupShown) {
+              return <ClearPopup />;
+            } else {
+              return <></>
+            }
+          }()
+        }
       </div>
     </div>
   );
+}
+
+function ClearPopup() {
+  return (
+    <>
+      <div className={styles.popup_background} />
+      <div className={styles.popup_parent}>
+        <div className={styles.clear_popup}>
+          <p>Clear!!</p>
+        </div>
+      </div>
+    </>
+  )
 }
