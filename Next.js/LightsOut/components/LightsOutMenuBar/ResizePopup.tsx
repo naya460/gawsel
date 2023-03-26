@@ -3,7 +3,6 @@ import React from "react"
 import styles from "./ResizePopup.module.css";
 
 type Props = {
-  className?: string;
   onResize: (length: number) => void;
   onClose: () => void;
 }
@@ -26,7 +25,7 @@ export default function ResizePopup(props: Props) {
   }
 
   return (
-    <div className={`${styles.resize_popup} ${props.className}`}>
+    <div className={styles.resize_popup}>
       {SizeList()}
       <button
         className={styles.close_button}

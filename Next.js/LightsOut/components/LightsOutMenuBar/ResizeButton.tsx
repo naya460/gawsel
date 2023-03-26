@@ -40,11 +40,21 @@ export default function ResizeButton(props: Props) {
         onClick={() => handleResizeButtonClick()}
       >Size<br />{props.length}x{props.length}
       </button>
-      <ResizePopup
-        className={`${styles.resize_popup} ${isPopupShown && styles.popup_shown}`}
-        onResize={(length) => handleResize(length)}
-        onClose={() => handleCloseResizePopup()}
-      />
+      {
+        function () {
+          if (isPopupShown) {
+            return (
+              <ResizePopup
+                onResize={(length) => handleResize(length)}
+                onClose={() => handleCloseResizePopup()}
+              />
+            )
+          } else {
+            return <></>
+          }
+        }()
+      }
+      
     </div>
   )
 }

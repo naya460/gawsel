@@ -20,11 +20,3 @@
 .popup_parent {
     position: relative;
 }
-
-.resize_popup {
-    transform: scale(0);
-}
-
-.popup_shown {
-    transform: scale(1);
-}
