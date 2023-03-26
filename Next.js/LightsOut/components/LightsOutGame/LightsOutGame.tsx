@@ -4,6 +4,7 @@ import styles from "./LightsOutGame.module.css";
 
 import LightsOutBoard from "../LightsOutBoard/LightsOutBoard";
 import LightsOutMenuBar from "../LightsOutMenuBar/LightsOutMenuBar"
+import ClearPopup from "./ClearPopup"
 
 export default function LightsOutGame() {
   const [lights, setLights] = useState(Array(9).fill(false));
@@ -84,21 +85,4 @@ export default function LightsOutGame() {
       </div>
     </div>
   );
-}
-
-function ClearPopup(props) {
-  return (
-    <>
-      <div className={styles.popup_background} />
-      <div className={styles.popup_parent}>
-        <div className={styles.clear_popup}>
-          <p className={styles.clear_text}>C L E A R !</p>
-          <button
-            className={styles.ok_button}
-            onClick={() => props.onClick()}
-          >O K</button>
-        </div>
-      </div>
-    </>
-  )
 }
