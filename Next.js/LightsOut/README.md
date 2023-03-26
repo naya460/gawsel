@@ -1,5 +1,5 @@
 # Next.js LightsOut について
-Next.js(React)で実装した LightsOut です。
+Next.js(React) で実装した LightsOut です。
 
 # 実行方法
 npm をインストールしてください。  
@@ -8,3 +8,4 @@ npm をインストールしてください。
 npm run build
 npm run start
 ```
+実行に成功するとurlが表示されるので、表示されたurlをブラウザで開いてください。
