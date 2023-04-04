@@ -1,0 +1,15 @@
+.cell {
+    width: 1.8rem;
+    height: 1.8rem;
+    border: 0;
+    border-radius: 10%;
+    background-color: #83bed6;
+}
+
+.cell:hover {
+    background-color: #94cfe7;
+}
+
+.cell:active {
+    background-color: #72adc5;
+}

@@ -1,9 +1,9 @@
-import Link from 'next/link'
+import MinesweeperCell from "../components/MinesweepeCell"
 
 export default function IndexPage() {
   return (
     <div>
-      Hello World. <Link href="/about">About</Link>
+      <MinesweeperCell />
     </div>
   )
 }
