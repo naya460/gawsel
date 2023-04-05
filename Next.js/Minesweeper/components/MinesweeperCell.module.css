@@ -1,9 +1,10 @@
 .cell {
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 2rem;
+    height: 2rem;
     border: 0;
-    border-radius: 10%;
+    border-radius: 6%;
     background-color: #83bed6;
+    margin: 1px;
 }
 
 .cell:hover {

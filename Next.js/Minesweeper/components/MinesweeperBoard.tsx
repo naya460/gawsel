@@ -1,5 +1,7 @@
 import react from "react"
 
+import styles from "./MinesweeperBoard.module.css"
+
 import MinesweeperCell from "./MinesweeperCell"
 
 export default function(): react.ReactElement {
@@ -9,14 +11,14 @@ export default function(): react.ReactElement {
         {
           function (): react.ReactElement {
             const list = [];
-            for (let i = 0; i < 9; i++) {
+            for (let i = 0; i < 16; i++) {
               const line = [];
-              for (let j = 0; j < 9; j++) {
+              for (let j = 0; j < 30; j++) {
                 line.push(<MinesweeperCell />);
               }
-              list.push(<div>{line}</div>);
+              list.push(<div className={styles.line}>{line}</div>);
             }
-            return <>{list}</>;
+            return <div className={styles.board}>{list}</div>;
           }()
         }
       </div>
