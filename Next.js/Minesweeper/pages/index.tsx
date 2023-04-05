@@ -1,9 +1,7 @@
-import MinesweeperCell from "../components/MinesweepeCell"
+import MinesweeperBoard from "../components/MinesweeperBoard"
 
 export default function IndexPage() {
   return (
-    <div>
-      <MinesweeperCell />
-    </div>
+    <MinesweeperBoard />
   )
 }
