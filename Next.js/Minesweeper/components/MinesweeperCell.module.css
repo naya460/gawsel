@@ -3,14 +3,21 @@
     height: 2rem;
     border: 0;
     border-radius: 6%;
-    background-color: #83bed6;
     margin: 1px;
 }
 
-.cell:hover {
+.cell_close {
+    background-color: #83bed6;
+}
+
+.cell_close:hover {
     background-color: #94cfe7;
 }
 
-.cell:active {
+.cell_close:active {
     background-color: #72adc5;
+}
+
+.cell_open {
+    background-color: #d3d3d3;
 }
