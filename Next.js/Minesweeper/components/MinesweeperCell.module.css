@@ -4,6 +4,8 @@
     border: 0;
     border-radius: 6%;
     margin: 1px;
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .cell_close {

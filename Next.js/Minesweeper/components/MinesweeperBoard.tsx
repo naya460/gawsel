@@ -6,17 +6,21 @@ import MinesweeperCell from "./MinesweeperCell"
 
 type CellStatus = {
   isOpen: boolean;
+  number: number; // -1のとき爆弾
 }
 
 export default function(): react.ReactElement {
   const [lx, setLx] = useState(30);
   const [ly, setLy] = useState(16);
-  const [board, setBoard] = useState<Array<CellStatus>>(Array(lx * ly).fill({isOepn: false}));
+  const [board, setBoard] = useState<Array<CellStatus>>(
+    Array<CellStatus>(lx * ly).fill({isOpen: false, number: 1})
+  );
 
   function handleClickCell(x: number, y: number) {
-    const tmp = board.slice();
-    tmp[lx * y + x] = {isOpen: true};
-    setBoard(tmp);
+    const board_slice = board.slice();
+    const pos = lx * y + x;
+    board_slice[pos] = {...board_slice[pos], isOpen: true};
+    setBoard(board_slice);
   }
 
   return (
@@ -31,7 +35,8 @@ export default function(): react.ReactElement {
                 const pos = lx * i + j;
                 line.push(
                   <MinesweeperCell
-                    status={board[pos].isOpen}
+                    isOpen={board[pos].isOpen}
+                    number={board[pos].number}
                     onClick={() => handleClickCell(j, i)}
                     key={pos}
                   />
