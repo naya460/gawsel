@@ -19,6 +19,9 @@ export default function MinesweeperCell(props: Props): react.ReactElement {
     if (props.number == 0) {
       return '';
     }
+    if (props.number == -1) {
+      return 'X';
+    }
     if (props.isOpen) {
       return props.number.toString();
     }
