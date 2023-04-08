@@ -4,14 +4,18 @@ import styles from "./MinesweeperBoard.module.css"
 
 import MinesweeperCell from "./MinesweeperCell"
 
+type CellStatus = {
+  isOpen: boolean;
+}
+
 export default function(): react.ReactElement {
   const [lx, setLx] = useState(30);
   const [ly, setLy] = useState(16);
-  const [board, setBoard] = useState(Array(lx * ly).fill(false));
+  const [board, setBoard] = useState<Array<CellStatus>>(Array(lx * ly).fill({isOepn: false}));
 
   function handleClickCell(x: number, y: number) {
     const tmp = board.slice();
-    tmp[lx * y + x] = true;
+    tmp[lx * y + x] = {isOpen: true};
     setBoard(tmp);
   }
 
@@ -27,7 +31,7 @@ export default function(): react.ReactElement {
                 const pos = lx * i + j;
                 line.push(
                   <MinesweeperCell
-                    status={board[pos]}
+                    status={board[pos].isOpen}
                     onClick={() => handleClickCell(j, i)}
                     key={pos}
                   />
