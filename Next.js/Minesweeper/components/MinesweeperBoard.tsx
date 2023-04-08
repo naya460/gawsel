@@ -53,14 +53,82 @@ export default function(): react.ReactElement {
     for (let i = 0; i < number_list.length; i++) {
       number_list[i] = i;
     }
+    // 方向が存在するか確認する関数
+    function checkUpper(pos: number): boolean {
+      return (pos / lx) >= 1;
+    }
+    function checkBottom(pos: number): boolean {
+      return (pos / lx) < ly - 1;
+    }
+    function checkLeft(pos: number): boolean {
+      return (pos % lx) >= 1;
+    }
+    function checkRight(pos: number): boolean {
+      return (pos % lx) < lx - 1;
+    }
     // ランダムに配置
-    const board_slice = board.slice();
+    let board_slice = board.slice();
     board_slice.fill({isOpen: true, number: 0, isFlagged: false});
     for (let i = 0; i < mine; i++) {
+      // 爆弾を配置
       let pos = number_list[Math.floor(Math.random() * number_list.length)];
       board_slice[pos] = {...board_slice[pos], number: -1};
       number_list.splice(number_list.indexOf(pos), 1);
+      // 周囲に数字を配置
+      if (checkUpper(pos)) {  // 上側
+        if (checkLeft(pos) && board_slice[pos - lx - 1].number != -1) {  // 左上
+          board_slice[pos - lx - 1] = {
+            ...board_slice[pos - lx - 1],
+            number: board_slice[pos - lx - 1].number + 1
+          };
+        }
+        if (board_slice[pos - lx].number != -1) {  // 上
+          board_slice[pos - lx] = {
+            ...board_slice[pos - lx],
+            number: board_slice[pos - lx].number + 1
+          };
+        }
+        if (checkRight(pos) && board_slice[pos - lx + 1].number != -1) {  // 右上
+          board_slice[pos - lx + 1] = {
+            ...board_slice[pos - lx + 1],
+            number: board_slice[pos - lx + 1].number + 1
+          };
+        }
+      }
+      if (checkLeft(pos) && board_slice[pos - 1].number != -1) {  // 左
+        board_slice[pos - 1] = {
+          ...board_slice[pos - 1],
+          number: board_slice[pos - 1].number + 1
+        };
+      }
+      if (checkRight(pos) && board_slice[pos + 1].number != -1) {  // 左
+        board_slice[pos + 1] = {
+          ...board_slice[pos + 1],
+          number: board_slice[pos + 1].number + 1
+        };
+      }
+      if (checkBottom(pos)) {  // 下側
+        if (checkLeft(pos) && board_slice[pos + lx - 1].number != -1) {  // 左下
+          board_slice[pos + lx - 1] = {
+            ...board_slice[pos + lx - 1],
+            number: board_slice[pos + lx - 1].number + 1
+          };
+        }
+        if (board_slice[pos + lx].number != -1) {  // 下
+          board_slice[pos + lx] = {
+            ...board_slice[pos + lx],
+            number: board_slice[pos + lx].number + 1
+          };
+        }
+        if (checkRight(pos) && board_slice[pos + lx + 1].number != -1) {  // 右下
+          board_slice[pos + lx + 1] = {
+            ...board_slice[pos + lx + 1],
+            number: board_slice[pos + lx + 1].number + 1
+          };
+        }
+      }
     }
+    
     return board_slice;
   }
 
