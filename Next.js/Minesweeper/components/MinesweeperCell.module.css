@@ -23,3 +23,18 @@
 .cell_open {
     background-color: #d3d3d3;
 }
+
+.cell_flagged {
+    background-color: #dddd66;
+    color: #dd3333;
+}
+
+.cell_flagged:hover {
+    background-color: #eaea77;
+    color: #ea4444;
+}
+
+.cell_flagged:active {
+    background-color: #c5c555;
+    color: #c53333;
+}
