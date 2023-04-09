@@ -25,15 +25,45 @@ export default function(): react.ReactElement {
     const pos = lx * y + x;
     // 旗が立っているとき開けない
     if (board_slice[pos].isFlagged == true) return;
-    // 開けているとき処理をしない
-    if (board_slice[pos].isOpen == true) return;
     // 最初に開けるときに初期化
     if (start == false) {
       board_slice = handleRandomize(x, y);
       setStart(true);
     }
     // 開ける
-    board_slice = openCell(board_slice, x, y);
+    if (board_slice[pos].isOpen == false) {
+      board_slice = openCell(board_slice, x, y);
+    } else {
+      // 周りの旗の数をカウント
+      let flags = 0;
+      if (checkUpper(pos)) {  // 上側
+        if (checkLeft(pos) && board_slice[pos - lx - 1].isFlagged) flags++; // 左上
+        if (board_slice[pos - lx].isFlagged) flags++; // 上
+        if (checkRight(pos) && board_slice[pos - lx + 1].isFlagged) flags++;  // 右上
+      }
+      if (checkLeft(pos) && board_slice[pos - 1].isFlagged) flags++;  // 左
+      if (checkRight(pos) && board_slice[pos + 1].isFlagged) flags++; // 右
+      if (checkBottom(pos)) {  // 下側
+        if (checkLeft(pos) && board_slice[pos + lx - 1].isFlagged) flags++; // 左下
+        if (board_slice[pos + lx].isFlagged) flags++; // 下
+        if (checkRight(pos) && board_slice[pos + lx + 1].isFlagged) flags++;  // 右下
+      }
+      // 爆弾の数と旗の数が一致したとき開ける
+      if (board_slice[pos].number == flags) {
+        if (checkUpper(pos)) {  // 上側
+          if (checkLeft(pos)) board_slice = openCell(board_slice, x - 1, y - 1);  // 左上
+          board_slice = openCell(board_slice, x, y - 1); // 上
+          if (checkRight(pos)) board_slice = openCell(board_slice, x + 1, y - 1); // 右上
+        }
+        if (checkLeft(pos)) board_slice = openCell(board_slice, x - 1, y);  // 左
+        if (checkRight(pos)) board_slice = openCell(board_slice, x + 1, y); // 右
+        if (checkBottom(pos)) {  // 下側
+          if (checkLeft(pos)) board_slice = openCell(board_slice, x - 1, y + 1);  // 左下
+          board_slice = openCell(board_slice, x, y + 1); // 下
+          if (checkRight(pos)) board_slice = openCell(board_slice, x + 1, y + 1); // 右下
+        }
+      }
+    }
     setBoard(board_slice);
   }
 
