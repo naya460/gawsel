@@ -93,6 +93,16 @@ export default function(): react.ReactElement {
     for (let i = 0; i < number_list.length; i++) {
       number_list[i] = i;
     }
+    // 安全地帯の作成
+    number_list.splice(number_list.indexOf(lx * (y - 1) + x - 1), 1); // 左上
+    number_list.splice(number_list.indexOf(lx * (y - 1) + x), 1);     // 上
+    number_list.splice(number_list.indexOf(lx * (y - 1) + x + 1), 1); // 右上
+    number_list.splice(number_list.indexOf(lx * y + x - 1), 1);       // 左
+    number_list.splice(number_list.indexOf(lx * y + x), 1);           // 中央
+    number_list.splice(number_list.indexOf(lx * y + x + 1), 1);       // 右
+    number_list.splice(number_list.indexOf(lx * (y + 1) + x - 1), 1); // 左下
+    number_list.splice(number_list.indexOf(lx * (y + 1) + x), 1);     // 下
+    number_list.splice(number_list.indexOf(lx * (y + 1) + x + 1), 1); // 右下
     // 数字を増やす関数
     function addNumber(pos: number): void {
       if (board_slice[pos].number == -1) return;
