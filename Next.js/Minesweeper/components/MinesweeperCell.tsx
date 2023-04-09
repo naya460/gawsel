@@ -16,15 +16,16 @@ export default function MinesweeperCell(props: Props): react.ReactElement {
     if (props.isFlagged == true) {
       return 'P';
     }
+    if (props.isOpen == false) {
+      return '';
+    }
     if (props.number == 0) {
       return '';
     }
     if (props.number == -1) {
       return 'X';
     }
-    if (props.isOpen) {
-      return props.number.toString();
-    }
+    return props.number.toString();
   }
 
   return (
