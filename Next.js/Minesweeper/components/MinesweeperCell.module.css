@@ -24,6 +24,10 @@
     background-color: #d3d3d3;
 }
 
+.cell_open:active {
+    background-color: #c3c3c3;
+}
+
 .cell_flagged {
     background-color: #dddd66;
     color: #dd3333;
