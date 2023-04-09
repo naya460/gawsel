@@ -66,6 +66,13 @@ export default function(): react.ReactElement {
     function checkRight(pos: number): boolean {
       return (pos % lx) < lx - 1;
     }
+    // 数字を増やす関数
+    function addNumber(pos: number): void {
+      if (board_slice[pos].number == -1) return;
+      board_slice[pos] = {
+        ...board_slice[pos], number: board_slice[pos].number + 1
+      };
+    }
     // ランダムに配置
     let board_slice = board.slice();
     board_slice.fill({isOpen: true, number: 0, isFlagged: false});
@@ -76,56 +83,16 @@ export default function(): react.ReactElement {
       number_list.splice(number_list.indexOf(pos), 1);
       // 周囲に数字を配置
       if (checkUpper(pos)) {  // 上側
-        if (checkLeft(pos) && board_slice[pos - lx - 1].number != -1) {  // 左上
-          board_slice[pos - lx - 1] = {
-            ...board_slice[pos - lx - 1],
-            number: board_slice[pos - lx - 1].number + 1
-          };
-        }
-        if (board_slice[pos - lx].number != -1) {  // 上
-          board_slice[pos - lx] = {
-            ...board_slice[pos - lx],
-            number: board_slice[pos - lx].number + 1
-          };
-        }
-        if (checkRight(pos) && board_slice[pos - lx + 1].number != -1) {  // 右上
-          board_slice[pos - lx + 1] = {
-            ...board_slice[pos - lx + 1],
-            number: board_slice[pos - lx + 1].number + 1
-          };
-        }
+        if (checkLeft(pos)) addNumber(pos - lx - 1);  // 左上
+        addNumber(pos - lx);  // 上
+        if (checkRight(pos)) addNumber(pos - lx + 1); // 右上
       }
-      if (checkLeft(pos) && board_slice[pos - 1].number != -1) {  // 左
-        board_slice[pos - 1] = {
-          ...board_slice[pos - 1],
-          number: board_slice[pos - 1].number + 1
-        };
-      }
-      if (checkRight(pos) && board_slice[pos + 1].number != -1) {  // 左
-        board_slice[pos + 1] = {
-          ...board_slice[pos + 1],
-          number: board_slice[pos + 1].number + 1
-        };
-      }
+      if (checkLeft(pos)) addNumber(pos - 1);   // 左
+      if (checkRight(pos)) addNumber(pos + 1);  // 右
       if (checkBottom(pos)) {  // 下側
-        if (checkLeft(pos) && board_slice[pos + lx - 1].number != -1) {  // 左下
-          board_slice[pos + lx - 1] = {
-            ...board_slice[pos + lx - 1],
-            number: board_slice[pos + lx - 1].number + 1
-          };
-        }
-        if (board_slice[pos + lx].number != -1) {  // 下
-          board_slice[pos + lx] = {
-            ...board_slice[pos + lx],
-            number: board_slice[pos + lx].number + 1
-          };
-        }
-        if (checkRight(pos) && board_slice[pos + lx + 1].number != -1) {  // 右下
-          board_slice[pos + lx + 1] = {
-            ...board_slice[pos + lx + 1],
-            number: board_slice[pos + lx + 1].number + 1
-          };
-        }
+        if (checkLeft(pos)) addNumber(pos + lx - 1);  // 左下
+        addNumber(pos + lx);  // 下
+        if (checkRight(pos)) addNumber(pos + lx + 1); // 右下
       }
     }
     
