@@ -25,6 +25,23 @@ export default function MinesweeperGame(): react.ReactElement {
 		return (pos % lx) < lx - 1;
 	}
 
+	// 周りに対して処理を施す関数
+	function processAround(x: number, y:number, process: (x: number, y: number) => void): void {
+		const pos = lx * y + x;
+		if (checkUpper(pos)) {	// 上側
+			if (checkLeft(pos)) process(x - 1, y - 1);	// 左上
+			process(x, y - 1);													// 上
+			if (checkRight(pos)) process(x + 1, y - 1);	// 右上
+		}
+    if (checkLeft(pos)) process(x - 1, y);  // 左
+    if (checkRight(pos)) process(x + 1, y);	// 右
+    if (checkBottom(pos)) { // 下側
+      if (checkLeft(pos)) process(x - 1, y + 1);	// 左下
+			process(x, y + 1);													// 下
+			if (checkRight(pos)) process(x + 1, y + 1);	// 右下
+    }
+	}
+
 	// セルを開ける関数
 	function openCell(board_slice: CellStatus[], x: number, y: number): CellStatus[] {
 		const pos = lx * y + x;
@@ -33,18 +50,7 @@ export default function MinesweeperGame(): react.ReactElement {
 		// 開ける
 		board_slice[pos] = {...board_slice[pos], isOpen: true};
 		if (board_slice[pos].number == 0) {
-			if (checkUpper(pos)) {  // 上側
-				if (checkLeft(pos)) board_slice = openCell(board_slice, x - 1, y - 1);    // 左上
-				board_slice = openCell(board_slice, x, y - 1);   // 上
-				if (checkRight(pos)) board_slice = openCell(board_slice, x + 1, y - 1);   // 右上
-			}
-			if (checkBottom(pos)) {
-				if (checkLeft(pos)) board_slice = openCell(board_slice, x - 1, y + 1);    // 左下
-				board_slice = openCell(board_slice, x, y + 1);  // 下
-				if (checkRight(pos)) board_slice = openCell(board_slice, x + 1, y + 1);   // 右下
-			}
-			if (checkLeft(pos)) board_slice = openCell(board_slice, x - 1, y);    // 左
-			if (checkRight(pos)) board_slice = openCell(board_slice, x + 1, y);   // 右
+      processAround(x, y, (x, y) => {board_slice = openCell(board_slice, x, y)})
 		}
 		return board_slice;
 	}
@@ -82,18 +88,7 @@ export default function MinesweeperGame(): react.ReactElement {
       board_slice[pos] = {...board_slice[pos], number: -1};
       number_list.splice(number_list.indexOf(pos), 1);
       // 周囲に数字を配置
-      if (checkUpper(pos)) {  // 上側
-        if (checkLeft(pos)) addNumber(pos - lx - 1);  // 左上
-        addNumber(pos - lx);  // 上
-        if (checkRight(pos)) addNumber(pos - lx + 1); // 右上
-      }
-      if (checkLeft(pos)) addNumber(pos - 1);   // 左
-      if (checkRight(pos)) addNumber(pos + 1);  // 右
-      if (checkBottom(pos)) {  // 下側
-        if (checkLeft(pos)) addNumber(pos + lx - 1);  // 左下
-        addNumber(pos + lx);  // 下
-        if (checkRight(pos)) addNumber(pos + lx + 1); // 右下
-      }
+      processAround(pos % lx, Math.floor(pos / lx), (x, y) => {addNumber(lx * y + x)});
     }
     
     return board_slice;
@@ -116,32 +111,18 @@ export default function MinesweeperGame(): react.ReactElement {
     } else {
       // 周りの旗の数をカウント
       let flags = 0;
-      if (checkUpper(pos)) {  // 上側
-        if (checkLeft(pos) && board_slice[pos - lx - 1].isFlagged) flags++; // 左上
-        if (board_slice[pos - lx].isFlagged) flags++; // 上
-        if (checkRight(pos) && board_slice[pos - lx + 1].isFlagged) flags++;  // 右上
-      }
-      if (checkLeft(pos) && board_slice[pos - 1].isFlagged) flags++;  // 左
-      if (checkRight(pos) && board_slice[pos + 1].isFlagged) flags++; // 右
-      if (checkBottom(pos)) {  // 下側
-        if (checkLeft(pos) && board_slice[pos + lx - 1].isFlagged) flags++; // 左下
-        if (board_slice[pos + lx].isFlagged) flags++; // 下
-        if (checkRight(pos) && board_slice[pos + lx + 1].isFlagged) flags++;  // 右下
-      }
+      processAround(
+        pos % lx,
+        Math.floor(pos / lx),
+        (x, y) => {if (board_slice[lx * y + x].isFlagged) flags++}
+      );
       // 爆弾の数と旗の数が一致したとき開ける
       if (board_slice[pos].number == flags) {
-        if (checkUpper(pos)) {  // 上側
-          if (checkLeft(pos)) board_slice = openCell(board_slice, x - 1, y - 1);  // 左上
-          board_slice = openCell(board_slice, x, y - 1); // 上
-          if (checkRight(pos)) board_slice = openCell(board_slice, x + 1, y - 1); // 右上
-        }
-        if (checkLeft(pos)) board_slice = openCell(board_slice, x - 1, y);  // 左
-        if (checkRight(pos)) board_slice = openCell(board_slice, x + 1, y); // 右
-        if (checkBottom(pos)) {  // 下側
-          if (checkLeft(pos)) board_slice = openCell(board_slice, x - 1, y + 1);  // 左下
-          board_slice = openCell(board_slice, x, y + 1); // 下
-          if (checkRight(pos)) board_slice = openCell(board_slice, x + 1, y + 1); // 右下
-        }
+        processAround(
+          pos % lx,
+          Math.floor(pos / lx),
+          (x, y) => {board_slice = openCell(board_slice, x, y)}
+        );
       }
     }
     setBoard(board_slice);
