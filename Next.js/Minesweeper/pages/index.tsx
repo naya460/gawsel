@@ -1,7 +1,7 @@
-import MinesweeperBoard from "../components/MinesweeperBoard"
+import MinesweeperGame from "../components/MinesweeperGame"
 
 export default function IndexPage() {
   return (
-    <MinesweeperBoard />
+    <MinesweeperGame />
   )
 }
