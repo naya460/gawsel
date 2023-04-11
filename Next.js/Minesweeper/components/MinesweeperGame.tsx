@@ -1,5 +1,7 @@
 import react, {useState} from "react"
 
+import styles from "./MinesweeperGame.module.css"
+
 import MinesweeperBoard, {CellStatus} from "./MinesweeperBoard"
 
 export default function MinesweeperGame(): react.ReactElement {
@@ -141,6 +143,14 @@ export default function MinesweeperGame(): react.ReactElement {
 
 	return (
 		<>
+      <button
+        className={styles.new_game_button}
+        onClick={() => {
+          const board_slice = board.slice();
+          board_slice.fill({isOpen: false, number: 0, isFlagged: false});
+          setBoard(board_slice);
+          setStart(false);
+        }}>New Game</button>
 			<MinesweeperBoard
 				lx={lx} ly={ly} board={board}
 				onClickCell={(x, y) => handleClickCell(x, y)}
