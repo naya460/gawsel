@@ -2,7 +2,7 @@ import react, {useState} from "react"
 
 import styles from "./MinesweeperBoard.module.css"
 
-import MinesweeperCell from "./MinesweeperCell"
+import MinesweeperCell from "../MinesweeperCell/MinesweeperCell"
 
 export interface CellStatus {
   isOpen: boolean;

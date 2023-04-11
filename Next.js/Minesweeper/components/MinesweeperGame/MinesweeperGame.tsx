@@ -2,8 +2,8 @@ import react, {useState} from "react"
 
 import styles from "./MinesweeperGame.module.css"
 
-import MinesweeperBoard, {CellStatus} from "./MinesweeperBoard"
-import MineSweeperMenuBar from "./MinesweeperMenuBar"
+import MinesweeperBoard, {CellStatus} from "../MinesweeperBoard/MinesweeperBoard"
+import MineSweeperMenuBar from "../MinesweeperMenuBar/MinesweeperMenuBar"
 
 export default function MinesweeperGame(): react.ReactElement {
 	const [lx, setLx] = useState(30);     // 横幅
