@@ -1,0 +1,26 @@
+.menu_bar {
+    background-color: #e8e8d0;
+    margin: 4px;
+    margin-right: 8px;
+    padding: 5px;
+}
+
+.new_game_button {
+    width: 10rem;
+    height: 2rem;
+    border-width: px;
+    border-color: #eeeeee;
+    border-style: solid;
+    margin: 2px;
+    background-color: #b8b8ee;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.new_game_button:hover {
+    background-color: #c8c8ff;
+}
+
+.new_game_button:active {
+    background-color: #a8a8dd;
+}
