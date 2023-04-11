@@ -3,6 +3,7 @@ import react, {useState} from "react"
 import styles from "./MinesweeperGame.module.css"
 
 import MinesweeperBoard, {CellStatus} from "./MinesweeperBoard"
+import MineSweeperMenuBar from "./MinesweeperMenuBar"
 
 export default function MinesweeperGame(): react.ReactElement {
 	const [lx, setLx] = useState(30);     // 横幅
@@ -143,14 +144,14 @@ export default function MinesweeperGame(): react.ReactElement {
 
 	return (
 		<>
-      <button
-        className={styles.new_game_button}
-        onClick={() => {
+      <MineSweeperMenuBar
+        onClickNewGameButton={() => {
           const board_slice = board.slice();
           board_slice.fill({isOpen: false, number: 0, isFlagged: false});
           setBoard(board_slice);
           setStart(false);
-        }}>New Game</button>
+        }}
+      />
 			<MinesweeperBoard
 				lx={lx} ly={ly} board={board}
 				onClickCell={(x, y) => handleClickCell(x, y)}
