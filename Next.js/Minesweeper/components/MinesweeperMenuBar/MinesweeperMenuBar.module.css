@@ -1,14 +1,16 @@
 .menu_bar {
+    display: flex;
+    flex-direction: row;
     background-color: #e8e8d0;
-    margin: 4px;
-    margin-right: 8px;
+    margin: 3px;
     padding: 5px;
+    border-radius: 0.1rem;
 }
 
 .new_game_button {
     width: 10rem;
     height: 2rem;
-    border-width: px;
+    border-width: 2px;
     border-color: #eeeeee;
     border-style: solid;
     margin: 2px;

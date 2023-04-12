@@ -144,19 +144,21 @@ export default function MinesweeperGame(): react.ReactElement {
 
 	return (
 		<>
-      <MineSweeperMenuBar
-        onClickNewGameButton={() => {
-          const board_slice = board.slice();
-          board_slice.fill({isOpen: false, number: 0, isFlagged: false});
-          setBoard(board_slice);
-          setStart(false);
-        }}
-      />
-			<MinesweeperBoard
-				lx={lx} ly={ly} board={board}
-				onClickCell={(x, y) => handleClickCell(x, y)}
-				onRightClickCell={(x, y) => handleRightClickCell(x, y)}
-			/>
+      <div style={{'width': 'fit-content'}}>
+        <MineSweeperMenuBar
+          onClickNewGameButton={() => {
+            const board_slice = board.slice();
+            board_slice.fill({isOpen: false, number: 0, isFlagged: false});
+            setBoard(board_slice);
+            setStart(false);
+          }}
+        />
+        <MinesweeperBoard
+          lx={lx} ly={ly} board={board}
+          onClickCell={(x, y) => handleClickCell(x, y)}
+          onRightClickCell={(x, y) => handleRightClickCell(x, y)}
+        />
+      </div>
 		</>
 	)
 }
