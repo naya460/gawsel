@@ -1,0 +1,49 @@
+.resize_button_parent {
+    position: relative;
+    width: fit-content;
+}
+
+.resize_button {
+    height: 2rem;
+    width: 10rem;
+    border-width: 2px;
+    border-color: #eeeeee;
+    border-style: solid;
+    margin: 2px;
+    background-color: #b8b8ee;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.resize_button:hover {
+    background-color: #c8c8ff;
+}
+
+.resize_button:active {
+    background-color: #a8a8dd;
+}
+
+.resize_button_contents {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.size_text {
+    left: 0.4rem;
+    inline-size: 8.6rem;
+    text-align: center;
+}
+
+.v_text {
+    right: 0.4rem;
+    position: absolute;
+}
+
+.resize_popup {
+    position: absolute;
+    background-color: rgba(140, 140, 140, 80%);
+    width: calc(100% - 6px);
+    height: 180px;
+    margin: 3px;
+}
