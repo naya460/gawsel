@@ -44,6 +44,27 @@
     position: absolute;
     background-color: rgba(140, 140, 140, 80%);
     width: calc(100% - 6px);
-    height: 180px;
+    height: 140px;
     margin: 3px;
+}
+
+.size_button {
+    height: 2rem;
+    border-width: 1px;
+    border-color: #eeeeee;
+    border-style: solid;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #b8b8ee;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.size_button:hover {
+    background-color: #c8c8ff;
+}
+
+.size_button:active {
+    background-color: #a8a8dd;
 }

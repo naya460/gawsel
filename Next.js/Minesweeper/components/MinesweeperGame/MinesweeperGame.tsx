@@ -152,6 +152,15 @@ export default function MinesweeperGame(): react.ReactElement {
             setBoard(board_slice);
             setStart(false);
           }}
+          setSize={(lx, ly, mine) => {
+            setLx(lx);
+            setLy(ly);
+            setMine(mine);
+            setStart(false);
+            const board_slice = board.slice();
+            board_slice.fill({isOpen: false, number: 0, isFlagged: false});
+            setBoard(board_slice);
+          }}
         />
         <MinesweeperBoard
           lx={lx} ly={ly} board={board}

@@ -6,6 +6,7 @@ import ResizeButton from "./ResizeButton"
 
 type Props = {
   onClickNewGameButton: () => void;
+  setSize: (lx: number, ly: number, mine: number) => void;
 }
 
 export default function MinesweeperMenuBar(props: Props): react.ReactElement {
@@ -16,7 +17,7 @@ export default function MinesweeperMenuBar(props: Props): react.ReactElement {
           className={styles.new_game_button}
           onClick={() => props.onClickNewGameButton()}
         >New Game</button>
-        <ResizeButton />
+        <ResizeButton setSize={(lx, ly, mine) => props.setSize(lx, ly, mine)}/>
       </div>
     </div>
   );
