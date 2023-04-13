@@ -62,16 +62,15 @@ export default function MinesweeperGame(): react.ReactElement {
 	}
 
 	// セルを開ける関数
-	function openCell(board_slice: CellStatus[], x: number, y: number): CellStatus[] {
+	function openCell(board_slice: CellStatus[], x: number, y: number): void {
 		const pos = lx * y + x;
 		// 開いているとき返却
-		if (board_slice[pos].isOpen == true) return board_slice;
+		if (board_slice[pos].isOpen == true) return;
 		// 開ける
 		board_slice[pos] = {...board_slice[pos], isOpen: true};
 		if (board_slice[pos].number == 0) {
-      processAround(x, y, (x, y) => {board_slice = openCell(board_slice, x, y)})
+      processAround(x, y, (x, y) => {openCell(board_slice, x, y)})
 		}
-		return board_slice;
 	}
 
 	// ランダムに爆弾を生成する関数
@@ -109,7 +108,7 @@ export default function MinesweeperGame(): react.ReactElement {
       // 周囲に数字を配置
       processAround(pos % lx, Math.floor(pos / lx), (x, y) => {addNumber(lx * y + x)});
     }
-    
+
     return board_slice;
   }
 
@@ -126,7 +125,7 @@ export default function MinesweeperGame(): react.ReactElement {
     }
     // 開ける
     if (board_slice[pos].isOpen == false) {
-      board_slice = openCell(board_slice, x, y);
+      openCell(board_slice, x, y);
     } else {
       // 周りの旗の数をカウント
       let flags = 0;
@@ -140,7 +139,7 @@ export default function MinesweeperGame(): react.ReactElement {
         processAround(
           pos % lx,
           Math.floor(pos / lx),
-          (x, y) => {board_slice = openCell(board_slice, x, y)}
+          (x, y) => {openCell(board_slice, x, y)}
         );
       }
     }
@@ -180,8 +179,8 @@ export default function MinesweeperGame(): react.ReactElement {
         />
         <MinesweeperBoard
           lx={lx} ly={ly} board={board}
-          onClickCell={(x, y) => handleClickCell(x, y)}
-          onRightClickCell={(x, y) => handleRightClickCell(x, y)}
+          onClickCell={handleClickCell}
+          onRightClickCell={handleRightClickCell}
         />
       </div>
 		</>
