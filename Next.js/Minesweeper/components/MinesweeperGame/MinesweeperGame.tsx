@@ -29,6 +29,7 @@ export default function MinesweeperGame(): react.ReactElement {
   const [board, setBoard] = useState<Array<CellStatus>>(
     Array<CellStatus>(lx * ly).fill({isOpen: false, number: 0, isFlagged: false})
   );  // 盤面
+  const [flagCount, setFlagCount] = useState(0);
 
 	// 方向が存在するか確認する関数
 	function checkUpper(pos: number): boolean {
@@ -154,6 +155,7 @@ export default function MinesweeperGame(): react.ReactElement {
 		if (board_slice[pos].isOpen == true) return;
 		// 旗を立てる
 		board_slice[pos] = {...board_slice[pos], isFlagged: !board_slice[pos].isFlagged}
+    if (board_slice[pos].isFlagged) setFlagCount(flagCount + 1); else setFlagCount(flagCount - 1);
 		setBoard(board_slice);
 	}
 
@@ -161,17 +163,20 @@ export default function MinesweeperGame(): react.ReactElement {
 		<>
       <div style={{'width': 'fit-content'}}>
         <MineSweeperMenuBar
+          mine={mine - flagCount}
           onClickNewGameButton={() => {
             const board_slice = board.slice();
             board_slice.fill({isOpen: false, number: 0, isFlagged: false});
             setBoard(board_slice);
             setStart(false);
+            setFlagCount(0);
           }}
           setSize={(lx, ly, mine) => {
             setLx(lx);
             setLy(ly);
             setMine(mine);
             setStart(false);
+            setFlagCount(0);
             const board_slice = board.slice();
             board_slice.fill({isOpen: false, number: 0, isFlagged: false});
             setBoard(board_slice);

@@ -21,6 +21,7 @@ import styles from "./MinesweeperMenuBar.module.css"
 import ResizeButton from "./ResizeButton"
 
 type Props = {
+  mine: number;
   onClickNewGameButton: () => void;
   setSize: (lx: number, ly: number, mine: number) => void;
 }
@@ -34,6 +35,7 @@ export default function MinesweeperMenuBar(props: Props): react.ReactElement {
           onClick={() => props.onClickNewGameButton()}
         >New Game</button>
         <ResizeButton setSize={(lx, ly, mine) => props.setSize(lx, ly, mine)}/>
+        <div>Mine : {props.mine}</div>
       </div>
     </div>
   );
