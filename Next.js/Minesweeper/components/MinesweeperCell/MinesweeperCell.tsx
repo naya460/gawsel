@@ -19,42 +19,48 @@ import react from "react"
 import styles from "./MinesweeperCell.module.css"
 
 type Props = {
+  x: number;
+  y: number;
   isOpen: boolean;
   number: number;
   isFlagged: boolean;
-  onClick: () => void;
-  onRightClick: () => void;
+  onClick: (x: number, y: number) => void;
+  onRightClick: (x: number, y: number) => void;
 }
 
-export default function MinesweeperCell(props: Props): react.ReactElement {
-  // 表示する内容を返却
-  function displayNumber(): string {
-    if (props.isFlagged == true) {
-      return 'P';
+const MinesweeperCell = react.memo(
+  (props: Props): react.ReactElement => {
+    // 表示する内容を返却
+    function displayNumber(): string {
+      if (props.isFlagged == true) {
+        return 'P';
+      }
+      if (props.isOpen == false) {
+        return '';
+      }
+      if (props.number == 0) {
+        return '';
+      }
+      if (props.number == -1) {
+        return 'X';
+      }
+      return props.number.toString();
     }
-    if (props.isOpen == false) {
-      return '';
-    }
-    if (props.number == 0) {
-      return '';
-    }
-    if (props.number == -1) {
-      return 'X';
-    }
-    return props.number.toString();
+
+    return (
+      <button
+        className={`
+          ${styles.cell} 
+          ${props.isFlagged?
+            styles.cell_flagged :
+            (props.isOpen? styles.cell_open : styles.cell_close)
+          }
+        `}
+        onClick={() => props.onClick(props.x, props.y)}
+        onContextMenu={() => {props.onRightClick(props.x, props.y)}}
+      >{displayNumber()}</button>
+    );
   }
+);
 
-  return (
-    <button
-      className={`
-        ${styles.cell} 
-        ${props.isFlagged?
-          styles.cell_flagged :
-          (props.isOpen? styles.cell_open : styles.cell_close)
-        }
-      `}
-      onClick={() => props.onClick()}
-      onContextMenu={() => {props.onRightClick()}}
-    >{displayNumber()}</button>
-  );
-}
+export default MinesweeperCell;

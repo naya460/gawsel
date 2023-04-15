@@ -37,7 +37,28 @@ type Props = {
 export default function(props: Props): react.ReactElement {
   const lx = props.lx;
   const ly = props.ly;
-  const board = props.board;
+
+  const board = react.useRef(props.board);
+  const ref_onClickCell = react.useRef(props.onClickCell);
+  const ref_onRightClickCell = react.useRef(props.onRightClickCell);
+
+  board.current = props.board;
+  ref_onClickCell.current = props.onClickCell;
+  ref_onRightClickCell.current = props.onRightClickCell;
+
+  const handleClickCell = react.useCallback(
+    (x: number, y: number) => {
+      ref_onClickCell.current(x, y);
+    },
+    [ref_onClickCell]
+  );
+
+  const handleRightClickCell = react.useCallback(
+    (x: number, y: number) => {
+      ref_onRightClickCell.current(x, y);
+    },
+    [ref_onRightClickCell]
+  );
 
   return (
     <>
@@ -51,11 +72,12 @@ export default function(props: Props): react.ReactElement {
                 const pos = lx * i + j;
                 line.push(
                   <MinesweeperCell
-                    isOpen={board[pos].isOpen}
-                    number={board[pos].number}
-                    isFlagged={board[pos].isFlagged}
-                    onClick={() => props.onClickCell(j, i)}
-                    onRightClick={() => props.onRightClickCell(j, i)}
+                    x={j} y={i}
+                    isOpen={board.current[pos].isOpen}
+                    number={board.current[pos].number}
+                    isFlagged={board.current[pos].isFlagged}
+                    onClick={handleClickCell}
+                    onRightClick={handleRightClickCell}
                     key={pos}
                   />
                 );
