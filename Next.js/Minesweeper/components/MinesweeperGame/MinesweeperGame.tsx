@@ -67,6 +67,8 @@ export default function MinesweeperGame(): react.ReactElement {
 		const pos = lx * y + x;
 		// 開いているとき返却
 		if (board_slice[pos].isOpen == true) return;
+    // 旗が立っているとき返却
+    if (board_slice[pos].isFlagged == true) return;
 		// 開ける
 		board_slice[pos] = {...board_slice[pos], isOpen: true};
 		if (board_slice[pos].number == 0) {
