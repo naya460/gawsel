@@ -40,6 +40,21 @@ export default function MinesweeperMenuBar(props: Props): react.ReactElement {
     return () => clearInterval(timer);
   }, [props.start])
 
+  // 時間を「時:分:秒」の形にする
+  function createTimeText(): string {
+    let text = "";
+    if (time >= 60 * 60) {
+      text += (Math.floor(time / 60 / 60)) + " : ";
+      if (Math.floor(time / 60 % 60) < 10) text += "0"
+    }
+    if (time >= 60) {
+      text += (Math.floor(time / 60 % 60) + " : ");
+      if (time % 60 < 10) text += "0";
+    }
+    text += (time % 60) + "";
+    return text;
+  }
+
   return(
     <div className={styles.menu_bar}>
       <button
@@ -56,7 +71,7 @@ export default function MinesweeperMenuBar(props: Props): react.ReactElement {
         }}
       />
       <div className={styles.space}/>
-      <div className={styles.text}>Time<br/>{time}</div>
+      <div className={styles.text}>Time<br/>{createTimeText()}</div>
       <div className={styles.text}>Mine<br/>{props.mine}</div>
     </div>
   );
