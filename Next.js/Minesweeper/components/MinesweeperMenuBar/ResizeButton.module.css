@@ -20,8 +20,8 @@
 }
 
 .resize_button {
-    height: 2rem;
     width: 10rem;
+    height: calc(100% - 4px);
     border-width: 2px;
     border-color: #eeeeee;
     border-style: solid;

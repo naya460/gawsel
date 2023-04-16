@@ -24,8 +24,7 @@
 }
 
 .new_game_button {
-    width: 10rem;
-    height: 2rem;
+    min-width: 10rem;
     border-width: 2px;
     border-color: #eeeeee;
     border-style: solid;
@@ -41,4 +40,16 @@
 
 .new_game_button:active {
     background-color: #a8a8dd;
+}
+
+.space {
+    width: 100%;
+}
+
+.text {
+    min-width: 5rem;
+    font-size: 0.9rem;
+    color: #000000;
+    text-align: center;
+    padding: 4px;
 }
