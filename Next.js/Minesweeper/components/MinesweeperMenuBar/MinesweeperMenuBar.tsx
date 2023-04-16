@@ -14,7 +14,7 @@
   limitations under the License.
 */
 
-import react, {useState} from "react"
+import react, {useEffect, useState} from "react"
 
 import styles from "./MinesweeperMenuBar.module.css"
 
@@ -22,19 +22,41 @@ import ResizeButton from "./ResizeButton"
 
 type Props = {
   mine: number;
+  start: boolean;
   onClickNewGameButton: () => void;
   setSize: (lx: number, ly: number, mine: number) => void;
 }
 
 export default function MinesweeperMenuBar(props: Props): react.ReactElement {
+  const [time, setTime] = useState(0);
+
+  // 時間のカウント
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (props.start) {
+        setTime((time) => time + 1)
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [props.start])
+
   return(
     <div className={styles.menu_bar_parent}>
       <div className={styles.menu_bar}>
         <button
           className={styles.new_game_button}
-          onClick={() => props.onClickNewGameButton()}
+          onClick={() => {
+            props.onClickNewGameButton()
+            setTime(0);
+          }}
         >New Game</button>
-        <ResizeButton setSize={(lx, ly, mine) => props.setSize(lx, ly, mine)}/>
+        <ResizeButton
+          setSize={(lx, ly, mine) => {
+            props.setSize(lx, ly, mine)
+            setTime(0);
+          }}
+        />
+        <div>Time : {time}</div>
         <div>Mine : {props.mine}</div>
       </div>
     </div>

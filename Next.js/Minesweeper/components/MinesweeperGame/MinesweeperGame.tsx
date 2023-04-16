@@ -166,6 +166,7 @@ export default function MinesweeperGame(): react.ReactElement {
       <div style={{'width': 'fit-content'}}>
         <MineSweeperMenuBar
           mine={mine - flagCount}
+          start={start}
           onClickNewGameButton={() => {
             const board_slice = board.slice();
             board_slice.fill({isOpen: false, number: 0, isFlagged: false});
