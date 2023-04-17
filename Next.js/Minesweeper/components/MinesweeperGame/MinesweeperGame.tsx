@@ -27,10 +27,13 @@ export default function MinesweeperGame(): react.ReactElement {
   const [mine, setMine] = useState(99); // 爆弾の数
   const [start, setStart] = useState(false);  // 開始しているかどうか
   const [end, setEnd] = useState(false);      // 終了したかどうか
+  const [openCount, setOpenCount] = useState(0);  // 開けたセルの数
   const [board, setBoard] = useState<Array<CellStatus>>(
     Array<CellStatus>(lx * ly).fill({isOpen: false, number: 0, isFlagged: false})
   );  // 盤面
   const [flagCount, setFlagCount] = useState(0);
+
+  let tmp_openCount = openCount;
 
 	// 方向が存在するか確認する関数
 	function checkUpper(pos: number): boolean {
@@ -76,10 +79,17 @@ export default function MinesweeperGame(): react.ReactElement {
     if (board_slice[pos].number == -1) {
       setEnd(true);
     }
+    // 開けたことを記録
+    setOpenCount((prev) => prev + 1);
+    tmp_openCount++;
     // 周りを開ける
 		if (board_slice[pos].number == 0) {
       processAround(x, y, (x, y) => {openCell(board_slice, x, y)})
 		}
+    // クリアしたか判定する
+    if (lx * ly - tmp_openCount == mine) {
+      setEnd(true);
+    }
 	}
 
 	// ランダムに爆弾を生成する関数
@@ -186,6 +196,7 @@ export default function MinesweeperGame(): react.ReactElement {
             setStart(false);
             setEnd(false);
             setFlagCount(0);
+            setOpenCount(0);
           }}
           setSize={(lx, ly, mine) => {
             setLx(lx);
@@ -194,6 +205,7 @@ export default function MinesweeperGame(): react.ReactElement {
             setStart(false);
             setEnd(false);
             setFlagCount(0);
+            setOpenCount(0);
             const board_slice = board.slice();
             board_slice.fill({isOpen: false, number: 0, isFlagged: false});
             setBoard(board_slice);
