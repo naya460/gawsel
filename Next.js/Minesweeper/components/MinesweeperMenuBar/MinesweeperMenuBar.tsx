@@ -23,6 +23,7 @@ import ResizeButton from "./ResizeButton"
 type Props = {
   mine: number;
   start: boolean;
+  end: boolean;
   onClickNewGameButton: () => void;
   setSize: (lx: number, ly: number, mine: number) => void;
 }
@@ -33,12 +34,12 @@ export default function MinesweeperMenuBar(props: Props): react.ReactElement {
   // 時間のカウント
   useEffect(() => {
     const timer = setInterval(() => {
-      if (props.start) {
+      if (props.start && !props.end) {
         setTime((time) => time + 1)
       }
     }, 1000);
     return () => clearInterval(timer);
-  }, [props.start])
+  }, [props.start, props.end])
 
   // 時間を「時:分:秒」の形にする
   function createTimeText(): string {

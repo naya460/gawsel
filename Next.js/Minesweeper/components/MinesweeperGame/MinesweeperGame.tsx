@@ -26,6 +26,7 @@ export default function MinesweeperGame(): react.ReactElement {
   const [ly, setLy] = useState(16);     // 縦幅
   const [mine, setMine] = useState(99); // 爆弾の数
   const [start, setStart] = useState(false);  // 開始しているかどうか
+  const [end, setEnd] = useState(false);      // 終了したかどうか
   const [board, setBoard] = useState<Array<CellStatus>>(
     Array<CellStatus>(lx * ly).fill({isOpen: false, number: 0, isFlagged: false})
   );  // 盤面
@@ -71,6 +72,11 @@ export default function MinesweeperGame(): react.ReactElement {
     if (board_slice[pos].isFlagged == true) return;
 		// 開ける
 		board_slice[pos] = {...board_slice[pos], isOpen: true};
+    // 爆弾を押したとき終了
+    if (board_slice[pos].number == -1) {
+      setEnd(true);
+    }
+    // 周りを開ける
 		if (board_slice[pos].number == 0) {
       processAround(x, y, (x, y) => {openCell(board_slice, x, y)})
 		}
@@ -117,6 +123,9 @@ export default function MinesweeperGame(): react.ReactElement {
 
 	// セルを左クリックしたときの処理
   function handleClickCell(x: number, y: number): void {
+    // 終了しているとき何もしない
+    if (end) return;
+    // 前処理
     let board_slice = board.slice();
     const pos = lx * y + x;
     // 旗が立っているとき開けない
@@ -151,6 +160,9 @@ export default function MinesweeperGame(): react.ReactElement {
 
 	// セルを右クリックしたときの処理
 	function handleRightClickCell(x: number, y: number): void {
+    // 終了しているとき何もしない
+    if (end) return;
+    // 前処理
 		const board_slice = board.slice();
 		const pos = lx * y + x;
 		// 開いているとき、旗を立てない
@@ -166,12 +178,13 @@ export default function MinesweeperGame(): react.ReactElement {
       <div style={{'width': 'fit-content'}}>
         <MineSweeperMenuBar
           mine={mine - flagCount}
-          start={start}
+          start={start} end={end}
           onClickNewGameButton={() => {
             const board_slice = board.slice();
             board_slice.fill({isOpen: false, number: 0, isFlagged: false});
             setBoard(board_slice);
             setStart(false);
+            setEnd(false);
             setFlagCount(0);
           }}
           setSize={(lx, ly, mine) => {
@@ -179,6 +192,7 @@ export default function MinesweeperGame(): react.ReactElement {
             setLy(ly);
             setMine(mine);
             setStart(false);
+            setEnd(false);
             setFlagCount(0);
             const board_slice = board.slice();
             board_slice.fill({isOpen: false, number: 0, isFlagged: false});
