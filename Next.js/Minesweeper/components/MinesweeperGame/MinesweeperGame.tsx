@@ -27,6 +27,7 @@ export default function MinesweeperGame(): react.ReactElement {
   const [mine, setMine] = useState(99); // 爆弾の数
   const [start, setStart] = useState(false);  // 開始しているかどうか
   const [end, setEnd] = useState(false);      // 終了したかどうか
+  const [popup, setPopup] = useState(false);  // ポップアップの表示
   const [openCount, setOpenCount] = useState(0);  // 開けたセルの数
   const [board, setBoard] = useState<Array<CellStatus>>(
     Array<CellStatus>(lx * ly).fill({isOpen: false, number: 0, isFlagged: false})
@@ -99,6 +100,7 @@ export default function MinesweeperGame(): react.ReactElement {
     // クリアしたか判定する
     if (lx * ly - tmp_openCount == mine) {
       setEnd(true);
+      setPopup(true);
     }
 	}
 
@@ -194,7 +196,24 @@ export default function MinesweeperGame(): react.ReactElement {
 	}
 
 	return (
-		<>
+		<div>
+      {
+        function() {
+          if (popup) {
+            return (
+              <div className={styles.background}>
+                <div className={styles.popup}>
+                  <p className={styles.text}>C L E A R !</p>
+                  <button
+                    className={styles.button}
+                    onClick={() => setPopup(false)}
+                  >O K</button>
+                </div>
+              </div>
+            )
+          }
+        }()
+      }
       <div style={{'width': 'fit-content'}}>
         <MineSweeperMenuBar
           mine={mine - flagCount}
@@ -227,6 +246,6 @@ export default function MinesweeperGame(): react.ReactElement {
           onRightClickCell={handleRightClickCell}
         />
       </div>
-		</>
+		</div>
 	)
 }
