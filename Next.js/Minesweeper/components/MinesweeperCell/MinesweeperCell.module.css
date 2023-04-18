@@ -58,3 +58,13 @@
     background-color: #c5c555;
     color: #c53333;
 }
+
+.cell_mine {
+    background-color: #c55555;
+    color: #e9e9e9;
+}
+
+.mistake_flag {
+    background-color: #bb6600;
+    color: #e9e9e9;
+}

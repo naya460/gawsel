@@ -51,9 +51,13 @@ const MinesweeperCell = react.memo(
       <button
         className={`
           ${styles.cell} 
-          ${props.isFlagged?
-            styles.cell_flagged :
-            (props.isOpen? styles.cell_open : styles.cell_close)
+          ${props.isFlagged? (
+              (props.number == -2) ? styles.mistake_flag : styles.cell_flagged
+            ):
+              (props.isOpen? (
+                (props.number == -1) ? styles.cell_mine : styles.cell_open
+              ): styles.cell_close
+            )
           }
         `}
         onClick={() => props.onClick(props.x, props.y)}

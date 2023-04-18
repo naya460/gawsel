@@ -77,7 +77,17 @@ export default function MinesweeperGame(): react.ReactElement {
 		board_slice[pos] = {...board_slice[pos], isOpen: true};
     // 爆弾を押したとき終了
     if (board_slice[pos].number == -1) {
+      for (let i = 0; i < lx * ly; i++) {
+        if (board_slice[i].number == -1) {
+          board_slice[i] = {...board_slice[i], isOpen: true};
+        }
+        if (board_slice[i].isFlagged && board_slice[i].number != -1) {
+          board_slice[i] = {...board_slice[i], number: -2};
+        }
+      }
+      setBoard(board_slice);
       setEnd(true);
+      return;
     }
     // 開けたことを記録
     setOpenCount((prev) => prev + 1);
