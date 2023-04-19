@@ -187,11 +187,33 @@ export default function MinesweeperGame(): react.ReactElement {
     // 前処理
 		const board_slice = board.slice();
 		const pos = lx * y + x;
-		// 開いているとき、旗を立てない
-		if (board_slice[pos].isOpen == true) return;
 		// 旗を立てる
-		board_slice[pos] = {...board_slice[pos], isFlagged: !board_slice[pos].isFlagged}
-    if (board_slice[pos].isFlagged) setFlagCount(flagCount + 1); else setFlagCount(flagCount - 1);
+    if (board_slice[pos].isOpen == false) {
+      board_slice[pos] = {...board_slice[pos], isFlagged: !board_slice[pos].isFlagged}
+      if (board_slice[pos].isFlagged) setFlagCount(flagCount + 1); else setFlagCount(flagCount - 1);
+    } else {
+      // 周りの閉じたセルの数をカウント
+      let close = 0;
+      processAround(
+        pos % lx,
+        Math.floor(pos / lx),
+        (x, y) => {if (board_slice[lx * y + x].isOpen == false) close++}
+      );
+      // 爆弾の数と閉じたセルの数が一致したとき旗を立てる
+      if (board_slice[pos].number == close) {
+        processAround(
+          pos % lx,
+          Math.floor(pos / lx),
+          (x, y) => {
+            const pos = lx * y + x;
+            if (board_slice[pos].isOpen == false && board_slice[pos].isFlagged == false) {
+              board_slice[pos] = {...board_slice[pos], isFlagged: true}
+              setFlagCount((count) => count + 1)
+            }
+          }
+        );
+      }
+    }
 		setBoard(board_slice);
 	}
 
