@@ -262,11 +262,13 @@ export default function MinesweeperGame(): react.ReactElement {
             setBoard(board_slice);
           }}
         />
-        <MinesweeperBoard
-          lx={lx} ly={ly} board={board}
-          onClickCell={handleClickCell}
-          onRightClickCell={handleRightClickCell}
-        />
+        <div style={{'display': 'flex', 'justifyContent': 'center'}}>
+          <MinesweeperBoard
+            lx={lx} ly={ly} board={board}
+            onClickCell={handleClickCell}
+            onRightClickCell={handleRightClickCell}
+          />
+        </div>
       </div>
 		</div>
 	)
