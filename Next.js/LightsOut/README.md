@@ -9,3 +9,7 @@ npm run build
 npm run start
 ```
 実行に成功するとurlが表示されるので、表示されたurlをブラウザで開いてください。
+
+# ライセンス
+gawsel Next.js LightsOut は Apache License 2.0 の下で配布されています。  
+詳細は、本ディレクトリの LICENSE ファイルをご覧ください。
