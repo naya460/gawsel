@@ -1,9 +1,2 @@
-/*/*
-
-!/c++/*
-/c++/*/build/
-
-!/Rust/*
-/Rust/*/target/
-
-!/Next.js/*
+/*/
+!/Rust/
