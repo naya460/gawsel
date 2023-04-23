@@ -50,3 +50,7 @@ c++で実装したMinesweeperです。
 
 ## 盤面の終了後
 `0` を入力すると続行、`1`を入力すると終了します。
+
+# ライセンス
+gawsel c++ Minesweeper は Apache License 2.0 の下で配布されています。  
+詳細は、本ディレクトリの LICENSE ファイルをご覧ください。
