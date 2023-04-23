@@ -1,4 +1,2 @@
-# c++
-build/
-# Rust
-target/
+/*/
+!/Rust/
