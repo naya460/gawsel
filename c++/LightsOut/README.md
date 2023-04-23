@@ -30,3 +30,7 @@ wxWidgetsをインストールしてください。
 
 # 実行方法
 ビルド後、このディレクトリで `make run` を実行します。
+
+# ライセンス
+gawsel c++ LightsOut は Apache License 2.0 の下で配布されています。  
+詳細は、本ディレクトリの LICENSE ファイルをご覧ください。
