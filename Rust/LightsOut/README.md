@@ -11,5 +11,5 @@ Rustの開発環境を構築してください。
 エラーが出なければ成功です。
 
 # ライセンス
-gawsel Next.js LightsOut は Apache License 2.0 の下で配布されています。  
+gawsel Rust LightsOut は Apache License 2.0 の下で配布されています。  
 詳細は、本ディレクトリの LICENSE ファイルをご覧ください。
