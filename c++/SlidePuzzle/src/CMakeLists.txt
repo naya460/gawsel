@@ -1,0 +1,1 @@
+add_Executable(SlidePuzzle SlidePuzzle.cpp)
