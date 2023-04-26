@@ -12,6 +12,9 @@ public:
     // コンストラクタ
     SlidePuzzleSys();
 
+    // 数字を移動
+    void move_number(uint16_t position) noexcept;
+
     // 辺の長さを取得
     uint8_t get_length() noexcept;
 
