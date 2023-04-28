@@ -17,11 +17,11 @@ public:
     bool move_number(uint16_t position) noexcept;
 
     // 辺の長さを取得
-    uint8_t get_length() noexcept;
+    uint8_t get_length() const noexcept;
 
     // 盤面のサイズを取得
-    uint16_t get_size() noexcept;
+    uint16_t get_size() const noexcept;
 
     // 場所から数字を取り出す (範囲外のとき、falseの例外を投げる)
-    uint16_t get_number(uint16_t position);
+    uint16_t get_number(uint16_t position) const;
 };

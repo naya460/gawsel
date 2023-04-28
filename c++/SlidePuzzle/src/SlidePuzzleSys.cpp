@@ -57,15 +57,15 @@ bool SlidePuzzleSys::move_number(uint16_t position) noexcept {
     );
 }
 
-uint8_t SlidePuzzleSys::get_length() noexcept {
+uint8_t SlidePuzzleSys::get_length() const noexcept {
     return this->length;
 }
 
-uint16_t SlidePuzzleSys::get_size() noexcept {
+uint16_t SlidePuzzleSys::get_size() const noexcept {
     return this->length * this->length;
 }
 
-uint16_t SlidePuzzleSys::get_number(uint16_t position) {
+uint16_t SlidePuzzleSys::get_number(uint16_t position) const {
     // 範囲外のとき、例外を投げる
     if (position >= get_size()) {
         throw(false);
