@@ -4,9 +4,9 @@
 
 int main(void) {
     SlidePuzzleSys sys;
-    sys.move_number(11);
-    sys.move_number(10);
-    sys.move_number(14);
+    sys.move_number(3);
+    sys.move_number(0);
+    sys.move_number(12);
     sys.move_number(15);
     for (int i = 0; i < sys.get_size(); ++i) {
         printf("%2d ", sys.get_number(i));

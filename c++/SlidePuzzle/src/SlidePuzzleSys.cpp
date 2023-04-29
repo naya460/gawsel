@@ -1,6 +1,7 @@
 #include "SlidePuzzleSys.hpp"
 
 #include <iostream>
+#include <algorithm>
 
 SlidePuzzleSys::SlidePuzzleSys() {
     // 盤面のサイズを変更
@@ -18,35 +19,51 @@ bool SlidePuzzleSys::move_number(uint8_t x, uint8_t y) noexcept {
     if (x >= this->length || y >= this->length) {
         return false;
     }
-    // 座標を計算
-    uint16_t position = (
-        static_cast<uint16_t>(y) * static_cast<uint16_t>(this->length)
-        + static_cast<uint16_t>(x)
-    );
-    // 左が空いているとき移動
-    if (x >= 1 && board[position - 1] == 0) {
-        board[position - 1] = board[position];
-        board[position] = 0;
+    // 0の位置を探す
+    auto itr = std::find(board.begin(), board.end(), 0);
+    uint16_t pos = itr - board.begin();
+    // 0の位置のときfalseを返却
+    if (pos == y * this->length + x) {
+        return false;
+    }
+    // ゼロの場所を計算
+    uint8_t zero_x = static_cast<uint8_t>(pos % this->length);
+    uint8_t zero_y = static_cast<uint8_t>(pos / this->length);
+    // 横の位置が同じのとき移動
+    if (zero_x == x) {
+        // 0が上のとき
+        if (zero_y < y) {
+            for (uint8_t i = zero_y; i < y; ++i) {
+                board[i * this->length + x] = board[(i + 1) * this->length + x];
+            }
+        }
+        // 0が下のとき
+        else {
+            for (uint8_t i = zero_y; i > y; --i) {
+                board[i * this->length + x] = board[(i - 1) * this->length + x];
+            }
+        }
+        board[y * this->length + x] = 0;
         return true;
     }
-    // 右が空いているとき移動
-    if (x < this->length - 1 && board[position + 1] == 0) {
-        board[position + 1] = board[position];
-        board[position] = 0;
+    // 縦の位置が同じのとき移動
+    if (pos / this->length == y) {
+        // 0が左のとき
+        if (zero_x < x) {
+            for (uint8_t i = zero_x; i < x; ++i) {
+                board[i + y * this->length] = board[i + 1 + y * this->length];
+            }
+        }
+        // 0が右のとき
+        else {
+            for (uint8_t i = zero_x; i > x; --i) {
+                board[i + y *this->length] = board[i - 1 + y * this->length];
+            }
+        }
+        board[x + y * this->length] = 0;
         return true;
     }
-    // 上が空いているとき移動
-    if (y >= 1 && board[position - this->length] == 0) {
-        board[position - this->length] = board[position];
-        board[position] = 0;
-        return true;
-    }
-    // 下が空いているとき移動
-    if (y < this->length - 1 && board[position + this->length] == 0) {
-        board[position + this->length] = board[position];
-        board[position] = 0;
-        return true;
-    }
+    // どこにも当てはまらなかったとき
     return false;
 }
 
