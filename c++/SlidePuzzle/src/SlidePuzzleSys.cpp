@@ -27,20 +27,20 @@ bool SlidePuzzleSys::move_number(uint8_t x, uint8_t y) noexcept {
         return false;
     }
     // ゼロの場所を計算
-    uint8_t zero_x = static_cast<uint8_t>(pos % this->length);
-    uint8_t zero_y = static_cast<uint8_t>(pos / this->length);
+    uint8_t zero_x = pos_to_x(pos);
+    uint8_t zero_y = pos_to_y(pos);
     // 横の位置が同じのとき移動
     if (zero_x == x) {
         // 0が上のとき
         if (zero_y < y) {
             for (uint8_t i = zero_y; i < y; ++i) {
-                board[i * this->length + x] = board[(i + 1) * this->length + x];
+                board[xy_to_pos(x, i)] = board[xy_to_pos(x, i + 1)];
             }
         }
         // 0が下のとき
         else {
             for (uint8_t i = zero_y; i > y; --i) {
-                board[i * this->length + x] = board[(i - 1) * this->length + x];
+                board[xy_to_pos(x, i)] = board[xy_to_pos(x, i - 1)];
             }
         }
         board[y * this->length + x] = 0;
@@ -51,16 +51,16 @@ bool SlidePuzzleSys::move_number(uint8_t x, uint8_t y) noexcept {
         // 0が左のとき
         if (zero_x < x) {
             for (uint8_t i = zero_x; i < x; ++i) {
-                board[i + y * this->length] = board[i + 1 + y * this->length];
+                board[xy_to_pos(i, y)] = board[xy_to_pos(i + 1, y)];
             }
         }
         // 0が右のとき
         else {
             for (uint8_t i = zero_x; i > x; --i) {
-                board[i + y *this->length] = board[i - 1 + y * this->length];
+                board[xy_to_pos(i, y)] = board[xy_to_pos(i - 1, y)];
             }
         }
-        board[x + y * this->length] = 0;
+        board[xy_to_pos(x, y)] = 0;
         return true;
     }
     // どこにも当てはまらなかったとき
@@ -68,10 +68,22 @@ bool SlidePuzzleSys::move_number(uint8_t x, uint8_t y) noexcept {
 }
 
 bool SlidePuzzleSys::move_number(uint16_t position) noexcept {
-    return move_number(
-        static_cast<uint8_t>(position % this->length),
-        static_cast<uint8_t>(position / this->length)
+    return move_number(pos_to_x(position), pos_to_y(position));
+}
+
+uint16_t SlidePuzzleSys::xy_to_pos(uint8_t x, uint8_t y) const noexcept {
+    return (
+        static_cast<uint16_t>(y) * static_cast<uint16_t>(this->length)
+        + static_cast<uint16_t>(x)
     );
+}
+
+uint8_t SlidePuzzleSys::pos_to_x(uint16_t pos) const noexcept {
+    return pos % static_cast<uint16_t>(this->length);
+}
+
+uint8_t SlidePuzzleSys::pos_to_y(uint16_t pos) const noexcept {
+    return pos / static_cast<uint16_t>(this->length);
 }
 
 uint8_t SlidePuzzleSys::get_length() const noexcept {
