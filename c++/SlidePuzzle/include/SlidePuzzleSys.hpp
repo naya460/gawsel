@@ -16,6 +16,11 @@ public:
     bool move_number(uint8_t x, uint8_t y) noexcept;
     bool move_number(uint16_t position) noexcept;
 
+    // 座標を変換
+    uint16_t xy_to_pos(uint8_t x, uint8_t y) const noexcept;
+    uint8_t pos_to_x(uint16_t pos) const noexcept;
+    uint8_t pos_to_y(uint16_t pos) const noexcept;
+
     // 辺の長さを取得
     uint8_t get_length() const noexcept;
 
