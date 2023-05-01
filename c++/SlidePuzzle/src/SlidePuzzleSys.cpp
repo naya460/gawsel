@@ -94,10 +94,10 @@ uint16_t SlidePuzzleSys::get_size() const noexcept {
     return this->length * this->length;
 }
 
-uint16_t SlidePuzzleSys::get_number(uint16_t position) const {
-    // 範囲外のとき、例外を投げる
+std::optional<uint16_t> SlidePuzzleSys::get_number(uint16_t position) const noexcept {
+    // 範囲外のとき、nulloptを返却
     if (position >= get_size()) {
-        throw(false);
+        return std::nullopt;
     }
     // 指定された場所の数字を返却
     return board[position];
