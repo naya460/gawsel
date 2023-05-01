@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <optional>
 
 class SlidePuzzleSys {
 private:
@@ -27,6 +28,6 @@ public:
     // 盤面のサイズを取得
     uint16_t get_size() const noexcept;
 
-    // 場所から数字を取り出す (範囲外のとき、falseの例外を投げる)
-    uint16_t get_number(uint16_t position) const;
+    // 場所から数字を取り出す (範囲外のとき、nulloptを返却)
+    std::optional<uint16_t> get_number(uint16_t position) const noexcept;
 };

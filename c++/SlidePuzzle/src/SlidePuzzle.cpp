@@ -8,8 +8,9 @@ int main(void) {
     sys.move_number(0);
     sys.move_number(12);
     sys.move_number(15);
-    for (int i = 0; i < sys.get_size(); ++i) {
-        printf("%2d ", sys.get_number(i));
+    for (int i = 0; i <= sys.get_size(); ++i) {
+        if (!sys.get_number(i)) continue;
+        printf("%2d ", sys.get_number(i).value());
         if ((i + 1) % sys.get_length() == 0) {
             putchar('\n');
         }
