@@ -6,7 +6,11 @@
 SlidePuzzleSys::SlidePuzzleSys() {
     // 盤面のサイズを変更
     board.resize(get_size());
+    // 盤面をリセット
+    this->reset();
+}
 
+void SlidePuzzleSys::reset() noexcept {
     // 順番に数字を割り当てる
     for (int i = 0; i < get_size(); ++i) {
         board[i] = i + 1;
