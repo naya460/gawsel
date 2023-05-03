@@ -13,6 +13,9 @@ public:
     // コンストラクタ
     SlidePuzzleSys();
 
+    // 盤面をリセット
+    void reset() noexcept;
+
     // 数字を移動 (移動できたとき、trueを返却)
     bool move_number(uint8_t x, uint8_t y) noexcept;
     bool move_number(uint16_t position) noexcept;

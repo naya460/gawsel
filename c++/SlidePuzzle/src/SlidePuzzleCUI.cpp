@@ -3,8 +3,9 @@
 #include <iostream>
 #include <iomanip>
 
-void SlidePuzzleCUI::new_game() const noexcept {
-    
+void SlidePuzzleCUI::new_game() noexcept {
+    // 盤面を初期化
+    sys.reset();
 }
 
 void SlidePuzzleCUI::display() const noexcept {
