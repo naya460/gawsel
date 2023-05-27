@@ -9,4 +9,8 @@ public:
 
     // 盤面を表示する
     void display() const noexcept override;
+
+    // パネルを移動
+    bool slide(uint8_t x, uint8_t y) noexcept override;
+    bool slide(uint16_t pos) noexcept override;
 };
