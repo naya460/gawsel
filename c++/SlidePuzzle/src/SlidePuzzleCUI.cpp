@@ -18,3 +18,11 @@ void SlidePuzzleCUI::display() const noexcept {
         }
     }
 }
+
+bool SlidePuzzleCUI::slide(uint8_t x, uint8_t y) noexcept {
+    return sys.move_number(x, y);
+}
+
+bool SlidePuzzleCUI::slide(uint16_t pos) noexcept {
+    return sys.move_number(pos);
+}
