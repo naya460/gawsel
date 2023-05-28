@@ -3,6 +3,23 @@
 #include <iostream>
 #include <iomanip>
 
+void SlidePuzzleCUI::run() noexcept {
+    while (true) {
+        // 出力
+        display();
+
+        // 入力
+        int x, y;
+
+        std::cout << "x : ";
+        std::cin >> x;
+        std::cout << "y : ";
+        std::cin >> y;
+
+        slide(x, y);
+    }
+}
+
 void SlidePuzzleCUI::new_game() noexcept {
     // 盤面を初期化
     sys.reset();

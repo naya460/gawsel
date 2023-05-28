@@ -4,7 +4,6 @@
 
 int main(void) {
     SlidePuzzleCUI cui;
-    cui.slide(0, 3);
-    cui.display();
+    cui.run();
     return 0;
 }

@@ -4,6 +4,9 @@
 
 class SlidePuzzleCUI: public SlidePuzzleUI {
 public:
+    // ゲームのメインループを実行
+    void run() noexcept;
+
     // 新しい盤面を開始
     void new_game() noexcept override;
 
