@@ -1,8 +1,13 @@
 #pragma once
 
+#include <string>
+
 #include "SlidePuzzleUI.hpp"
 
 class SlidePuzzleCUI: public SlidePuzzleUI {
+private:
+    // 入力
+    uint8_t input(std::string str, uint8_t min, uint8_t max) const noexcept;
 public:
     // ゲームのメインループを実行
     void run() noexcept;

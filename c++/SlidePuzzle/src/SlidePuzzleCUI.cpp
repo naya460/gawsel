@@ -3,18 +3,29 @@
 #include <iostream>
 #include <iomanip>
 
+uint8_t SlidePuzzleCUI::input(std::string str, uint8_t min, uint8_t max) const noexcept {
+    int num;
+    while (true) {
+        std::cout << str;
+        std::cin >> num;
+        // 範囲内のときループを抜ける
+        if (min <= num && num <= max) break;
+        // 範囲外のとき
+        std::cout << "Try again..." << std::endl;
+    }
+    return num;
+}
+
 void SlidePuzzleCUI::run() noexcept {
     while (true) {
         // 出力
         display();
 
         // 入力
-        int x, y;
+        uint8_t x, y;
 
-        std::cout << "x : ";
-        std::cin >> x;
-        std::cout << "y : ";
-        std::cin >> y;
+        x = input("x : ", 0, sys.get_length() - 1);
+        y = input("y : ", 0, sys.get_length() - 1);
 
         slide(x, y);
     }
