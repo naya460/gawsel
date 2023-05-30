@@ -33,4 +33,7 @@ public:
 
     // 場所から数字を取り出す (範囲外のとき、nulloptを返却)
     std::optional<uint16_t> get_number(uint16_t position) const noexcept;
+
+    // ランダムに移動
+    void randomize() noexcept;
 };
