@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <random>
 
 SlidePuzzleSys::SlidePuzzleSys() {
     // 盤面のサイズを変更
@@ -105,4 +106,20 @@ std::optional<uint16_t> SlidePuzzleSys::get_number(uint16_t position) const noex
     }
     // 指定された場所の数字を返却
     return board[position];
+}
+
+void SlidePuzzleSys::randomize() noexcept {
+    // 乱数の準備
+    std::random_device seed_gen;
+    std::mt19937 engine(seed_gen());
+    std::uniform_int_distribution<> dist(0, length);
+
+    // 盤面をリセット
+    reset();
+
+    // ランダムに移動
+    int m = length * length * 5;
+    for (int i = 0; i < m; ++i) {
+        move_number(dist(engine), dist(engine));
+    }
 }
