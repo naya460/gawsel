@@ -120,6 +120,6 @@ void SlidePuzzleSys::randomize() noexcept {
     // ランダムに移動
     int m = length * length * 5;
     for (int i = 0; i < m; ++i) {
-        move_number(dist(engine), dist(engine));
+        if (!move_number(dist(engine), dist(engine))) continue;
     }
 }
