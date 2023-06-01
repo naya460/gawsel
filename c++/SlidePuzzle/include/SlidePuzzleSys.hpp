@@ -36,4 +36,7 @@ public:
 
     // ランダムに移動
     void randomize() noexcept;
+
+    // クリアしているか確認
+    bool check_clear() const noexcept;
 };

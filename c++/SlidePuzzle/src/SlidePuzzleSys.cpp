@@ -123,3 +123,10 @@ void SlidePuzzleSys::randomize() noexcept {
         if (!move_number(dist(engine), dist(engine))) continue;
     }
 }
+
+bool SlidePuzzleSys::check_clear() const noexcept {
+    for (int i = 0; i < length * length - 1; ++i) {
+        if (board[i] != i + 1) return false;
+    }
+    return true;
+}
