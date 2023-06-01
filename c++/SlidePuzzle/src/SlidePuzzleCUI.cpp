@@ -23,6 +23,12 @@ void SlidePuzzleCUI::run() noexcept {
         // 出力
         display();
 
+        // クリアしていたら終了
+        if (sys.check_clear()) {
+            std::cout << "Clear!!" << std::endl;
+            break;
+        }
+
         // 入力
         uint8_t x, y;
 
