@@ -26,7 +26,14 @@ void SlidePuzzleCUI::run() noexcept {
         // クリアしていたら終了
         if (sys.check_clear()) {
             std::cout << "Clear!!" << std::endl;
-            break;
+
+            int c;
+            std::cout << "Continue : 0, exit : 1" << std::endl << ">> ";
+            std::cin >> c;
+            if (c) break;
+
+            sys.randomize();
+            continue;
         }
 
         // 入力
