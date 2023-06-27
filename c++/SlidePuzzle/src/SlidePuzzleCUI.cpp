@@ -17,6 +17,7 @@ uint8_t SlidePuzzleCUI::input(std::string str, uint8_t min, uint8_t max) const n
 }
 
 void SlidePuzzleCUI::run() noexcept {
+    sys.set_length(3);
     sys.randomize();
 
     while (true) {
