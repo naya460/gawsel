@@ -25,6 +25,9 @@ public:
     uint8_t pos_to_x(uint16_t pos) const noexcept;
     uint8_t pos_to_y(uint16_t pos) const noexcept;
 
+    // 辺の長さを変更
+    bool set_length(uint8_t length) noexcept;
+
     // 辺の長さを取得
     uint8_t get_length() const noexcept;
 

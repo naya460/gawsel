@@ -5,10 +5,8 @@
 #include <random>
 
 SlidePuzzleSys::SlidePuzzleSys() {
-    // 盤面のサイズを変更
-    board.resize(get_size());
-    // 盤面をリセット
-    this->reset();
+    // 盤面の大きさを変更
+    this->set_length(4);
 }
 
 void SlidePuzzleSys::reset() noexcept {
@@ -91,6 +89,17 @@ uint8_t SlidePuzzleSys::pos_to_y(uint16_t pos) const noexcept {
     return pos / static_cast<uint16_t>(this->length);
 }
 
+bool SlidePuzzleSys::set_length(uint8_t length) noexcept {
+    if (length < 2) return false;
+    // 盤面の長さを変更
+    this->length = length;
+    // 盤面のサイズを変更
+    board.resize(get_size());
+    // 盤面をリセット
+    this->reset();
+    return true;
+}
+
 uint8_t SlidePuzzleSys::get_length() const noexcept {
     return this->length;
 }
@@ -118,14 +127,14 @@ void SlidePuzzleSys::randomize() noexcept {
     reset();
 
     // ランダムに移動
-    int m = length * length * 5;
+    int m = this->get_size() * 5;
     for (int i = 0; i < m; ++i) {
         if (!move_number(dist(engine), dist(engine))) continue;
     }
 }
 
 bool SlidePuzzleSys::check_clear() const noexcept {
-    for (int i = 0; i < length * length - 1; ++i) {
+    for (int i = 0; i < this->get_size() - 1; ++i) {
         if (board[i] != i + 1) return false;
     }
     return true;
