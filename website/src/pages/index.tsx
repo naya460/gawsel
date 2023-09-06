@@ -1,5 +1,8 @@
 import Head from 'next/head'
 
+import MinesweeperGame from '../components/Minesweeper/MinesweeperGame/MinesweeperGame'
+import LightsOut from '../components/LightsOut/LightsOutGame/LightsOutGame'
+
 export default function Home() {
   return (
     <>
@@ -10,6 +13,8 @@ export default function Home() {
       </Head>
       <main>
         <h1>GAWSEL Project</h1>
+        <MinesweeperGame />
+        <LightsOut />
       </main>
     </>
   )
