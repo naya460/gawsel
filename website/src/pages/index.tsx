@@ -1,6 +1,6 @@
 import Head from 'next/head'
+import Link from 'next/link'
 
-import MinesweeperGame from '../components/Minesweeper/MinesweeperGame/MinesweeperGame'
 import LightsOut from '../components/LightsOut/LightsOutGame/LightsOutGame'
 
 export default function Home() {
@@ -13,8 +13,11 @@ export default function Home() {
       </Head>
       <main>
         <h1>GAWSEL Project</h1>
-        <MinesweeperGame />
-        <LightsOut />
+        <p>GAWSEL Project は naya460 が個人で開発しているプロジェクトです。</p>
+        <p>様々な言語やフレームワークなどを用いて、ミニゲームを作成しています。</p>
+        <p>このサイトでは、ウェブ上で遊べるものを公開しています。</p>
+        <p><Link href="/play/minesweeper">Minesweeper</Link></p>
+        <p><Link href="/play/lightsout">LightsOut</Link></p>
       </main>
     </>
   )
