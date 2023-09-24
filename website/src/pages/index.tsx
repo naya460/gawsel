@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 
-import LightsOut from '../components/LightsOut/LightsOutGame/LightsOutGame'
+import styles from './index.module.css'
 
 export default function Home() {
   return (
@@ -16,9 +16,28 @@ export default function Home() {
         <p>GAWSEL Project は naya460 が個人で開発しているプロジェクトです。</p>
         <p>様々な言語やフレームワークなどを用いて、ミニゲームを作成しています。</p>
         <p>このサイトでは、ウェブ上で遊べるものを公開しています。</p>
-        <p><Link href="/play/minesweeper">Minesweeper</Link></p>
-        <p><Link href="/play/lightsout">LightsOut</Link></p>
+        <div className={styles.game_list}>
+          <GameButton title="Minesweeper" href="/play/minesweeper">
+            爆弾以外のマスを全て開ける定番ゲームです。目印に旗を置きながら遊ぶことができます。
+          </GameButton>
+          <GameButton title="LightsOut" href="/play/lightsout" >
+            全てのライトを全て消灯させるゲームです。押したライトと上下左右が反転します。
+          </GameButton>
+        </div>
       </main>
+    </>
+  )
+}
+
+function GameButton(props: {href: string, title: string, children?: string}) {
+  return (
+    <>
+      <Link href={props.href} className={styles.game_button}>
+        <div>
+          <div className="title">{props.title}</div>
+          <div>{props.children}</div>
+        </div>
+      </Link>
     </>
   )
 }

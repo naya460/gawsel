@@ -1,0 +1,43 @@
+.game_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1rem;
+}
+
+.game_button {
+    width: 100%;
+    height: 100%;
+    text-decoration-line: none;
+    color: #111111;
+}
+
+.game_button > div {
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    border-radius: 10%;
+    padding: 1rem;
+    box-sizing: border-box;
+    transition: background-color 0.1s;
+}
+
+@media screen and (hover: hover) {
+    .game_button > div:hover {
+        background-color: #e0f0e0;
+    }
+}
+
+.game_button > div > div {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    letter-spacing: 0.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.game_button > div > div + div {
+    font-size: 1rem;
+    font-weight: normal;
+    letter-spacing: 0.1rem;
+    line-height: 1.5rem;
+    margin-left: 0.5rem;
+}
