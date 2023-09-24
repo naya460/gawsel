@@ -1,6 +1,7 @@
 import Head from 'next/head'
 
 import Header from '@/components/website/header'
+import ClossFade from '@/components/website/closs-fade'
 import LightsOutGame from '@/components/LightsOut/LightsOutGame/LightsOutGame'
 
 export default function Minesweeper() {
@@ -13,7 +14,9 @@ export default function Minesweeper() {
       </Head>
       <main>
         <Header />
-        <LightsOutGame />
+        <ClossFade>
+          <LightsOutGame />
+        </ClossFade>
       </main>
     </>
   )
