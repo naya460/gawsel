@@ -1,3 +1,7 @@
+.contents {
+    margin: 0 1rem;
+}
+
 .game_list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));

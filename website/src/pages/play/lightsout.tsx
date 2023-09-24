@@ -1,5 +1,6 @@
 import Head from 'next/head'
 
+import Header from '@/components/website/header'
 import LightsOutGame from '@/components/LightsOut/LightsOutGame/LightsOutGame'
 
 export default function Minesweeper() {
@@ -11,7 +12,7 @@ export default function Minesweeper() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
-        <h1>GAWSEL Project</h1>
+        <Header />
         <LightsOutGame />
       </main>
     </>
