@@ -18,16 +18,17 @@
 .game_button > div {
     width: 100%;
     height: 100%;
-    background-color: #f0f0f0;
-    border-radius: 10%;
+    background-color: rgb(100%, 100%, 100%);
+    border-radius: 1rem;
     padding: 1rem;
     box-sizing: border-box;
     transition: background-color 0.1s;
+    box-shadow: 1px 1px 4px 0px rgba(25%, 30%, 25%, 0.3);
 }
 
 @media screen and (hover: hover) {
     .game_button > div:hover {
-        background-color: #e0f0e0;
+        background-color: rgb(87%, 92%, 87%);
     }
 }
 
@@ -36,6 +37,7 @@
     font-weight: bolder;
     letter-spacing: 0.1rem;
     margin-bottom: 0.5rem;
+    text-decoration-line: underline;
 }
 
 .game_button > div > div + div {
@@ -44,4 +46,5 @@
     letter-spacing: 0.1rem;
     line-height: 1.5rem;
     margin-left: 0.5rem;
+    text-decoration-line: none;
 }
