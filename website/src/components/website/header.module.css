@@ -1,0 +1,33 @@
+.variable {
+    --HeaderHeight: 4rem;
+}
+
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: var(--HeaderHeight);
+    box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.2);
+    background-color: #f5f5f5;
+}
+
+.title {
+    display: flex;
+    text-decoration-line: none;
+    color: #000000;
+    width: fit-content;
+    height: 100%;
+    margin: auto 1rem;
+}
+
+.title h1 {
+    display: flex;
+    align-items: center;
+}
+
+.header ~ .spacer {
+    width: 100%;
+    height: var(--HeaderHeight);
+    margin-bottom: 1rem;
+}

@@ -36,3 +36,4 @@ next-env.d.ts
 
 # gawsel Next.js project node_modules
 /src/components/*
+!/src/components/website
