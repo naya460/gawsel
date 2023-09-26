@@ -5,7 +5,6 @@ import { motion } from 'framer-motion'
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AnimatePresence mode="wait">
-      
       <motion.div
           initial={{opacity: "0%"}}
           animate={{opacity: "100%"}}
