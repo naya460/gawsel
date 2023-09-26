@@ -28,26 +28,6 @@
     align-items: center;
 }
 
-.header_spacer {
-    display: flex;
-    flex-grow: 1;
-}
-
-.games {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    margin-right: 1rem;
-    color: #000000;
-    cursor: pointer;
-    transition: opacity 1s;
-}
-
-.games:hover {
-    color: #808080;
-    transition: color 0.1s ease-in-out;
-}
-
 .menu {
     position: absolute;
     height: 100%;
