@@ -7,6 +7,12 @@
     cursor: pointer;
     transition: opacity 1s;
     user-select: none;
+    
+    font: sans-serif;
+    font-size: 1rem;
+    background-color: #00000000;
+    border: 0;
+    padding: 0;
 }
 
 .games:hover {

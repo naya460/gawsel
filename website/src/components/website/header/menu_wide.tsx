@@ -9,19 +9,20 @@ export default function MenuWide(props: {className? : string | undefined}) {
 
 	return (
 		<div className={props.className}>
-      <div
+      <button
         className={styles.games}
         onClick={() => setGameMenuOpen(!isGameMenuOpen)}
+        tabindex={0}
       >
         Games
         <span className="material-symbols-outlined" style={{width: 24}}>expand_more</span>
-		  </div>
+		  </button>
       <Dropdown
         isOpen={isGameMenuOpen}
         setOpen={setGameMenuOpen}
       >
-        <Link href="/play/minesweeper">Minesweeper</Link><br />
-        <Link href="/play/lightsout">LightsOut</Link>
+        <Link href="/play/minesweeper" tabindex={(isGameMenuOpen)? 0 : -1}>Minesweeper</Link><br />
+        <Link href="/play/lightsout" tabindex={(isGameMenuOpen)? 0 : -1}>LightsOut</Link>
       </Dropdown>
 		</div>
 	);

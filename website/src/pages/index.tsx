@@ -38,7 +38,7 @@ export default function Home() {
 function GameButton(props: {href: string, title: string, children?: string}) {
   return (
     <>
-      <Link href={props.href} className={styles.game_button}>
+      <Link href={props.href} className={styles.game_button} tabindex={0}>
         <div>
           <div className="title">{props.title}</div>
           <div>{props.children}</div>
