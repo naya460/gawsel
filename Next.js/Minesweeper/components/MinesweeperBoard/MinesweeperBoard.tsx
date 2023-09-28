@@ -62,7 +62,10 @@ export default function(props: Props): react.ReactElement {
 
   return (
     <>
-      <div onContextMenu={(event) => event.preventDefault()}>
+      <div
+        onContextMenu={(event) => event.preventDefault()}
+        style={{overflow: 'auto'}}
+      >
         {
           function (): react.ReactElement {
             const list = [];

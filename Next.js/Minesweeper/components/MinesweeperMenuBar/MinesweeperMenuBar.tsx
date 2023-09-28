@@ -58,22 +58,25 @@ export default function MinesweeperMenuBar(props: Props): react.ReactElement {
 
   return(
     <div className={styles.menu_bar}>
-      <button
-        className={styles.new_game_button}
-        onClick={() => {
-          props.onClickNewGameButton()
-          setTime(0);
-        }}
-      >New Game</button>
-      <ResizeButton
-        setSize={(lx, ly, mine) => {
-          props.setSize(lx, ly, mine)
-          setTime(0);
-        }}
-      />
-      <div className={styles.space}/>
-      <div className={styles.text}>Time<br/>{createTimeText()}</div>
-      <div className={styles.text}>Mine<br/>{props.mine}</div>
+      <div style={{display: 'flex', flexWrap: 'wrap'}}>
+        <button
+          className={styles.new_game_button}
+          onClick={() => {
+            props.onClickNewGameButton()
+            setTime(0);
+          }}
+        >New Game</button>
+        <ResizeButton
+          setSize={(lx, ly, mine) => {
+            props.setSize(lx, ly, mine)
+            setTime(0);
+          }}
+        />
+      </div>
+      <div style={{display: 'flex'}}>
+        <div className={styles.text}>Time<br/>{createTimeText()}</div>
+        <div className={styles.text}>Mine<br/>{props.mine}</div>
+      </div>
     </div>
   );
 }
