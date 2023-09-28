@@ -1,5 +1,7 @@
 import styles from './dropdown.module.css'
 
+import Link from 'next/link'
+
 interface Props {
   isOpen: boolen;
   setOpen: (isOpen: boolean) => void;
@@ -16,9 +18,30 @@ export default function Dropdown(props: Props) {
       <div
         className={`${styles.menu} ${!props.isOpen && styles.menu_hidden}`}
         onClick={() => props.setOpen(!props.isOpen)}
+        tabindex={-1}
       >
         {props.children}
       </div>
     </>
 	);
+}
+
+export function DropdownItem(
+  props: {
+    href: string,
+    isOpen: boolean,
+    children?: JSX.Element | undefined
+  }) {
+  return (
+    <div className={styles.item}>
+      <Link
+        href={props.href}
+        tabindex={(props.isOpen)? 0 : -1}
+      >
+        {props.children}
+        <div className={styles.spacer} />
+        <span class="material-symbols-outlined">navigate_next</span>
+      </Link>
+    </div>
+  );
 }

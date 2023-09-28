@@ -27,3 +27,29 @@
     width: 0;
     height: 0;
 }
+
+.item {
+    padding: 0.4rem;
+    box-sizing: border-box;
+    transition: background-color 0.1s ease-in-out;
+}
+
+.item:hover {
+    background-color: rgb(88%, 92%, 88%);
+}
+
+.item > a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #202020;
+}
+
+.item .spacer {
+    display: flex;
+    flex-grow: 1;
+}
+
+.item span {
+    color: #808080;
+}

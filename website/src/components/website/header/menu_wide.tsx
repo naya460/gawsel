@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 import styles from './menu_wide.module.css'
-import Dropdown from './dropdown'
+import Dropdown, { DropdownItem } from './dropdown'
 
 export default function MenuWide(props: {className? : string | undefined}) {
   const [isGameMenuOpen, setGameMenuOpen] = useState(false);
@@ -21,8 +21,8 @@ export default function MenuWide(props: {className? : string | undefined}) {
         isOpen={isGameMenuOpen}
         setOpen={setGameMenuOpen}
       >
-        <Link href="/play/minesweeper" tabindex={(isGameMenuOpen)? 0 : -1}>Minesweeper</Link><br />
-        <Link href="/play/lightsout" tabindex={(isGameMenuOpen)? 0 : -1}>LightsOut</Link>
+        <DropdownItem href="/play/minesweeper" isOpen={isGameMenuOpen}>Minesweeper</DropdownItem>
+        <DropdownItem href="/play/lightsout" isOpen={isGameMenuOpen}>LightsOut</DropdownItem>
       </Dropdown>
 		</div>
 	);
