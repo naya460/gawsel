@@ -236,7 +236,7 @@ export default function MinesweeperGame(): react.ReactElement {
           }
         }()
       }
-      <div style={{'width': 'fit-content'}}>
+      <div>
         <MineSweeperMenuBar
           mine={mine - flagCount}
           start={start} end={end}
@@ -262,7 +262,7 @@ export default function MinesweeperGame(): react.ReactElement {
             setBoard(board_slice);
           }}
         />
-        <div style={{'display': 'flex', 'justifyContent': 'center'}}>
+        <div style={{'display': 'flex', 'justifyContent': 'center', width: '100%'}}>
           <MinesweeperBoard
             lx={lx} ly={ly} board={board}
             onClickCell={handleClickCell}
