@@ -12,6 +12,7 @@
 
 .menu_hidden {
     opacity: 0;
+    pointer-events: none;
 }
 
 .background {
@@ -52,4 +53,19 @@
 
 .item span {
     color: #808080;
+}
+
+.item_title {
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+    color: #505050;
+}
+
+.item_title > div {
+    display: flex;
+    flex-grow: 1;
+    background-color: #808080;
+    height: 1px;
+    margin-left: 0.4rem;
 }

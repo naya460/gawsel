@@ -45,3 +45,12 @@ export function DropdownItem(
     </div>
   );
 }
+
+export function DropdownTitle(props: {children?: JSX.Element | undefined}) {
+  return(
+    <div className={styles.item_title}>
+      {props.children}
+      <div />
+    </div>
+  );
+}
