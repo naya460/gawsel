@@ -18,6 +18,8 @@ import MinesweeperGame from "../components/MinesweeperGame/MinesweeperGame"
 
 export default function IndexPage() {
   return (
-    <MinesweeperGame />
+    <div style={{width: '95dvw', height: '95dvh'}}>
+      <MinesweeperGame />
+    </div>
   )
 }
