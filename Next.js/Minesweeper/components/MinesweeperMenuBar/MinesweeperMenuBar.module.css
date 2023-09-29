@@ -17,10 +17,14 @@
 .menu_bar {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     background-color: #e8e8d0;
     margin: 3px;
     padding: 5px;
     border-radius: 0.1rem;
+    box-sizing: border-box;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .new_game_button {
@@ -29,6 +33,7 @@
     border-color: #eeeeee;
     border-style: solid;
     margin: 2px;
+    padding: 0.6rem;
     background-color: #b8b8ee;
     font-size: 0.9rem;
     color: #000000;
@@ -43,7 +48,8 @@
 }
 
 .space {
-    width: 100%;
+    display: flex;
+    flex-grow: 1;
 }
 
 .text {
