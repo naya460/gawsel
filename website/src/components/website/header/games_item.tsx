@@ -1,6 +1,6 @@
 import { DropdownItem } from './dropdown'
 
-export default function(props: {isOpen: boolean}) {
+export default function GamesItem(props: {isOpen: boolean}) {
 	return (
     <>
       <DropdownItem href="/play/minesweeper" isOpen={props.isOpen}>Minesweeper</DropdownItem>

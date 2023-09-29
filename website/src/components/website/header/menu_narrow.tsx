@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import styles from './menu_narrow.module.css'
-import Dropdown, {DropdownTitle} from './dropdown'
+import Dropdown, { DropdownTitle } from './dropdown'
 import GamesItem from './games_item'
 
 export default function MenuNarrow(props: {className?: string | undefined}) {
@@ -12,7 +12,7 @@ export default function MenuNarrow(props: {className?: string | undefined}) {
 			<button
         className={styles.button}
         onClick={() => setOpen(!isOpen)}
-        tabindex={0}
+        tabIndex={0}
       >
 		    <span className="material-symbols-outlined" style={{width: 24}}>menu</span>
       </button>

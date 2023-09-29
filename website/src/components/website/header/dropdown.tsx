@@ -3,9 +3,9 @@ import styles from './dropdown.module.css'
 import Link from 'next/link'
 
 interface Props {
-  isOpen: boolen;
+  isOpen: boolean;
   setOpen: (isOpen: boolean) => void;
-  children?: JSX.Element | undefine;
+  children?: React.ReactNode;
 }
 
 export default function Dropdown(props: Props) {
@@ -18,7 +18,7 @@ export default function Dropdown(props: Props) {
       <div
         className={`${styles.menu} ${!props.isOpen && styles.menu_hidden}`}
         onClick={() => props.setOpen(!props.isOpen)}
-        tabindex={-1}
+        tabIndex={-1}
       >
         {props.children}
       </div>
@@ -30,23 +30,24 @@ export function DropdownItem(
   props: {
     href: string,
     isOpen: boolean,
-    children?: JSX.Element | undefined
-  }) {
+    children?: React.ReactNode
+  }
+) {
   return (
     <div className={styles.item}>
       <Link
         href={props.href}
-        tabindex={(props.isOpen)? 0 : -1}
+        tabIndex={(props.isOpen)? 0 : -1}
       >
         {props.children}
         <div className={styles.spacer} />
-        <span class="material-symbols-outlined">navigate_next</span>
+        <span className="material-symbols-outlined">navigate_next</span>
       </Link>
     </div>
   );
 }
 
-export function DropdownTitle(props: {children?: JSX.Element | undefined}) {
+export function DropdownTitle(props: {children?: React.ReactNode}) {
   return(
     <div className={styles.item_title}>
       {props.children}

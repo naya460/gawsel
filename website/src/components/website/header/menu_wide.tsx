@@ -12,7 +12,7 @@ export default function MenuWide(props: {className? : string | undefined}) {
       <button
         className={styles.games}
         onClick={() => setGameMenuOpen(!isGameMenuOpen)}
-        tabindex={0}
+        tabIndex={0}
       >
         Games
         <span className="material-symbols-outlined" style={{width: 24}}>expand_more</span>
