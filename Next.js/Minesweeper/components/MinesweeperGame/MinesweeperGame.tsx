@@ -218,7 +218,7 @@ export default function MinesweeperGame(): react.ReactElement {
 	}
 
 	return (
-		<div>
+		<div style={{width: '100%', height: '100%'}}>
       {
         function() {
           if (popup) {
@@ -236,7 +236,7 @@ export default function MinesweeperGame(): react.ReactElement {
           }
         }()
       }
-      <div style={{display: 'flex', height: 'calc(100dvh - 20px)', flexDirection: 'column'}}>
+      <div style={{display: 'flex', height: '100%', flexDirection: 'column'}}>
         <MineSweeperMenuBar
           mine={mine - flagCount}
           start={start} end={end}
