@@ -34,7 +34,7 @@ type Props = {
   onRightClickCell: (x: number, y: number) => void;
 }
 
-export default function(props: Props): react.ReactElement {
+export default function MinesweeperBoard(props: Props): react.ReactElement {
   const lx = props.lx;
   const ly = props.ly;
 
