@@ -17,7 +17,8 @@ export default function Home() {
         <Header />
         <ClossFade>
           <div className={styles.contents}>
-            <p>GAWSEL Project は naya460 が個人で開発しているプロジェクトです。</p>
+            <p>
+              <Link href="https://github.com/naya460/gawsel">GAWSEL Project</Link> は <Link href="https://github.com/naya460">naya460</Link> が個人で開発しているプロジェクトです。</p>
             <p>様々な言語やフレームワークなどを用いて、ミニゲームを作成しています。</p>
             <p>このサイトでは、ウェブ上で遊べるものを公開しています。</p>
             <div className={styles.game_list}>
