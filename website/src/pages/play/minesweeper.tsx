@@ -12,9 +12,9 @@ export default function Minesweeper() {
         <meta name="description" content="ブラウザでマインスイーパーを遊ぶ" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main>
+      <main style={{position: 'fixed', inset: 0}}>
         <Header />
-        <ClossFade>
+        <ClossFade style={{height: 'calc(100% - var(--HeaderHeight) - 1rem)', padding: '0.5rem'}}>
           <MinesweeperGame />
         </ClossFade>
       </main>

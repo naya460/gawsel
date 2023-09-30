@@ -10,6 +10,7 @@ export default function Document() {
         />
       </Head>
       <body style={{margin: 0, backgroundColor: "#f0f0f0"}}>
+        <style>{`:root {--HeaderHeight: 4rem}`}</style>
         <Main />
         <NextScript />
       </body>

@@ -14,7 +14,7 @@ export default function Minesweeper() {
       </Head>
       <main>
         <Header />
-        <ClossFade>
+        <ClossFade style={{padding: '1rem'}}>
           <LightsOutGame />
         </ClossFade>
       </main>

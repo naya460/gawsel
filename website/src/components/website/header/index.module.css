@@ -1,13 +1,8 @@
-.variable {
-    --HeaderHeight: 4rem;
-}
-
 .header {
-    position: fixed;
-    left: 0;
-    top: 0;
+    --L_HeaderHeight: var(--HeaderHeight, 4rem);
+    position: relative;
     width: 100vw;
-    height: var(--HeaderHeight);
+    height: var(--L_HeaderHeight);
     box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.2);
     background-color: #f5f5f5;
     display: flex;
@@ -52,10 +47,4 @@
         opacity: 1;
         pointer-events: auto;
     }
-}
-
-.header ~ .spacer {
-    width: 100%;
-    height: var(--HeaderHeight);
-    margin-bottom: 1rem;
 }
