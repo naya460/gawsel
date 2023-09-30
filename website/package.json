@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "bash ./update_components.sh && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "update_components": "bash ./update_components.sh"
