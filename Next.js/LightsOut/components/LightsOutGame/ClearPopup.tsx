@@ -18,7 +18,11 @@ import React from "react"
 
 import styles from "./ClearPopup.module.css"
 
-export default function ClearPopup(props) {
+type Props = {
+  onClick: () => void;
+};
+
+export default function ClearPopup(props: Props) {
     return (
       <>
         <div className={styles.popup_background} />
