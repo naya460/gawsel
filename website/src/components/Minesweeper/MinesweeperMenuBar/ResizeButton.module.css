@@ -1,0 +1,87 @@
+/*
+  Copyright 2023 naya460
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+.resize_button_parent {
+    position: relative;
+    width: fit-content;
+}
+
+.resize_button {
+    width: 10rem;
+    height: calc(100% - 4px);
+    border-width: 2px;
+    border-color: #eeeeee;
+    border-style: solid;
+    margin: 2px;
+    padding: 0.6rem;
+    background-color: #b8b8ee;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.resize_button:hover {
+    background-color: #c8c8ff;
+}
+
+.resize_button:active {
+    background-color: #a8a8dd;
+}
+
+.resize_button_contents {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.size_text {
+    left: 0.4rem;
+    inline-size: 8.6rem;
+    text-align: center;
+}
+
+.v_text {
+    right: 0.4rem;
+    position: absolute;
+}
+
+.resize_popup {
+    position: absolute;
+    background-color: rgba(140, 140, 140, 80%);
+    width: calc(100% - 6px);
+    height: 140px;
+    margin: 3px;
+}
+
+.size_button {
+    height: 2rem;
+    border-width: 1px;
+    border-color: #eeeeee;
+    border-style: solid;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #b8b8ee;
+    font-size: 0.9rem;
+    color: #000000;
+}
+
+.size_button:hover {
+    background-color: #c8c8ff;
+}
+
+.size_button:active {
+    background-color: #a8a8dd;
+}
