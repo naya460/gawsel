@@ -1,0 +1,60 @@
+.contents {
+    margin: 0 1rem;
+}
+
+.game_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.game_button {
+    width: 100%;
+    height: 100%;
+    text-decoration-line: none;
+    color: #111111;
+}
+
+.game_button > div {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(100%, 100%, 100%);
+    border-radius: 6px;
+    padding: 1rem;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px 0 rgba(25%, 30%, 25%, 0.3);
+    transition:
+        background-color 0.1s ease-in-out,
+        box-shadow 0.2s ease-in-out;
+}
+
+.game_button > div:hover {
+    box-shadow:
+        0 1px 2px 0 rgba(25%, 30%, 25%, 0.3),
+        0 0 8px -2px rgba(25%, 30%, 25%, 0.3);
+}
+
+@media screen and (hover: hover) {
+    .game_button > div:hover {
+        background-color: rgb(88%, 92%, 88%);
+    }
+}
+
+.game_button > div > div {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    letter-spacing: 0.1rem;
+    margin-bottom: 0.5rem;
+    text-decoration-line: none;
+}
+
+.game_button > div > div + div {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #707070;
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    line-height: 1.5rem;
+    text-decoration-line: none;
+}

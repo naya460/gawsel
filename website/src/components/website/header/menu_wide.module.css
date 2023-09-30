@@ -1,0 +1,22 @@
+.games {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-right: 1rem;
+    color: #000000;
+    cursor: pointer;
+    transition: opacity 1s;
+    user-select: none;
+    
+    font: sans-serif;
+    font-size: 1rem;
+    background-color: #00000000;
+    border: 0;
+    padding: 0;
+}
+
+.games:hover {
+    color: #808080;
+    transition: color 0.1s ease-in-out;
+}
+
